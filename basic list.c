@@ -37,13 +37,13 @@ int main(void) {
 }
 
 void printList(node *head) {
-  if (head == NULL) {
+  if (!head) {
     printf("The list is empty!\n");
     return;
   }
   printf("List printed:\n");
   node *current = head;
-  while (current != NULL) {
+  while (current) {
     printf("%d->", current->key);
     current = current->next;
   }
@@ -53,7 +53,7 @@ void printList(node *head) {
 int lengthList(node *head) {
   int l = 0;
   node *current = head;
-  while (current != NULL) {
+  while (current) {
     // increment at each node
     l++;
     // move forward
@@ -67,7 +67,7 @@ int lengthList(node *head) {
 int findInList(node *head, int data) {
   node *current = head;
   int index = 0;
-  while (current != NULL) {
+  while (current) {
     index++;
     if (current->key == data) {
       return index;
@@ -82,7 +82,6 @@ int findInList(node *head, int data) {
 node *getNode(int data) {
   node *temp = malloc(sizeof(node));
   temp->key = data;
-  temp->next = NULL;
   return temp;
 }
 
@@ -99,12 +98,12 @@ node *insertAtHead(node *head, int data) {
 node *insertAtTail(node *head, int data) {
   node *new = getNode(data);
   // we have nothing to begin with
-  if (head == NULL) {
+  if (!head) {
     return new;
   }
   node *current = head;
   // reach the last node
-  while (current->next != NULL) {
+  while (current->next) {
     current = current->next;
   }
   // new node is the new last
@@ -132,10 +131,10 @@ node *insertAtPos(node *head, int data, int position) {
     //
     // getting to position just
     // before insertion point
-    for (int i = 1; i < position - 1 && prev != NULL; i++) {
+    for (int i = 1; i < position - 1 && prev; i++) {
       prev = prev->next;
     }
-    if (prev == NULL) {
+    if (!prev) {
       // position out of the list
       printf("Invalid position\n");
       return head;
@@ -149,9 +148,9 @@ node *insertAtPos(node *head, int data, int position) {
 }
 
 node *removeAtHead(node *head) {
-  if (head == NULL) {
+  if (!head) {
     printf("The list is empty!\n");
-    return NULL;
+    return head;
   }
   node *current = head;
   // head moves forward
@@ -162,13 +161,13 @@ node *removeAtHead(node *head) {
 }
 
 node *removeAtTail(node *head) {
-  if (head == NULL) {
+  if (!head) {
     printf("The list is empty!\n");
-    return NULL;
+    return head;
   }
   node *current = head;
   // reaching the 2nd last node
-  while (current->next->next != NULL) {
+  while (current->next->next) {
     current = current->next;
   }
   // last node deleted
@@ -179,9 +178,9 @@ node *removeAtTail(node *head) {
 }
 
 node *removeAtPos(node *head, int data, int position) {
-  if (head == NULL) {
+  if (!head) {
     printf("The list is empty!\n");
-    return NULL;
+    return head;
   }
   if (position < 1) {
     printf("Invalid position");
@@ -195,11 +194,11 @@ node *removeAtPos(node *head, int data, int position) {
   } else {
     node *current = head;
     // reaching node just before removal point
-    for (int i = 1; i < position - 1 && current != NULL; i++) {
+    for (int i = 1; i < position - 1 && current; i++) {
       current = current->next;
     }
     // out of range
-    if (current == NULL || current->next == NULL) {
+    if (!current || current->next) {
       return head;
     }
     // save the to be deleted in temp
@@ -213,7 +212,7 @@ node *removeAtPos(node *head, int data, int position) {
 }
 
 node *freeList(node *head) {
-  while (head != NULL) {
+  while (head) {
     node *temp = head;
     head = head->next;
     free(temp);
