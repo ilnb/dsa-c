@@ -3,7 +3,7 @@
 
 typedef struct node node;
 struct node {
-  int data;
+  int key;
   node *next;
 };
 
@@ -17,6 +17,7 @@ node *removeAtHead(node *);
 node *removeAtTail(node *);
 node *removeAtPos(node *, int, int);
 node *freeList(node *);
+node *split(node **);
 int findInList(node *, int);
 
 int main(void) {
@@ -43,11 +44,10 @@ void printList(node *head) {
   printf("List printed:\n");
   node *current = head;
   while (current != NULL) {
-    printf("%d->", current->data);
+    printf("%d->", current->key);
     current = current->next;
   }
   printf("\n");
-  free(current);
 }
 
 int lengthList(node *head) {
@@ -69,7 +69,7 @@ int findInList(node *head, int data) {
   int index = 0;
   while (current != NULL) {
     index++;
-    if (current->data == data) {
+    if (current->key == data) {
       return index;
     }
     current = current->next;
@@ -81,7 +81,7 @@ int findInList(node *head, int data) {
 // single node generator to get things started
 node *getNode(int data) {
   node *temp = malloc(sizeof(node));
-  temp->data = data;
+  temp->key = data;
   temp->next = NULL;
   return temp;
 }
@@ -219,4 +219,14 @@ node *freeList(node *head) {
     free(temp);
   }
   return head;
+}
+
+node *split(node **head) {
+  int len = lengthList(*head);
+  node *temp = *head;
+  for (int i = 0; i < len / 2 - 1; i++) {
+    temp = temp->next;
+    *head = (*head)->next;
+  }
+  return temp;
 }
