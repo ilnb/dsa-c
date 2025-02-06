@@ -8,45 +8,49 @@ void mergeSort(int *, int, int);
 void countingSort(int *, int);
 int partition(int *, int, int);
 void quickSort(int *, int, int);
-int *copy(int *);
+void copy(int *, int *, int);
 void swap(int *, int *);
 
 int main(void) {
   int *arr = malloc(sizeof(int) * 5);
   int *temp = malloc(sizeof(int) * 5);
   arr[0] = 3, arr[1] = 2, arr[2] = 4, arr[3] = 0, arr[4] = 1;
-  temp = copy(arr);
+  copy(arr, temp, 5);
   printf("Unsorted array:\n");
   printArr(arr, 5);
   printf("Sorted by selection sort:\n");
   selSort(arr, 5);
   printArr(arr, 5);
-  arr = copy(temp);
+  copy(temp, arr, 5);
   printf("Sorted by bubble sort:\n");
   bubSort(arr, 5);
   printArr(arr, 5);
-  arr = copy(temp);
+  copy(temp, arr, 5);
   printf("Sorted by insertion sort:\n");
   inSort(arr, 5);
   printArr(arr, 5);
-  arr = copy(temp);
+  copy(temp, arr, 5);
   printf("Sorted by merge sort:\n");
   mergeSort(arr, 0, 4);
   printArr(arr, 5);
-  arr = copy(temp);
+  copy(temp, arr, 5);
   printf("Sorted by quick sort:\n");
   quickSort(arr, 0, 4);
   printArr(arr, 5);
-  arr = copy(temp);
+  copy(temp, arr, 5);
   printf("Sorted by counting sort:\n");
   countingSort(arr, 5);
   printArr(arr, 5);
-  free(arr);
+  free(arr), free(temp);
   arr = temp = NULL;
   return 0;
 }
 
-int *copy(int *arr) { return arr; }
+void copy(int *src, int *dest, int size) {
+  for (char i = 0; i < size; i++) {
+    dest[i] = src[i];
+  }
+}
 
 void swap(int *a, int *b) {
   int t = *a;
