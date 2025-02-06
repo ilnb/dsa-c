@@ -106,10 +106,9 @@ void display(node *head) {
     printf("Empty list\n");
     return;
   }
-  node *t = head;
-  while (t) {
-    printf("%d->", t->key);
-    t = t->next;
+  while (head) {
+    printf("%d->", head->key);
+    head = head->next;
   }
   printf("NULL\n");
 }
