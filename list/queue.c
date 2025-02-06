@@ -110,9 +110,9 @@ void display(queue q) {
     printf("The queue is empty.\n");
     return;
   }
-  printf("FRONT<-");
+  printf("FRONT->");
   while (q.front) {
-    printf("%d<-", q.front->key);
+    printf("%d->", q.front->key);
     q.front = q.front->next;
   }
   printf("NULL\n");
