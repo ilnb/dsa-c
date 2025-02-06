@@ -85,6 +85,7 @@ int pop(stack **t) {
   stack *q = *t;
   int n = q->key;
   *t = (*t)->next;
+  free(q);
   return n;
 }
 
