@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 typedef struct node node;
+
 struct node {
   int key;
   node *next;
