@@ -111,5 +111,5 @@ void display(node *head) {
     printf("%d->", t->key);
     t = t->next;
   }
-  printf("\n");
+  printf("NULL\n");
 }
