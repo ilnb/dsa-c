@@ -12,6 +12,7 @@ void menu();
 node *insert(node *, int);
 node *delete(node *, int);
 void display(node *);
+node *freeList(node *);
 
 int main(void) {
   node *head = NULL;
@@ -40,17 +41,21 @@ int main(void) {
       break;
     }
     case 4: {
+      head = freeList(head);
+      break;
+    }
+    case 5: {
       break;
     }
     default: {
       printf("Invalid option.\n");
     }
     }
-  } while (option != 4);
+  } while (option != 5);
 }
 
 void menu() {
-  printf("1. Insert\n2. Delete\n3. Display\n4. Exit\n");
+  printf("1. Insert\n2. Delete\n3. Display\n4. Free list\n5. Exit\n");
   return;
 }
 
@@ -103,7 +108,7 @@ node *delete(node *head, int val) {
 
 void display(node *head) {
   if (!head) {
-    printf("Empty list\n");
+    printf("Empty list.\n");
     return;
   }
   while (head) {
@@ -111,4 +116,17 @@ void display(node *head) {
     head = head->next;
   }
   printf("NULL\n");
+}
+
+node *freeList(node *head) {
+  if (!head) {
+    printf("Empty list.\n");
+    return head;
+  }
+  while (head) {
+    node *t = head;
+    head = head->next;
+    free(t);
+  }
+  return head;
 }
