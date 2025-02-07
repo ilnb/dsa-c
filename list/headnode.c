@@ -20,6 +20,7 @@ void insertAtEnd(hnode *, int);
 void deleteNode(hnode *, int);
 void display(hnode);
 void displayCount(hnode);
+void freeList(hnode *);
 
 int main(void) {
   hnode h;
@@ -60,13 +61,18 @@ int main(void) {
       break;
     }
     case 6: {
+      freeList(&h);
+      break;
+    }
+    case 7: {
       break;
     }
     default: {
       printf("Invalid option.\n");
     }
     }
-  } while (option != 6);
+  } while (option != 7);
+  freeList(&h);
   return 0;
 }
 
@@ -76,7 +82,8 @@ void menu() {
   printf("3. Delete node\n");
   printf("4. Display list\n");
   printf("5. Display number of keys\n");
-  printf("6. Exit\n");
+  printf("6. Free the list\n");
+  printf("7. Exit\n");
 }
 
 void initialize(hnode *h) {
@@ -102,8 +109,9 @@ void insertAtEnd(hnode *h_ptr, int val) {
   q->next = NULL;
   if (!h_ptr->end) {
     h_ptr->start = q;
+  } else {
+    h_ptr->end->next = q;
   }
-  h_ptr->end->next = q;
   h_ptr->end = q;
   h_ptr->count++;
 }
@@ -145,4 +153,18 @@ void display(hnode h) {
 void displayCount(hnode h) {
   printf("The length is %d.\n", h.count);
   return;
+}
+
+void freeList(hnode *h_ptr) {
+  if (!h_ptr) {
+    printf("Empty list.\n");
+    return;
+  }
+  while (h_ptr->start) {
+    node *q = h_ptr->start;
+    h_ptr->start = h_ptr->start->next;
+    free(q);
+  }
+  h_ptr->end = NULL;
+  h_ptr->count = 0;
 }
