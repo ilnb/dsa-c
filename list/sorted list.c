@@ -52,6 +52,8 @@ int main(void) {
     }
     }
   } while (option != 5);
+  head = freeList(head);
+  return 0;
 }
 
 void menu() {
