@@ -13,6 +13,7 @@ void push(stack **, int);
 int pop(stack **);
 int peek(stack *);
 void display(stack *t);
+stack *freeStack(stack *);
 
 int main(void) {
   stack *top = NULL;
@@ -48,6 +49,10 @@ int main(void) {
       break;
     }
     case 5: {
+      top = freeStack(top);
+      break;
+    }
+    case 6: {
       break;
     }
     default: {
@@ -55,6 +60,8 @@ int main(void) {
     }
     }
   } while (option != 5);
+  top = freeStack(top);
+  return 0;
 }
 
 void menu() {
@@ -62,7 +69,8 @@ void menu() {
   printf("2. Pop\n");
   printf("3. Peek\n");
   printf("4. Display\n");
-  printf("5. Exit\n");
+  printf("5. Free stack\n");
+  printf("6. Exit\n");
 }
 
 void push(stack **t, int val) {
@@ -104,4 +112,17 @@ void display(stack *t) {
     t = t->next;
   }
   printf("NULL\n");
+}
+
+stack *freeStack(stack *top) {
+  if (!top) {
+    printf("Empty list.\n");
+    return top;
+  }
+  while (top) {
+    stack *t = top;
+    top = top->next;
+    free(t);
+  }
+  return top;
 }

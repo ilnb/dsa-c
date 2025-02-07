@@ -19,6 +19,7 @@ void enqueue(queue *, int);
 int dequeue(queue *);
 void display(queue);
 void displayCount(queue);
+void freeQueue(queue *);
 
 int main(void) {
   queue q;
@@ -52,13 +53,19 @@ int main(void) {
       break;
     }
     case 5: {
+      freeQueue(&q);
+      break;
+    }
+    case 6: {
       break;
     }
     default: {
       printf("Invalid option.\n");
     }
     }
-  } while (option != 5);
+  } while (option != 6);
+  freeQueue(&q);
+  return 0;
 }
 
 void menu() {
@@ -66,7 +73,8 @@ void menu() {
   printf("2. Dequeue\n");
   printf("3. Display\n");
   printf("4. Display count\n");
-  printf("5. Exit\n");
+  printf("5. Free the queue\n");
+  printf("6. Exit\n");
 }
 
 void initialize(queue *q) {
@@ -121,4 +129,18 @@ void display(queue q) {
 void displayCount(queue q) {
   printf("The length of queue is %d.\n", q.count);
   return;
+}
+
+void freeQueue(queue *q_ptr) {
+  if (!q_ptr->front) {
+    printf("Empty list.\n");
+    return;
+  }
+  while (q_ptr->front) {
+    node *t = q_ptr->front;
+    q_ptr->front = q_ptr->front->next;
+    free(t);
+  }
+  q_ptr->rear = NULL;
+  q_ptr->count = 0;
 }
