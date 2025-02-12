@@ -3,19 +3,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int *Arr(int len) {
-  int *arr = (int *)malloc(sizeof(int) * len);
-  memset(arr, 0, sizeof(int) * len);
+  int *arr = (int *)calloc(len, sizeof(int));
   return arr;
 }
 
 int **Mat(int row, int col) {
-  int **Mat = (int **)malloc(sizeof(int *) * row);
+  int **Mat = (int **)malloc(row * sizeof(int *));
   for (int i = 0; i < row; i++) {
-    Mat[i] = (int *)malloc(sizeof(int) * col);
-    memset(Mat[i], 0, sizeof(int) * col);
+    Mat[i] = (int *)calloc(col, sizeof(int));
   }
   return Mat;
 }
