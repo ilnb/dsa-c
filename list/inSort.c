@@ -64,8 +64,7 @@ node *inSort(node *head) {
   if (!head) {
     return head;
   }
-  node *p;
-  p = head;
+  node *p = head;
   while (p) {
     node *q, *t;
     q = p->next;
