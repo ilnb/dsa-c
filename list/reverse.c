@@ -15,14 +15,14 @@ typedef struct {
 
 void display(hnode);
 void initialize(hnode *);
-void insertAtStart(hnode *, int);
+void insert(hnode *, int);
 void reverse(hnode *);
 
 int main(void) {
   hnode h;
   initialize(&h);
   for (int i = 0; i < 5; i++) {
-    insertAtStart(&h, i + 1);
+    insert(&h, i + 1);
   }
   printf("List right now: ");
   display(h);
@@ -58,7 +58,7 @@ void display(hnode h) {
   printf("NULL\n");
 }
 
-void insertAtStart(hnode *h_ptr, int val) {
+void insert(hnode *h_ptr, int val) {
   node *q = malloc(sizeof(node));
   q->key = val;
   q->next = h_ptr->start;

@@ -99,6 +99,7 @@ node *delete(node *head, int val) {
       node *t = p->next;
       p->next = t->next;
       free(t);
+      break;
     } else if (val > p->next->key) {
       p = p->next;
     } else {
