@@ -11,21 +11,6 @@ typedef struct node {
   struct node *next;
 } node;
 
-typedef struct {
-  node *start, *end;
-  int count;
-} hnode;
-
-typedef struct {
-  node *front, *rear;
-  int count;
-} queue;
-
-typedef struct stack {
-  int key;
-  struct stack *next;
-} stack;
-
 node *sortedInsert(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
   p->key = val;
@@ -156,6 +141,11 @@ void varFreeList(int count, ...) {
   va_end(ptr);
 }
 
+typedef struct {
+  node *start, *end;
+  int count;
+} hnode;
+
 void initHnode(hnode *h) {
   memset(h, 0, sizeof(hnode));
   return;
@@ -243,6 +233,11 @@ void varFreeHnode(int count, ...) {
   }
 }
 
+typedef struct {
+  node *front, *rear;
+  int count;
+} queue;
+
 void initQueue(queue *q) {
   q->front = NULL;
   q->rear = NULL;
@@ -317,6 +312,11 @@ void varFreeQueue(int count, ...) {
     free(va_arg(ptr, queue *));
   }
 }
+
+typedef struct stack {
+  int key;
+  struct stack *next;
+} stack;
 
 void push(stack **t, int val) {
   stack *q = (stack *)malloc(sizeof(stack));
