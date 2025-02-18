@@ -32,7 +32,17 @@ node *sortedDelete(node *head, int val) {
     printf("Empty list.\n");
     return head;
   }
-  if (val == head->key) {
+  node **nptr = &head;
+  while (*nptr && (*nptr)->key < val) {
+    nptr = &(*nptr)->next;
+  }
+  if (*nptr && (*nptr)->key == val) {
+    node *t = *nptr;
+    *nptr = (*nptr)->next;
+    free(t);
+  }
+  return head;
+  /*if (val == head->key) {
     node *t = head;
     head = head->next;
     free(t);
@@ -51,7 +61,7 @@ node *sortedDelete(node *head, int val) {
       break;
     }
   }
-  return head;
+  return head;*/
 }
 
 node *insertStart(node *head, int val) {
@@ -61,12 +71,16 @@ node *insertStart(node *head, int val) {
   return p;
 }
 
-node *insertEnd(node *end, int val) {
+node *insertEnd(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
   p->key = val;
   p->next = NULL;
-  end->next = p;
-  return p;
+  node *q = head;
+  while (q && q->next) {
+    q = q->next;
+  }
+  q->next = p;
+  return head;
 }
 
 node *deleteNode(node *head, int val) {
@@ -74,23 +88,15 @@ node *deleteNode(node *head, int val) {
     printf("Empty list.\n");
     return head;
   }
-  if (head->key == val) {
-    node *t = head;
-    head = head->next;
+  node **nptr = &head;
+  while (*nptr && (*nptr)->key != val) {
+    nptr = &(*nptr)->next;
+  }
+  if (*nptr) {
+    node *t = *nptr;
+    *nptr = (*nptr)->next;
     free(t);
-    return head;
   }
-  node *p = head;
-  while (p->next) {
-    if (p->next->key == val) {
-      node *t = p->next;
-      p->next = t->next;
-      free(t);
-      return head;
-    }
-    p = p->next;
-  }
-  printf("Node not found.\n");
   return head;
 }
 
@@ -204,7 +210,6 @@ void deleteHnode(hnode *h_ptr, int val) {
     }
     q = q->next;
   }
-  printf("Node not found.\n");
 }
 
 int displayHCount(hnode h) {
