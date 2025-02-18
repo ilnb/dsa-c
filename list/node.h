@@ -84,7 +84,7 @@ node *deleteNode(node *head, int val) {
   while (p->next) {
     if (p->next->key == val) {
       node *t = p->next;
-      p->next = p->next->next;
+      p->next = t->next;
       free(t);
       return head;
     }
@@ -188,7 +188,7 @@ void deleteHnode(hnode *h_ptr, int val) {
   }
   if (val == h_ptr->start->key) {
     node *t = h_ptr->start;
-    h_ptr->start = h_ptr->start->next;
+    h_ptr->start = t->next;
     free(t);
     h_ptr->count--;
     return;
@@ -218,9 +218,9 @@ void freeHnode(hnode *h_ptr) {
     return;
   }
   while (h_ptr->start) {
-    node *p = h_ptr->start;
-    h_ptr->start = h_ptr->start->next;
-    free(p);
+    node *t = h_ptr->start;
+    h_ptr->start = t->next;
+    free(t);
   }
   memset(h_ptr, 0, sizeof(hnode));
 }
@@ -268,7 +268,7 @@ int dequeue(queue *q_ptr) {
   }
   node *t = q_ptr->front;
   int n = t->key;
-  q_ptr->front = q_ptr->front->next;
+  q_ptr->front = t->next;
   free(t);
   q_ptr->count--;
   return n;
@@ -299,7 +299,7 @@ void freeQueue(queue *q_ptr) {
   }
   while (q_ptr->front) {
     node *t = q_ptr->front;
-    q_ptr->front = q_ptr->front->next;
+    q_ptr->front = t->next;
     free(t);
   }
   memset(q_ptr, 0, sizeof(queue));
