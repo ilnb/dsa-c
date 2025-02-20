@@ -15,41 +15,41 @@ int main(void) {
     printf("What's on your mind? ");
     scanf("%d", &option);
     switch (option) {
-    case 1: {
-      printf("Enter the value to push: ");
-      int val;
-      scanf("%d", &val);
-      push(&top, val);
-      break;
-    }
-    case 2: {
-      int n = pop(&top);
-      if (n != -1) {
-        printf("Value popped is %d.\n", n);
+      case 1: {
+        printf("Enter the value to push: ");
+        int val;
+        scanf("%d", &val);
+        push(&top, val);
+        break;
       }
-      break;
-    }
-    case 3: {
-      int n = peek(top);
-      if (n != -1) {
-        printf("Value at the top is %d.\n", n);
+      case 2: {
+        int n = pop(&top);
+        if (n != -1) {
+          printf("Value popped is %d.\n", n);
+        }
+        break;
       }
-      break;
-    }
-    case 4: {
-      displayStack(top);
-      break;
-    }
-    case 5: {
-      top = freeStack(top);
-      break;
-    }
-    case 6: {
-      break;
-    }
-    default: {
-      printf("Invalid option.\n");
-    }
+      case 3: {
+        int n = peek(top);
+        if (n != -1) {
+          printf("Value at the top is %d.\n", n);
+        }
+        break;
+      }
+      case 4: {
+        displayStack(top);
+        break;
+      }
+      case 5: {
+        top = freeStack(top);
+        break;
+      }
+      case 6: {
+        break;
+      }
+      default: {
+        printf("Invalid option.\n");
+      }
     }
   } while (option != 5);
   top = freeStack(top);

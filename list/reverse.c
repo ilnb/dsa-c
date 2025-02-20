@@ -3,8 +3,7 @@
 void reverse(hnode *);
 
 int main(void) {
-  hnode h;
-  initHnode(&h);
+  hnode h = {0};
   for (int i = 0; i < 5; i++) {
     insertHEnd(&h, i + 1);
   }

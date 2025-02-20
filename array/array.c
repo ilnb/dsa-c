@@ -14,49 +14,49 @@ int main(void) {
     printf("Enter the option: ");
     scanf("%d", &option);
     switch (option) {
-    case 1: {
-      printArr(arr, n);
-      break;
-    }
-    case 2: {
-      printf("Enter the value: ");
-      int val;
-      scanf("%d", &val);
-      if (search(arr, n, val) == -1) {
-        printf("Value not found\n");
-      } else {
-        printf("Value found at index: %d\n", search(arr, n, val));
+      case 1: {
+        printArr(arr, n);
+        break;
       }
-      break;
-    }
-    case 3: {
-      printf("Enter the value to be inserted: ");
-      int val;
-      scanf("%d", &val);
-      insert(arr, &n, val);
-      break;
-    }
-    case 4: {
-      printf("Enter the index to be deleted: ");
-      int index;
-      scanf("%d", &index);
-      delete (arr, &n, index);
-      break;
-    }
-    case 5: {
-      int index, val;
-      printf("Enter the index to be updated: ");
-      scanf("%d", &index);
-      printf("Enter the new value: ");
-      scanf("%d", &val);
-      update(arr, index, val);
-      break;
-    }
-    case 6:
-      break;
-    default:
-      printf("Option not found!\n");
-      break;
+      case 2: {
+        printf("Enter the value: ");
+        int val;
+        scanf("%d", &val);
+        if (search(arr, n, val) == -1) {
+          printf("Value not found\n");
+        } else {
+          printf("Value found at index: %d\n", search(arr, n, val));
+        }
+        break;
+      }
+      case 3: {
+        printf("Enter the value to be inserted: ");
+        int val;
+        scanf("%d", &val);
+        insert(arr, &n, val);
+        break;
+      }
+      case 4: {
+        printf("Enter the index to be deleted: ");
+        int index;
+        scanf("%d", &index);
+        delete (arr, &n, index);
+        break;
+      }
+      case 5: {
+        int index, val;
+        printf("Enter the index to be updated: ");
+        scanf("%d", &index);
+        printf("Enter the new value: ");
+        scanf("%d", &val);
+        update(arr, index, val);
+        break;
+      }
+      case 6:
+        break;
+      default:
+        printf("Option not found!\n");
+        break;
     }
     if (option == 6) {
       break;

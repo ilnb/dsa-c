@@ -42,26 +42,6 @@ node *sortedDelete(node *head, int val) {
     free(t);
   }
   return head;
-  /*if (val == head->key) {
-    node *t = head;
-    head = head->next;
-    free(t);
-    return head;
-  }
-  node *p = head;
-  while (p->next) {
-    if (val == p->next->key) {
-      node *t = p->next;
-      p->next = t->next;
-      free(t);
-      break;
-    } else if (val > p->next->key) {
-      p = p->next;
-    } else {
-      break;
-    }
-  }
-  return head;*/
 }
 
 node *insertStart(node *head, int val) {
@@ -152,11 +132,6 @@ typedef struct {
   int count;
 } hnode;
 
-void initHnode(hnode *h) {
-  memset(h, 0, sizeof(hnode));
-  return;
-}
-
 void insertHStart(hnode *h_ptr, int val) {
   node *q = (node *)malloc(sizeof(node));
   if (!q) {
@@ -236,18 +211,13 @@ void varFreeHnode(int count, ...) {
   for (int i = 0; i < count; i++) {
     freeHnode(va_arg(ptr, hnode *));
   }
+  va_end(ptr);
 }
 
 typedef struct {
   node *front, *rear;
   int count;
 } queue;
-
-void initQueue(queue *q) {
-  q->front = NULL;
-  q->rear = NULL;
-  q->count = 0;
-}
 
 void enqueue(queue *q_ptr, int val) {
   node *t = (node *)malloc(sizeof(node));
@@ -292,9 +262,9 @@ void displayQueue(queue q) {
   printf("NULL\n");
 }
 
-void displayQCount(queue q) {
+int displayQCount(queue q) {
   printf("The length of queue is %d.\n", q.count);
-  return;
+  return q.count;
 }
 
 void freeQueue(queue *q_ptr) {
@@ -316,6 +286,7 @@ void varFreeQueue(int count, ...) {
   for (int i = 0; i < count; i++) {
     free(va_arg(ptr, queue *));
   }
+  va_end(ptr);
 }
 
 typedef struct stack {
@@ -332,7 +303,6 @@ void push(stack **t, int val) {
   q->key = val;
   q->next = *t;
   *t = q;
-  return;
 }
 
 int pop(stack **t) {
@@ -374,7 +344,7 @@ stack *freeStack(stack *top) {
     top = top->next;
     free(t);
   }
-  return top;
+  return NULL;
 }
 
 void varFreeStack(int count, ...) {
@@ -384,6 +354,7 @@ void varFreeStack(int count, ...) {
     stack **t = va_arg(ptr, stack **);
     *t = freeStack(*t);
   }
+  va_end(ptr);
 }
 
 #endif

@@ -23,53 +23,53 @@ int main(void) {
     printf("What do you want to do? ");
     scanf("%hd", &option);
     switch (option) {
-    case 1: {
-      printf("What do you want to push? ");
-      int val;
-      scanf("%d", &val);
-      push1(&d, val);
-      break;
-    }
-    case 2: {
-      if (d.top1 + 1 == d.top2) {
-        printf("Stack is full\n");
+      case 1: {
+        printf("What do you want to push? ");
+        int val;
+        scanf("%d", &val);
+        push1(&d, val);
         break;
       }
-      printf("What do you want to push? ");
-      int val;
-      scanf("%d", &val);
-      push2(&d, val);
-      break;
-    }
-    case 3: {
-      int val = pop1(&d);
-      if (val > -1) {
-        printf("The popped value: %d\n", val);
+      case 2: {
+        if (d.top1 + 1 == d.top2) {
+          printf("Stack is full\n");
+          break;
+        }
+        printf("What do you want to push? ");
+        int val;
+        scanf("%d", &val);
+        push2(&d, val);
         break;
       }
-    }
-    case 4: {
-      int val = pop2(&d);
-      if (val > -1) {
-        printf("The popped value: %d\n", val);
+      case 3: {
+        int val = pop1(&d);
+        if (val > -1) {
+          printf("The popped value: %d\n", val);
+          break;
+        }
+      }
+      case 4: {
+        int val = pop2(&d);
+        if (val > -1) {
+          printf("The popped value: %d\n", val);
+          break;
+        }
+      }
+      case 5: {
+        display1(d);
         break;
       }
-    }
-    case 5: {
-      display1(d);
-      break;
-    }
-    case 6: {
-      display2(d);
-      break;
-    }
-    case 7: {
-      break;
-    }
-    default: {
-      printf("Invalid option");
-      break;
-    }
+      case 6: {
+        display2(d);
+        break;
+      }
+      case 7: {
+        break;
+      }
+      default: {
+        printf("Invalid option");
+        break;
+      }
     }
   } while (option != 7);
   return 0;

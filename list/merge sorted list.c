@@ -16,8 +16,7 @@ int main(void) {
   displayList(head1);
   printf("The second linked list: ");
   displayList(head2);
-  hnode h;
-  initHnode(&h);
+  hnode h = {0};
   printf("Merged list: ");
   merge(head1, head2, &h);
   displayList(h.start);

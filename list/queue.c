@@ -3,46 +3,45 @@
 void menu();
 
 int main(void) {
-  queue q;
-  initQueue(&q);
+  queue q = {0};
   int option;
   do {
     menu();
     printf("What's on your mind? ");
     scanf("%d", &option);
     switch (option) {
-    case 1: {
-      printf("Enter the value to be enqueued: ");
-      int val;
-      scanf("%d", &val);
-      enqueue(&q, val);
-      break;
-    }
-    case 2: {
-      int n = dequeue(&q);
-      if (n != -1) {
-        printf("Value dequeued: %d.\n", n);
+      case 1: {
+        printf("Enter the value to be enqueued: ");
+        int val;
+        scanf("%d", &val);
+        enqueue(&q, val);
+        break;
       }
-      break;
-    }
-    case 3: {
-      displayQueue(q);
-      break;
-    }
-    case 4: {
-      displayQCount(q);
-      break;
-    }
-    case 5: {
-      freeQueue(&q);
-      break;
-    }
-    case 6: {
-      break;
-    }
-    default: {
-      printf("Invalid option.\n");
-    }
+      case 2: {
+        int n = dequeue(&q);
+        if (n != -1) {
+          printf("Value dequeued: %d.\n", n);
+        }
+        break;
+      }
+      case 3: {
+        displayQueue(q);
+        break;
+      }
+      case 4: {
+        displayQCount(q);
+        break;
+      }
+      case 5: {
+        freeQueue(&q);
+        break;
+      }
+      case 6: {
+        break;
+      }
+      default: {
+        printf("Invalid option.\n");
+      }
     }
   } while (option != 6);
   freeQueue(&q);

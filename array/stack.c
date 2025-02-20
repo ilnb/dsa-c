@@ -21,39 +21,39 @@ int main(void) {
     printf("What do you want to do? ");
     scanf("%d", &option);
     switch (option) {
-    case 1: {
-      int val;
-      printf("\nEnter the value to be pushed: ");
-      scanf("%d", &val);
-      push(&s, val);
-      printf("\nThe stack is:\n");
-      display(s);
-      break;
-    }
-    case 2: {
-      int i = pop(&s);
-      printf("\nThe number popped: %d\n", i);
-      if (i != -273) {
-        printf("The updated stack:\n");
+      case 1: {
+        int val;
+        printf("\nEnter the value to be pushed: ");
+        scanf("%d", &val);
+        push(&s, val);
+        printf("\nThe stack is:\n");
         display(s);
+        break;
       }
-      break;
-    }
-    case 3: {
-      int i = peek(s);
-      printf("The value at the top is %d.\n", i);
-      break;
-    }
-    case 4: {
-      display(s);
-      break;
-    }
-    case 5: {
-      break;
-    }
-    default:
-      printf("\nInvalid option\n");
-      break;
+      case 2: {
+        int i = pop(&s);
+        printf("\nThe number popped: %d\n", i);
+        if (i != -273) {
+          printf("The updated stack:\n");
+          display(s);
+        }
+        break;
+      }
+      case 3: {
+        int i = peek(s);
+        printf("The value at the top is %d.\n", i);
+        break;
+      }
+      case 4: {
+        display(s);
+        break;
+      }
+      case 5: {
+        break;
+      }
+      default:
+        printf("\nInvalid option\n");
+        break;
     }
     if (option == 5) {
       break;

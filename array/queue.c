@@ -24,36 +24,36 @@ int main(void) {
     int option;
     scanf("%d", &option);
     switch (option) {
-    case 1: {
-      printf("Enter the value to be queued: ");
-      int val;
-      scanf("%d", &val);
-      enqueue(&q, val);
-      printf("The updated queue:\n");
-      display(q);
-      break;
-    }
-    case 2: {
-      int i = dequeue(&q);
-      if (i != -273) {
-        printf("The value dequeued is %d.\n", i);
+      case 1: {
+        printf("Enter the value to be queued: ");
+        int val;
+        scanf("%d", &val);
+        enqueue(&q, val);
         printf("The updated queue:\n");
         display(q);
+        break;
       }
-      break;
-    }
-    case 3: {
-      printf("The queue is:\n");
-      display(q);
-      break;
-    }
-    case 4: {
-      break;
-    }
-    default: {
-      printf("Invalid option.\n");
-      break;
-    }
+      case 2: {
+        int i = dequeue(&q);
+        if (i != -273) {
+          printf("The value dequeued is %d.\n", i);
+          printf("The updated queue:\n");
+          display(q);
+        }
+        break;
+      }
+      case 3: {
+        printf("The queue is:\n");
+        display(q);
+        break;
+      }
+      case 4: {
+        break;
+      }
+      default: {
+        printf("Invalid option.\n");
+        break;
+      }
     }
     if (option == 4) {
       break;

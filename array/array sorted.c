@@ -14,44 +14,44 @@ int main(void) {
     printf("Enter the option: ");
     scanf("%d", &option);
     switch (option) {
-    case 1:
-      print(arr, n);
-      break;
-    case 2: {
-      printf("Enter the value: ");
-      int val;
-      scanf("%d", &val);
-      search(arr, n, val);
-      break;
-    }
-    case 3: {
-      printf("Enter the value to be inserted: ");
-      int val;
-      scanf("%d", &val);
-      insert(arr, &n, val);
-      break;
-    }
-    case 4: {
-      printf("Enter the index to be deleted: ");
-      int i;
-      scanf("%d", &i);
-      delete (arr, &n, i);
-      break;
-    }
-    case 5: {
-      int val, i;
-      printf("Enter the index to be updated: ");
-      scanf("%d", &i);
-      printf("Enter the new value: ");
-      scanf("%d", &val);
-      update(arr, n, i, val);
-      break;
-    }
-    case 6:
-      break;
-    default:
-      printf("Option not found!\n");
-      break;
+      case 1:
+        print(arr, n);
+        break;
+      case 2: {
+        printf("Enter the value: ");
+        int val;
+        scanf("%d", &val);
+        search(arr, n, val);
+        break;
+      }
+      case 3: {
+        printf("Enter the value to be inserted: ");
+        int val;
+        scanf("%d", &val);
+        insert(arr, &n, val);
+        break;
+      }
+      case 4: {
+        printf("Enter the index to be deleted: ");
+        int i;
+        scanf("%d", &i);
+        delete (arr, &n, i);
+        break;
+      }
+      case 5: {
+        int val, i;
+        printf("Enter the index to be updated: ");
+        scanf("%d", &i);
+        printf("Enter the new value: ");
+        scanf("%d", &val);
+        update(arr, n, i, val);
+        break;
+      }
+      case 6:
+        break;
+      default:
+        printf("Option not found!\n");
+        break;
     }
     if (option == 6) {
       break;

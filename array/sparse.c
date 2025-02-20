@@ -11,10 +11,7 @@ sparse *transSparse(sparse *);
 sparse *mulSparse(sparse *, sparse *);
 
 int main(void) {
-  int **mat1 = malloc(sizeof(int *) * 3);
-  for (int i = 0; i < 3; i++) {
-    mat1[i] = malloc(sizeof(int) * 3);
-  }
+  int **mat1 = Mat(3, 3);
   mat1[0][0] = 1, mat1[1][0] = 2, mat1[2][2] = 1;
   sparse *sparseMat1 = createSparse(mat1, 3, 3);
   printf("Parent matrix of the first sparse matrix:\n");
@@ -22,12 +19,9 @@ int main(void) {
   sparse *trans = transSparse(sparseMat1);
   printf("Trans of it is:\n");
   printFromSparse(trans);
-  int **mat2 = malloc(sizeof(int *) * 3);
-  for (int i = 0; i < 3; i++) {
-    mat2[i] = malloc(sizeof(int) * 3);
-  }
-  sparse *sparseMat2 = createSparse(mat2, 3, 3);
+  int **mat2 = Mat(3, 3);
   mat2[0][2] = 1, mat2[1][0] = -2, mat2[2][0] = 1;
+  sparse *sparseMat2 = createSparse(mat2, 3, 3);
   printf("Parent matrix of the second sparse matrix:\n");
   printFromSparse(sparseMat2);
   sparse *sparseMat3 = addSparse(sparseMat1, sparseMat2);
@@ -101,48 +95,31 @@ sparse *addSparse(sparse *a, sparse *b) {
   add[0].col = a[0].col;
   int i = 1, j = 1, k = 1;
   while (i <= a[0].val && j <= b[0].val) {
-    if (a[i].row == b[j].row && a[i].col <= b[j].col) {
-      if (a[i].val + b[i].val) {
+    if (a[i].row == b[j].row && a[i].col == b[j].col) {
+      if (a[i].val + b[j].val) {
         add = realloc(add, sizeof(sparse) * (k + 1));
-        add[k].val = a[i].val + b[j].val;
         add[k].row = a[i].row;
         add[k].col = a[i].col;
+        add[k].val = a[i].val + b[j].val;
         k++;
       }
       i++, j++;
-    } else if (a[i].row == b[j].row && a[i].col > b[j].col) {
+    } else if (a[i].row < b[j].row ||
+               (a[i].row == b[j].row && a[i].col < b[j].col)) {
       add = realloc(add, sizeof(sparse) * (k + 1));
-      add[k].val = b[j].val;
-      add[k].row = b[j].row;
-      add[k].col = b[j].col;
-      j++, k++;
-    } else if (a[i].row > b[j].row) {
+      add[k++] = a[i++];
+    } else {
       add = realloc(add, sizeof(sparse) * (k + 1));
-      add[k].val = b[j].val;
-      add[k].row = b[j].row;
-      add[k].col = b[j].col;
-      j++, k++;
-    } else if (a[i].row < b[j].row) {
-      add = realloc(add, sizeof(sparse) * (k + 1));
-      add[k].val = a[i].val;
-      add[k].row = a[i].row;
-      add[k].col = a[i].col;
-      i++, k++;
+      add[k++] = b[j++];
     }
-  }
-  while (j <= b[0].val) {
-    add = realloc(add, sizeof(sparse) * (k + 1));
-    add[k].val = b[j].val;
-    add[k].row = b[j].row;
-    add[k].col = b[j].col;
-    j++, k++;
   }
   while (i <= a[0].val) {
     add = realloc(add, sizeof(sparse) * (k + 1));
-    add[k].val = a[i].val;
-    add[k].row = a[i].row;
-    add[k].col = a[i].col;
-    i++, k++;
+    add[k++] = a[i++];
+  }
+  while (j <= b[0].val) {
+    add = realloc(add, sizeof(sparse) * (k + 1));
+    add[k++] = b[j++];
   }
   add[0].val = k - 1;
   return add;
