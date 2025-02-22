@@ -84,8 +84,7 @@ int pop(stack *s_ptr) {
     printf("\nStack is empty.\n");
     return -273;
   } else {
-    s_ptr->top--;
-    return s_ptr->arr[s_ptr->top];
+    return s_ptr->arr[s_ptr->top--];
   }
 }
 
