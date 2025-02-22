@@ -71,7 +71,7 @@ void menu() {
 }
 
 void push(stack *s_ptr, int val) {
-  if (s_ptr->top == MAX) {
+  if (s_ptr->top == MAX - 1) {
     printf("\nStack is full\n.");
     return;
   }
