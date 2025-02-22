@@ -75,8 +75,7 @@ void push(stack *s_ptr, int val) {
     printf("\nStack is full\n.");
     return;
   }
-  s_ptr->top++;
-  s_ptr->arr[s_ptr->top] = val;
+  s_ptr->arr[++s_ptr->top] = val;
 }
 
 int pop(stack *s_ptr) {
