@@ -55,8 +55,11 @@ node *insertEnd(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
   p->key = val;
   p->next = NULL;
+  if (!head) {
+    return p;
+  }
   node *q = head;
-  while (q && q->next) {
+  while (q->next) {
     q = q->next;
   }
   q->next = p;
