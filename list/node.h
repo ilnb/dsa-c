@@ -96,9 +96,6 @@ void displayList(node *head) {
 }
 
 int lengthList(node *head) {
-  if (!head) {
-    return 0;
-  }
   int n = 0;
   while (head) {
     n++;
