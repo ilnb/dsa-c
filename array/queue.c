@@ -15,9 +15,7 @@ int isFull(queue);
 int isEmpty(queue);
 
 int main(void) {
-  queue q;
-  q.front = -1;
-  q.rear = 0;
+  queue q = { .front = -1, .rear = 0};
   while (1) {
     menu();
     printf("Enter an appropriate option: ");
