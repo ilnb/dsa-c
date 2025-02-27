@@ -2,6 +2,7 @@
 
 int lSearch(int *, int, int);
 int binSearch(int *, int, int);
+int binSearchRec(int *, int, int, int);
 void inSort(int *, int);
 void printArr(int *, int);
 
@@ -51,6 +52,21 @@ int binSearch(int *arr, int len, int item) {
       low = mid + 1;
     } else if (arr[mid] > item) {
       high = mid - 1;
+    } else {
+      return mid;
+    }
+  }
+  printf("Item not found.\n");
+  return -1;
+}
+
+int binSearchRec(int *arr, int low, int high, int item) {
+  int mid = (low + high) / 2;
+  while (low <= high) {
+    if (arr[mid] < item) {
+      return binSearchRec(arr, mid + 1, high, item);
+    } else if (arr[mid] > item) {
+      return binSearchRec(arr, low, mid - 1, item);
     } else {
       return mid;
     }
