@@ -4,7 +4,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 typedef struct node {
   int key;
@@ -202,7 +201,7 @@ void freeHnode(hnode *h_ptr) {
     h_ptr->start = t->next;
     free(t);
   }
-  memset(h_ptr, 0, sizeof(hnode));
+  *h_ptr = {0};
 }
 
 void varFreeHnode(int count, ...) {
@@ -277,7 +276,7 @@ void freeQueue(queue *q_ptr) {
     q_ptr->front = t->next;
     free(t);
   }
-  memset(q_ptr, 0, sizeof(queue));
+  *q_ptr = {0};
 }
 
 void varFreeQueue(int count, ...) {
