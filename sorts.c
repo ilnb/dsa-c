@@ -1,4 +1,5 @@
 #include "arr.h"
+#include <string.h>
 
 void inSort(int *, int);
 void selSort(int *, int);
@@ -8,48 +9,41 @@ void mergeSort(int *, int, int);
 void countingSort(int *, int);
 int partition(int *, int, int);
 void quickSort(int *, int, int);
-void copy(int *, int *, int);
 void swap(int *, int *);
 
 int main(void) {
   int *arr = malloc(sizeof(int) * 5);
   int *temp = malloc(sizeof(int) * 5);
   arr[0] = 3, arr[1] = 2, arr[2] = 4, arr[3] = 0, arr[4] = 1;
-  copy(arr, temp, 5);
+  memcpy(temp, arr, 5 * sizeof(int));
   printf("Unsorted array:\n");
   printArr(arr, 5);
   printf("Sorted by selection sort:\n");
   selSort(arr, 5);
   printArr(arr, 5);
-  copy(temp, arr, 5);
+  memcpy(arr, temp, 5 * sizeof(int));
   printf("Sorted by bubble sort:\n");
   bubSort(arr, 5);
   printArr(arr, 5);
-  copy(temp, arr, 5);
+  memcpy(arr, temp, 5 * sizeof(int));
   printf("Sorted by insertion sort:\n");
   inSort(arr, 5);
   printArr(arr, 5);
-  copy(temp, arr, 5);
+  memcpy(arr, temp, 5 * sizeof(int));
   printf("Sorted by merge sort:\n");
   mergeSort(arr, 0, 4);
   printArr(arr, 5);
-  copy(temp, arr, 5);
+  memcpy(arr, temp, 5 * sizeof(int));
   printf("Sorted by quick sort:\n");
   quickSort(arr, 0, 4);
   printArr(arr, 5);
-  copy(temp, arr, 5);
+  memcpy(arr, temp, 5 * sizeof(int));
   printf("Sorted by counting sort:\n");
   countingSort(arr, 5);
   printArr(arr, 5);
   free(arr), free(temp);
   arr = temp = NULL;
   return 0;
-}
-
-void copy(int *src, int *dest, int size) {
-  for (char i = 0; i < size; i++) {
-    dest[i] = src[i];
-  }
 }
 
 void swap(int *a, int *b) {
@@ -98,12 +92,8 @@ void merge(int *arr, int low, int mid, int high) {
   int n2 = high - mid;
   int *arrLow = malloc(sizeof(int) * n1);
   int *arrHigh = malloc(sizeof(int) * n2);
-  for (int i = 0; i < n1; i++) {
-    arrLow[i] = arr[low + i];
-  }
-  for (int i = 0; i < n2; i++) {
-    arrHigh[i] = arr[mid + 1 + i];
-  }
+  memcpy(arrLow, arr + low, n1 * sizeof(int));
+  memcpy(arrHigh, arr + mid + 1, n2 * sizeof(int));
   int i = 0, j = 0, k = low;
   while (i < n1 && j < n2) {
     if (arrLow[i] < arrHigh[j]) {

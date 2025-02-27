@@ -47,7 +47,7 @@ node *interspace(node *head1, node *head2) {
     head2 = head2->next;
   }
   while (head1 && head2) {
-    node *p = malloc(sizeof(node));
+    p = malloc(sizeof(node));
     p->key = head1->key;
     p->next = NULL;
     end->next = p;

@@ -93,6 +93,32 @@ dbnode *sortedInsert(dbnode *head, int val) {
   return head;
 }
 
+dbnode *sortedDelete(dbnode *head, int val) {
+  if (!head) {
+    printf("Empty list\n");
+    return head;
+  }
+  dbnode **nptr = &head;
+  while (*nptr && (*nptr)->key < val) {
+    nptr = &(*nptr)->next;
+  }
+  if (*nptr && (*nptr)->key == val) {
+    dbnode *t = *nptr;
+    *nptr = (*nptr)->next;
+    free(t);
+  }
+  return head;
+}
+
+int lengthList(dbnode *head) {
+  int n = 0;
+  while (head) {
+    n++;
+    head = head->next;
+  }
+  return n;
+}
+
 void displayList(dbnode *head) {
   if (!head) {
     printf("Empty list.\n");
@@ -107,15 +133,6 @@ void displayList(dbnode *head) {
   printf("->NULL\n");
 }
 
-int lengthList(dbnode *head) {
-  int n = 0;
-  while (head) {
-    n++;
-    head = head->next;
-  }
-  return n;
-}
-
 dbnode *freeList(dbnode *head) {
   if (!head) {
     return head;
@@ -124,23 +141,6 @@ dbnode *freeList(dbnode *head) {
     dbnode *p = head;
     head = head->next;
     free(p);
-  }
-  return head;
-}
-
-dbnode *sortedDelete(dbnode *head, int val) {
-  if (!head) {
-    printf("Empty list\n");
-    return head;
-  }
-  dbnode **nptr = &head;
-  while (*nptr && (*nptr)->key < val) {
-    nptr = &(*nptr)->next;
-  }
-  if (*nptr && (*nptr)->key == val) {
-    dbnode *t = *nptr;
-    *nptr = (*nptr)->next;
-    free(t);
   }
   return head;
 }

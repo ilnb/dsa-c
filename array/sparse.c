@@ -57,7 +57,7 @@ sparse *createSparse(int **mat, int row, int col) {
   for (int i = 0; i < row; i++) {
     if (k <= count) {
       for (int j = 0; j < col; j++) {
-        if (k <= count && mat[i][j] != 0) {
+        if (k <= count && mat[i][j]) {
           sparseMat[k].row = i;
           sparseMat[k].col = j;
           sparseMat[k].val = mat[i][j];

@@ -1,18 +1,18 @@
 #include "arr.h"
 
-int *merge(int *, int *, int, int);
+int *merge(int *, int, int *, int);
 
 int main(void) {
   int arr1[3] = {2, 5, 8};
   int arr2[2] = {0, 4};
-  int *c = merge(arr1, arr2, 3, 2);
+  int *c = merge(arr1, 3, arr2, 2);
   printArr(c, 5);
   free(c);
   c = NULL;
   return 0;
 }
 
-int *merge(int *array1, int *array2, int len1, int len2) {
+int *merge(int *array1, int len1, int *array2, int len2) {
   int i = 0, j = 0, k = 0, *c = NULL;
   while (i < len1 && j < len2) {
     if (array1[i] < array2[j]) {
