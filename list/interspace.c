@@ -32,18 +32,18 @@ node *interspace(node *head1, node *head2) {
     return head2;
   }
   node *merged = NULL;
-  node *end;
+  node *end, *p;
   if (!merged) {
-    node *p = malloc(sizeof(node));
+    p = malloc(sizeof(node));
     p->key = head1->key;
     p->next = NULL;
     merged = p;
     head1 = head1->next;
-    node *q = malloc(sizeof(node));
-    q->key = head2->key;
-    q->next = NULL;
-    merged->next = q;
-    end = q;
+    p = malloc(sizeof(node));
+    p->key = head2->key;
+    p->next = NULL;
+    merged->next = p;
+    end = p;
     head2 = head2->next;
   }
   while (head1 && head2) {
@@ -53,15 +53,15 @@ node *interspace(node *head1, node *head2) {
     end->next = p;
     end = p;
     head1 = head1->next;
-    node *q = malloc(sizeof(node));
-    q->key = head2->key;
-    q->next = NULL;
-    end->next = q;
-    end = q;
+    p = malloc(sizeof(node));
+    p->key = head2->key;
+    p->next = NULL;
+    end->next = p;
+    end = p;
     head2 = head2->next;
   }
   while (head1) {
-    node *p = malloc(sizeof(node));
+    p = malloc(sizeof(node));
     p->key = head1->key;
     p->next = NULL;
     end->next = p;
@@ -69,11 +69,11 @@ node *interspace(node *head1, node *head2) {
     head1 = head1->next;
   }
   while (head2) {
-    node *q = malloc(sizeof(node));
-    q->key = head2->key;
-    q->next = NULL;
-    end->next = q;
-    end = q;
+    p = malloc(sizeof(node));
+    p->key = head2->key;
+    p->next = NULL;
+    end->next = p;
+    end = p;
     head2 = head2->next;
   }
   return merged;
