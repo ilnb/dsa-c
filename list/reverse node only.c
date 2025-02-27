@@ -14,6 +14,7 @@ node *reverse(node *head) {
     curr->next = prev;
     prev = curr;
     curr = next;
+    next = next->next;
   }
   curr->next = prev;
   return curr;
