@@ -1,6 +1,6 @@
 #include "node.h"
 
-node *inSort(node *);
+node *selSort(node *);
 
 int main(void) {
   node *head = NULL;
@@ -11,14 +11,14 @@ int main(void) {
   head = insertStart(head, 4);
   printf("List right now: ");
   displayList(head);
-  head = inSort(head);
+  head = selSort(head);
   printf("Sorted list: ");
   displayList(head);
   head = freeList(head);
   return 0;
 }
 
-node *inSort(node *head) {
+node *selSort(node *head) {
   if (!head) {
     return head;
   }
