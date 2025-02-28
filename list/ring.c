@@ -138,10 +138,6 @@ node *freeRing(node *ring) {
   if (!ring) {
     return ring;
   }
-  if (ring->next == ring) {
-    free(ring);
-    return NULL;
-  }
   node *p = ring->next;
   while (p != ring) {
     node *t = p;
