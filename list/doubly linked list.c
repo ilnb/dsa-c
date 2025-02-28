@@ -142,5 +142,5 @@ dbnode *freeList(dbnode *head) {
     head = head->next;
     free(p);
   }
-  return head;
+  return NULL;
 }
