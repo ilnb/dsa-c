@@ -30,13 +30,13 @@ void scanArr(int *arr, int len) {
   }
 }
 
-void freeMat(int **arr, int row) {
+int **freeMat(int **arr, int row) {
   for (int i = 0; i < row; i++) {
     free(arr[i]);
     arr[i] = NULL;
   }
   free(arr);
-  arr = NULL;
+  return NULL;
 }
 
 void printMat(int **Mat, int row, int col) {
@@ -77,7 +77,8 @@ int **subMat(int **Mat1, int **Mat2, int row, int col) {
   return Mat3;
 }
 
-void mulMat(int **Mul1, int **Mul2, int **Mul, int row, int n, int col) {
+int **mulMat(int **Mul1, int **Mul2, int row, int n, int col) {
+  int **Mul = Mat(row, col);
   for (int i = 0; i < row; i++) {
     for (int j = 0; j < col; j++) {
       Mul[i][j] = 0;
@@ -86,6 +87,7 @@ void mulMat(int **Mul1, int **Mul2, int **Mul, int row, int n, int col) {
       }
     }
   }
+  return Mul;
 }
 
 #endif
