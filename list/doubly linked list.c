@@ -124,12 +124,10 @@ void displayList(dbnode *head) {
     printf("Empty list.\n");
     return;
   }
-  printf("NULL<-%d", head->key);
-  head = head->next;
-  while (head) {
-    printf("<->%d", head->key);
+  do {
+    printf("NULL<-%d", head->key);
     head = head->next;
-  }
+  } while (head);
   printf("->NULL\n");
 }
 
