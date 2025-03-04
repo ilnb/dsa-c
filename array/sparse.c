@@ -144,9 +144,7 @@ sparse *transSparse(sparse *a) {
   trans[0].col = a[0].row;
   trans[0].val = a[0].val;
   for (int i = 1; i <= a[0].val; i++) {
-    trans[t[a[i].col - min]].row = a[i].col;
-    trans[t[a[i].col - min]].col = a[i].row;
-    trans[t[a[i].col - min]].val = a[i].val;
+    trans[t[a[i].col - min]] = (sparse){a[i].col, a[i].row, a[i].val};
     t[a[i].col - min]++;
   }
   return trans;
