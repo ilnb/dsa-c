@@ -69,12 +69,10 @@ void printRing(node *ring) {
   }
   printf("HEAD->");
   node *t = ring;
-  printf("%d->", t->key);
-  t = t->next;
-  while (t != ring) {
+  do {
     printf("%d->", t->key);
     t = t->next;
-  }
+  } while (t != ring);
   printf("HEAD\n");
 }
 

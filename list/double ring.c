@@ -69,12 +69,10 @@ void printRing(dbnode *ring) {
   }
   printf("HEAD<->");
   dbnode *t = ring;
-  printf("%d<->", t->key);
-  t = t->next;
-  while (t != ring) {
+  do {
     printf("%d<->", t->key);
     t = t->next;
-  }
+  } while (t != ring);
   printf("HEAD\n");
 }
 
