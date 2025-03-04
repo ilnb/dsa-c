@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node {
+typedef struct dbnode {
   int key;
-  struct node *next;
-} node;
+  struct dbnode *prev, *next;
+} dbnode;
 
 void menu();
-node *insertNode(node *, int);
-node *deleteNode(node *, int);
-void printRing(node *);
-node *freeRing(node *);
+dbnode *insertNode(dbnode *, int);
+dbnode *deleteNode(dbnode *, int);
+void printRing(dbnode *);
+dbnode *freeRing(dbnode *);
 
 int main() {
-  node *ring = 0;
+  dbnode *ring = 0;
   int option;
   do {
     menu();
@@ -62,85 +62,87 @@ void menu() {
   printf("5. Exit\n");
 }
 
-void printRing(node *ring) {
+void printRing(dbnode *ring) {
   if (!ring) {
     printf("Empty.\n");
     return;
   }
-  printf("HEAD->");
-  node *t = ring;
-  printf("%d->", t->key);
+  printf("HEAD<->");
+  dbnode *t = ring;
+  printf("%d<->", t->key);
   t = t->next;
   while (t != ring) {
-    printf("%d->", t->key);
+    printf("%d<->", t->key);
     t = t->next;
   }
   printf("HEAD\n");
 }
 
-node *insertNode(node *ring, int val) {
-  node *q = malloc(sizeof(node));
+dbnode *insertNode(dbnode *ring, int val) {
+  dbnode *q = malloc(sizeof(*q));
   q->key = val;
   if (!ring) {
+    q->prev = q;
     q->next = q;
     return q;
   }
-  node *curr = ring;
+  dbnode *curr = ring;
   while (curr->next != ring && !(curr->key <= val && val < curr->next->key)) {
     curr = curr->next;
   }
   q->next = curr->next;
+  q->prev = curr;
+  curr->next->prev = q;
   curr->next = q;
-  if (val < ring->key) {
+  if (val < curr->key) {
     return q;
   } else {
     return ring;
   }
 }
 
-node *deleteNode(node *ring, int val) {
+dbnode *deleteNode(dbnode *ring, int val) {
   if (!ring) {
-    printf("Empty.\n");
+    printf("Empty.");
     return ring;
   }
   if (val == ring->key) {
-    node *t = ring;
+    dbnode *t = ring;
     if (ring->next == ring) {
       free(t);
       return NULL;
-    } else {
-      node *end = ring;
-      while (end->next != ring) {
-        end = end->next;
-      }
-      ring = t->next;
-      end->next = ring;
-      free(t);
-      return ring;
     }
+    dbnode *end = ring;
+    while (end->next != ring) {
+      end = end->next;
+    }
+    end->next = t->next;
+    t->next->prev = end;
+    ring = t->next;
+    free(t);
+    return ring;
   }
-  node *p = ring;
+  dbnode *p = ring;
   while (p->next != ring) {
-    if (val == p->next->key) {
-      node *t = p->next;
+    if (p->next->key == val) {
+      dbnode *t = p->next;
       p->next = t->next;
+      t->next->prev = p;
       free(t);
-    } else if (val > p->next->key) {
-      p = p->next;
-    } else {
       break;
     }
+    p = p->next;
   }
   return ring;
 }
 
-node *freeRing(node *ring) {
+dbnode *freeRing(dbnode *ring) {
   if (!ring) {
     return ring;
   }
-  node *p = ring->next;
+  dbnode *p = ring->next;
   while (p != ring) {
-    node *t = p;
+    dbnode *t = p;
     p = p->next;
     free(t);
   }
