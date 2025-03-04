@@ -24,16 +24,14 @@ int main(void) {
 }
 
 node *interspace(node *head1, node *head2) {
-  if (!head1 && !head2) {
-    return NULL;
-  } else if (head1 && !head2) {
+  if (head1 && !head2) {
     return head1;
   } else if (!head1 && head2) {
     return head2;
   }
   node *merged = NULL;
   node *end, *p;
-  if (!merged) {
+  do {
     p = malloc(sizeof(node));
     p->key = head1->key;
     p->next = NULL;
@@ -45,21 +43,7 @@ node *interspace(node *head1, node *head2) {
     merged->next = p;
     end = p;
     head2 = head2->next;
-  }
-  while (head1 && head2) {
-    p = malloc(sizeof(node));
-    p->key = head1->key;
-    p->next = NULL;
-    end->next = p;
-    end = p;
-    head1 = head1->next;
-    p = malloc(sizeof(node));
-    p->key = head2->key;
-    p->next = NULL;
-    end->next = p;
-    end = p;
-    head2 = head2->next;
-  }
+  } while (head1 && head2);
   while (head1) {
     p = malloc(sizeof(node));
     p->key = head1->key;
