@@ -15,7 +15,7 @@ int isFull(queue);
 int isEmpty(queue);
 
 int main(void) {
-  queue q = { .front = -1, .rear = 0};
+  queue q = {.front = 0, .rear = 0};
   while (1) {
     menu();
     printf("Enter an appropriate option: ");
@@ -82,8 +82,9 @@ int dequeue(queue *q) {
     printf("The queue is empty.\n");
     return -273;
   } else {
+    int val = q->arr[q->front];
     q->front = (q->front + 1) % MAX;
-    return q->arr[q->front];
+    return val;
   }
 }
 
@@ -92,7 +93,7 @@ void display(queue q) {
     printf("The queue is empty.\n");
     return;
   }
-  int i = q.front + 1;
+  int i = q.front;
   while (i != q.rear) {
     printf("%d ", q.arr[i]);
     i = (i + 1) % MAX;
@@ -100,16 +101,6 @@ void display(queue q) {
   printf("\n");
 }
 
-int isFull(queue q) {
-  if ((q.rear + 1) % MAX == q.front) {
-    return 1;
-  }
-  return 0;
-}
+int isFull(queue q) { return (q.rear + 1) % MAX == q.front; }
 
-int isEmpty(queue q) {
-  if (q.front + 1 == q.rear) {
-    return 1;
-  }
-  return 0;
-}
+int isEmpty(queue q) { return q.front == q.rear; }
