@@ -29,8 +29,7 @@ int main(void) {
   printFromSparse(sparseMat3);
   freeMat(mat1, 3), freeMat(mat2, 3);
   mat1 = mat2 = NULL;
-  free(sparseMat1), free(sparseMat2), free(sparseMat3), free(trans);
-  sparseMat1 = sparseMat2 = sparseMat3 = trans = NULL;
+  freeArrs(4, &sparseMat1, &sparseMat2, &sparseMat3, &trans);
   return 0;
 }
 

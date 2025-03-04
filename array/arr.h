@@ -1,6 +1,7 @@
 #ifndef _ARR_H
 #define _ARR_H
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,6 +38,16 @@ int **freeMat(int **arr, int row) {
   }
   free(arr);
   return NULL;
+}
+
+void freeArrs(int count, ...) {
+  va_list ptr;
+  va_start(ptr, count);
+  for (int i = 0; i < count; i++) {
+    void **t = va_arg(ptr, void **);
+    free(*t);
+    *t = NULL;
+  }
 }
 
 void printMat(int **Mat, int row, int col) {
