@@ -49,18 +49,13 @@ sparse *createSparse(int **mat, int row, int col) {
     return NULL;
   }
   sparseMat = malloc(sizeof(sparse) * (count + 1));
-  int k = 0;
-  sparseMat[k].row = row;
-  sparseMat[k].col = col;
-  sparseMat[k].val = count;
-  k++;
+  sparseMat[0] = (sparse){row, col, count};
+  int k = 1;
   for (int i = 0; i < row; i++) {
     if (k <= count) {
       for (int j = 0; j < col; j++) {
         if (k <= count && mat[i][j]) {
-          sparseMat[k].row = i;
-          sparseMat[k].col = j;
-          sparseMat[k].val = mat[i][j];
+          sparseMat[k] = (sparse){i, j, mat[i][j]};
           k++;
         }
       }
@@ -91,15 +86,13 @@ sparse *addSparse(sparse *a, sparse *b) {
     return NULL;
   }
   sparse *add = malloc(sizeof(sparse));
-  add[0].row = a[0].row;
-  add[0].col = a[0].col;
+  add[0] = (sparse){a[0].row, a[0].col, 0};
   int i = 1, j = 1, k = 1;
   while (i <= a[0].val && j <= b[0].val) {
     if (a[i].row == b[j].row && a[i].col == b[j].col) {
       if (a[i].val + b[j].val) {
         add = realloc(add, sizeof(sparse) * (k + 1));
-        add[k].row = a[i].row;
-        add[k].col = a[i].col;
+        add[k] = (sparse){a[i].row, a[i].col};
         add[k].val = a[i].val + b[j].val;
         k++;
       }
