@@ -19,9 +19,8 @@ int main(void) {
 }
 
 node *bubSort(node *head) {
-  if (!head) {
+  if (!head)
     return head;
-  }
   node *p = head;
   while (p->next) {
     node *q = p->next;

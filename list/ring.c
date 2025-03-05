@@ -89,11 +89,10 @@ node *insertNode(node *ring, int val) {
   }
   q->next = curr->next;
   curr->next = q;
-  if (val < ring->key) {
+  if (val < ring->key)
     return q;
-  } else {
+  else
     return ring;
-  }
 }
 
 node *deleteNode(node *ring, int val) {
@@ -108,9 +107,8 @@ node *deleteNode(node *ring, int val) {
       return NULL;
     } else {
       node *end = ring;
-      while (end->next != ring) {
+      while (end->next != ring)
         end = end->next;
-      }
       ring = t->next;
       end->next = ring;
       free(t);
@@ -133,9 +131,8 @@ node *deleteNode(node *ring, int val) {
 }
 
 node *freeRing(node *ring) {
-  if (!ring) {
+  if (!ring)
     return ring;
-  }
   node *p = ring->next;
   while (p != ring) {
     node *t = p;

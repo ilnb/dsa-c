@@ -22,11 +22,10 @@ int main(void) {
         printf("Enter the value: ");
         int val;
         scanf("%d", &val);
-        if (search(arr, n, val) == -1) {
+        if (search(arr, n, val) == -1)
           printf("Value not found\n");
-        } else {
+        else
           printf("Value found at index: %d\n", search(arr, n, val));
-        }
         break;
       }
       case 3: {
@@ -76,9 +75,8 @@ void printMenu() {
 
 int search(int *arr, int size, int value) {
   for (int i = 0; i < size; i++) {
-    if (arr[i] == value) {
+    if (arr[i] == value)
       return i;
-    }
   }
   return -1;
 }
@@ -86,9 +84,8 @@ int search(int *arr, int size, int value) {
 void insert(int *arr, int *size, int value) { arr[(*size)++] = value; }
 
 void delete(int *arr, int *size, int index) {
-  for (int i = index; i < *size; i++) {
+  for (int i = index; i < *size; i++)
     arr[i] = arr[i + 1];
-  }
   --*size;
 }
 
@@ -96,8 +93,7 @@ void update(int *arr, int index, int value) { arr[index] = value; }
 
 void printArr(int *arr, int size) {
   printf("The array is:\n");
-  for (int i = 0; i < size; i++) {
+  for (int i = 0; i < size; i++)
     printf("%d ", arr[i]);
-  }
   printf("\n");
 }

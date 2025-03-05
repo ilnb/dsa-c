@@ -100,8 +100,7 @@ void display(stack s) {
     printf("The stack is empty.\n");
     return;
   }
-  for (int i = s.top; i > -1; i--) {
+  for (int i = s.top; i > -1; i--)
     printf("%d\n", s.arr[i]);
-  }
   printf("\n");
 }

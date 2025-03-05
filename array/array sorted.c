@@ -71,9 +71,8 @@ void printMenu() {
 
 void print(int *arr, int len) {
   printf("The array is:\n");
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < len; i++)
     printf("%d ", arr[i]);
-  }
   printf("\n");
 }
 
@@ -81,11 +80,11 @@ int search(int *arr, int len, int value) {
   int low = 0, high = len - 1;
   int mid = (low + high) / 2;
   while (low <= len) {
-    if (value < arr[mid]) {
+    if (value < arr[mid])
       len = mid - 1;
-    } else if (value > arr[mid]) {
+    else if (value > arr[mid])
       low = mid + 1;
-    } else {
+    else {
       printf("Value found at index: %d\n", mid);
       return mid;
     }
@@ -102,17 +101,16 @@ void insert(int *arr, int *lenPtr, int value) {
   } else {
     int i = 0;
     for (int j = 1; j < *lenPtr; j++) {
-      if (arr[j - 1] <= value && value <= arr[j]) {
+      if (arr[j - 1] <= value && value < arr[j]) {
         // find the appropriate position
         i = j;
         break;
       }
     }
-    for (int j = *lenPtr; j > i; j--) {
-      // shift the values to right,
-      // starting from the end
+    // shift the values to right,
+    // starting from the end
+    for (int j = *lenPtr; j > i; j--)
       arr[j] = arr[j - 1];
-    }
     // put the value
     arr[i] = value;
     ++*lenPtr;
@@ -138,20 +136,19 @@ void update(int *arr, int len, int index, int value) {
     arr[j] = arr[j + 1];
   }
   len--;
-  if (value > arr[len - 1]) {
-    // insert function
+  // insert function
+  if (value > arr[len - 1])
     arr[len] = value;
-  } else {
+  else {
     int i = 0;
     for (int j = 1; j < len; j++) {
-      if (arr[j - 1] <= value && value <= arr[j]) {
+      if (arr[j - 1] <= value && value < arr[j]) {
         i = j;
         break;
       }
     }
-    for (int j = len; j > i; j--) {
+    for (int j = len; j > i; j--)
       arr[j] = arr[j - 1];
-    }
     arr[i] = value;
   }
 }

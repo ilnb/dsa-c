@@ -75,9 +75,8 @@ dbnode *sortedInsert(dbnode *head, int val) {
   if (!head || val < head->key) {
     q->next = head;
     q->prev = NULL;
-    if (head) {
+    if (head)
       head->prev = q;
-    }
     return q;
   }
   dbnode *p = head;
@@ -86,9 +85,8 @@ dbnode *sortedInsert(dbnode *head, int val) {
   }
   q->next = p->next;
   q->prev = p;
-  if (p->next) {
+  if (p->next)
     p->next->prev = q;
-  }
   p->next = q;
   return head;
 }
@@ -124,17 +122,17 @@ void displayList(dbnode *head) {
     printf("Empty list.\n");
     return;
   }
+  printf("NULL<-");
   do {
-    printf("NULL<-%d", head->key);
+    printf("%d->", head->key);
     head = head->next;
   } while (head);
-  printf("->NULL\n");
+  printf("NULL\n");
 }
 
 dbnode *freeList(dbnode *head) {
-  if (!head) {
+  if (!head)
     return head;
-  }
   while (head) {
     dbnode *p = head;
     head = head->next;

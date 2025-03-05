@@ -41,8 +41,7 @@ int main(void) {
   printf("Sorted by counting sort:\n");
   countingSort(arr, 5);
   printArr(arr, 5);
-  free(arr), free(temp);
-  arr = temp = NULL;
+  freeArrs(2, &arr, &temp);
   return 0;
 }
 
@@ -66,9 +65,8 @@ void inSort(int *arr, int len) {
 void bubSort(int *arr, int len) {
   for (int j = len - 1; j > 0; j--) {
     for (int i = 0; i < j; i++) {
-      if (arr[i + 1] < arr[i]) {
+      if (arr[i + 1] < arr[i])
         swap(arr + i, arr + i + 1);
-      }
     }
   }
 }
@@ -77,81 +75,58 @@ void selSort(int *arr, int len) {
   for (int i = 0; i < len - 1; i++) {
     int min = i;
     for (int j = i + 1; j < len; j++) {
-      if (arr[min] > arr[j]) {
+      if (arr[min] > arr[j])
         min = j;
-      }
     }
-    if (min != i) {
+    if (min != i)
       swap(arr + min, arr + i);
-    }
   }
 }
 
 void merge(int *arr, int low, int mid, int high) {
   int n1 = mid - low + 1;
   int n2 = high - mid;
-  int *arrLow = malloc(sizeof(int) * n1);
-  int *arrHigh = malloc(sizeof(int) * n2);
+  int *arrLow = Arr(n1);
+  int *arrHigh = Arr(n2);
   memcpy(arrLow, arr + low, n1 * sizeof(int));
   memcpy(arrHigh, arr + mid + 1, n2 * sizeof(int));
   int i = 0, j = 0, k = low;
   while (i < n1 && j < n2) {
-    if (arrLow[i] < arrHigh[j]) {
-      arr[k] = arrLow[i];
-      i++, k++;
-    } else {
-      arr[k] = arrHigh[j];
-      j++, k++;
-    }
+    if (arrLow[i] < arrHigh[j])
+      arr[k++] = arrLow[i++];
+    else
+      arr[k++] = arrHigh[j++];
   }
-  if (i < n1) {
-    while (i < n1) {
-      arr[k] = arrLow[i];
-      i++, k++;
-    }
-  } else if (j < n2) {
-    while (j < n2) {
-      arr[k] = arrHigh[j];
-      j++, k++;
-    }
-  }
-  free(arrLow), free(arrHigh);
-  arrLow = arrHigh = NULL;
+  while (i < n1)
+    arr[k++] = arrLow[i++];
+  while (j < n2)
+    arr[k++] = arrHigh[j++];
+  freeArrs(2, &arrHigh, &arrLow);
 }
 
 void countingSort(int *arr, int len) {
   int min = arr[0];
   int max = arr[0];
   for (int i = 1; i < len; i++) {
-    if (min > arr[i]) {
+    if (min > arr[i])
       min = arr[i];
-    }
-    if (max < arr[i]) {
+    if (max < arr[i])
       max = arr[i];
-    }
   }
   int countLen = max - min + 1;
   int *count = Arr(countLen);
-  for (int i = 0; i < countLen; i++) {
-    count[i] = 0;
-  }
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < len; i++)
     count[arr[i] - min]++;
-  }
   int *t = Arr(countLen);
   t[0] = 0;
-  for (int i = 0; i < countLen; i++) {
+  for (int i = 0; i < countLen; i++)
     t[i] = t[i - 1] + count[i - 1];
-  }
   int *temp = Arr(len);
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < len; i++)
     temp[t[arr[i] - min]++] = arr[i];
-  }
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < len; i++)
     arr[i] = temp[i];
-  }
-  free(temp), free(count), free(t);
-  temp = count = t = 0;
+  freeArrs(3, &temp, &count, &t);
 }
 
 void mergeSort(int *arr, int low, int high) {

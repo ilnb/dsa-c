@@ -121,9 +121,8 @@ void display1(doubleStack d) {
     printf("Empty stack\n");
     return;
   }
-  for (short i = d.top1; i > -1; i--) {
+  for (short i = d.top1; i > -1; i--)
     printf("%d\n", d.arr[i]);
-  }
 }
 
 void display2(doubleStack d) {
@@ -131,7 +130,6 @@ void display2(doubleStack d) {
     printf("Empty stack\n");
     return;
   }
-  for (short i = d.top2; i < MAX; i++) {
+  for (short i = d.top2; i < MAX; i++)
     printf("%d\n", d.arr[i]);
-  }
 }

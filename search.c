@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int lSearch(int *, int, int);
 int binSearch(int *, int, int);
@@ -14,31 +15,27 @@ int main(void) {
   printf("Enter the item to search: ");
   scanf("%d", &n);
   printf("Using linear search:\n");
-  if (lSearch(arr, 5, n) != -1) {
+  if (lSearch(arr, 5, n) != -1)
     printf("The item is found at index %d\n", lSearch(arr, 5, n));
-  }
   inSort(arr, 5);
   printf("Sorted array:\n");
   printArr(arr, 5);
   printf("Using binary search:\n");
-  if (binSearch(arr, 5, n) != -1) {
+  if (binSearch(arr, 5, n) != -1)
     printf("The item is found at index %d\n", binSearch(arr, 5, n));
-  }
   return 0;
 }
 
 void printArr(int *arr, int len) {
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < len; i++)
     printf("%d ", i[arr]);
-  }
   printf("\n");
 }
 
 int lSearch(int *arr, int len, int item) {
   for (int i = 0; i < len; i++) {
-    if (arr[i] == item) {
+    if (arr[i] == item)
       return i;
-    }
   }
   printf("Item not found.\n");
   return -1;
@@ -48,13 +45,12 @@ int binSearch(int *arr, int len, int item) {
   int low = 0, high = len - 1;
   while (low <= high) {
     int mid = (low + high) / 2;
-    if (arr[mid] < item) {
+    if (arr[mid] < item)
       low = mid + 1;
-    } else if (arr[mid] > item) {
+    else if (arr[mid] > item)
       high = mid - 1;
-    } else {
+    else
       return mid;
-    }
   }
   printf("Item not found.\n");
   return -1;
@@ -63,13 +59,12 @@ int binSearch(int *arr, int len, int item) {
 int binSearchRec(int *arr, int low, int high, int item) {
   int mid = (low + high) / 2;
   while (low <= high) {
-    if (arr[mid] < item) {
+    if (arr[mid] < item)
       return binSearchRec(arr, mid + 1, high, item);
-    } else if (arr[mid] > item) {
+    else if (arr[mid] > item)
       return binSearchRec(arr, low, mid - 1, item);
-    } else {
+    else
       return mid;
-    }
   }
   printf("Item not found.\n");
   return -1;

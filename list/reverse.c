@@ -4,9 +4,8 @@ void reverse(hnode *);
 
 int main(void) {
   hnode h = {0};
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; i++)
     insertHEnd(&h, i + 1);
-  }
   printf("List right now: ");
   displayList(h.start);
   printf("Address of start: %p\nAddress of end: %p\n", h.start, h.end);

@@ -34,29 +34,25 @@ int main(void) {
 }
 
 sparse *createSparse(int **mat, int row, int col) {
-  sparse *sparseMat = NULL;
   int count = 0;
   for (int i = 0; i < row; i++) {
     for (int j = 0; j < col; j++) {
-      if (mat[i][j] != 0) {
+      if (mat[i][j] != 0)
         count++;
-      }
     }
   }
   if (!count) {
     printf("No non-zero data found.\n");
     return NULL;
   }
-  sparseMat = malloc(sizeof(sparse) * (count + 1));
+  sparse *sparseMat = malloc(sizeof(sparse) * (count + 1));
   sparseMat[0] = (sparse){row, col, count};
   int k = 1;
   for (int i = 0; i < row; i++) {
     if (k <= count) {
       for (int j = 0; j < col; j++) {
-        if (k <= count && mat[i][j]) {
-          sparseMat[k] = (sparse){i, j, mat[i][j]};
-          k++;
-        }
+        if (k <= count && mat[i][j])
+          sparseMat[k++] = (sparse){i, j, mat[i][j]};
       }
     }
   }
@@ -68,12 +64,10 @@ void printFromSparse(sparse *sparseMat) {
   for (int i = 0; i < sparseMat[0].row; i++) {
     for (int j = 0; j < sparseMat[0].col; j++) {
       if (k <= sparseMat[0].val && i == sparseMat[k].row &&
-          j == sparseMat[k].col) {
-        printf("%3d", sparseMat[k].val);
-        k++;
-      } else {
+          j == sparseMat[k].col)
+        printf("%3d", sparseMat[k++].val);
+      else
         printf("%3d", 0);
-      }
     }
     printf("\n");
   }
@@ -85,7 +79,7 @@ sparse *addSparse(sparse *a, sparse *b) {
     return NULL;
   }
   sparse *add = malloc(sizeof(sparse));
-  add[0] = (sparse){a[0].row, a[0].col, 0};
+  add[0] = (sparse){a[0].row, a[0].col};
   int i = 1, j = 1, k = 1;
   while (i <= a[0].val && j <= b[0].val) {
     if (a[i].row == b[j].row && a[i].col == b[j].col) {
@@ -121,31 +115,25 @@ sparse *transSparse(sparse *a) {
   int min = a[1].col;
   int max = a[1].col;
   for (int i = 1; i <= a[0].val; i++) {
-    if (max < a[i].col) {
+    if (max < a[i].col)
       max = a[i].col;
-    }
-    if (min > a[i].col) {
+    if (min > a[i].col)
       min = a[i].col;
-    }
   }
   int countLen = max - min + 1;
   int *count = Arr(countLen);
-  for (int i = 1; i <= a[0].val; i++) {
+  for (int i = 1; i <= a[0].val; i++)
     count[a[i].col - min]++;
-  }
   int *t = Arr(countLen);
   t[0] = 1;
-  for (int i = 1; i < countLen; i++) {
+  for (int i = 1; i < countLen; i++)
     t[i] = t[i - 1] + count[i - 1];
-  }
   sparse *trans = malloc(sizeof(sparse) * (a[0].val + 1));
-  trans[0].row = a[0].col;
-  trans[0].col = a[0].row;
-  trans[0].val = a[0].val;
+  trans[0] = (sparse){a[0].col, a[0].row, a[0].val};
   for (int i = 1; i <= a[0].val; i++) {
-    trans[t[a[i].col - min]] = (sparse){a[i].col, a[i].row, a[i].val};
-    t[a[i].col - min]++;
+    trans[t[a[i].col - min]++] = (sparse){a[i].col, a[i].row, a[i].val};
   }
+  freeArrs(2, &t, &count);
   return trans;
 }
 
@@ -155,8 +143,7 @@ sparse *mulSparse(sparse *a, sparse *b) {
     return NULL;
   }
   sparse *mul = malloc(sizeof(sparse));
-  mul[0].row = a[0].row;
-  mul[0].col = b[0].col;
+  mul[0] = (sparse){a[0].row, a[0].col};
   int i = 1, j = 1, k = 1;
   return mul;
 }

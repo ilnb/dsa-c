@@ -24,11 +24,10 @@ int main(void) {
 }
 
 node *interspace(node *head1, node *head2) {
-  if (head1 && !head2) {
+  if (head1 && !head2)
     return head1;
-  } else if (!head1 && head2) {
+  else if (!head1 && head2)
     return head2;
-  }
   node *merged = NULL;
   node *end, *p;
   do {

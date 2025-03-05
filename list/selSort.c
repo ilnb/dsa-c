@@ -19,18 +19,16 @@ int main(void) {
 }
 
 node *selSort(node *head) {
-  if (!head) {
+  if (!head)
     return head;
-  }
   node *p = head;
   while (p) {
     node *q, *t;
     q = p->next;
     t = p;
     while (q) {
-      if (q->key < t->key) {
+      if (q->key < t->key)
         t = q;
-      }
       q = q->next;
     }
     int c = t->key;

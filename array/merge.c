@@ -17,23 +17,19 @@ int *merge(int *array1, int len1, int *array2, int len2) {
   while (i < len1 && j < len2) {
     if (array1[i] < array2[j]) {
       c = realloc(c, sizeof(int) * (k + 1));
-      c[k] = array1[i];
-      k++, i++;
+      c[k++] = array1[i++];
     } else {
       c = realloc(c, sizeof(int) * (k + 1));
-      c[k] = array2[j];
-      k++, j++;
+      c[k++] = array2[j++];
     }
   }
   while (i < len1) {
     c = realloc(c, sizeof(int) * (k + 1));
-    c[k] = array1[i];
-    i++, k++;
+    c[k++] = array1[i++];
   }
   while (j < len2) {
     c = realloc(c, sizeof(int) * (k + 1));
-    c[k] = array2[j];
-    j++, k++;
+    c[k++] = array2[j++];
   }
   return c;
 }
