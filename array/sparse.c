@@ -78,35 +78,43 @@ sparse *addSparse(sparse *a, sparse *b) {
     printf("The dimensions of the two are different.\n");
     return NULL;
   }
-  sparse *add = malloc(sizeof(sparse));
+  int count = 0, i = 1, j = 1;
+  while (i <= a[0].val && j <= b[0].val) {
+    if (a[i].row == b[j].row && a[i].col == b[j].col) {
+      if (a[i].val + b[j].val)
+        count++;
+      i++, j++;
+    } else if (a[i].row < b[j].row ||
+               a[i].row == b[j].row && a[i].col < b[j].col)
+      count++, i++;
+    else
+      count++, j++;
+  }
+  while (i <= a[0].val)
+    count++, i++;
+  while (j <= b[0].val)
+    count++, j++;
+  sparse *add = malloc((count + 1) * sizeof(*add));
   add[0] = (sparse){a[0].row, a[0].col};
-  int i = 1, j = 1, k = 1;
+  i = 1, j = 1;
+  int k = 1;
   while (i <= a[0].val && j <= b[0].val) {
     if (a[i].row == b[j].row && a[i].col == b[j].col) {
       if (a[i].val + b[j].val) {
-        add = realloc(add, sizeof(sparse) * (k + 1));
         add[k] = (sparse){a[i].row, a[i].col};
-        add[k].val = a[i].val + b[j].val;
-        k++;
+        add[k++].val = a[i].val + b[j].val;
       }
       i++, j++;
     } else if (a[i].row < b[j].row ||
-               (a[i].row == b[j].row && a[i].col < b[j].col)) {
-      add = realloc(add, sizeof(sparse) * (k + 1));
+               (a[i].row == b[j].row && a[i].col < b[j].col))
       add[k++] = a[i++];
-    } else {
-      add = realloc(add, sizeof(sparse) * (k + 1));
+    else
       add[k++] = b[j++];
-    }
   }
-  while (i <= a[0].val) {
-    add = realloc(add, sizeof(sparse) * (k + 1));
+  while (i <= a[0].val)
     add[k++] = a[i++];
-  }
-  while (j <= b[0].val) {
-    add = realloc(add, sizeof(sparse) * (k + 1));
+  while (j <= b[0].val)
     add[k++] = b[j++];
-  }
   add[0].val = k - 1;
   return add;
 }
@@ -130,9 +138,8 @@ sparse *transSparse(sparse *a) {
     t[i] = t[i - 1] + count[i - 1];
   sparse *trans = malloc(sizeof(sparse) * (a[0].val + 1));
   trans[0] = (sparse){a[0].col, a[0].row, a[0].val};
-  for (int i = 1; i <= a[0].val; i++) {
+  for (int i = 1; i <= a[0].val; i++)
     trans[t[a[i].col - min]++] = (sparse){a[i].col, a[i].row, a[i].val};
-  }
   freeArrs(2, &t, &count);
   return trans;
 }
