@@ -33,10 +33,8 @@ node *newNode(int val) {
 }
 
 node *newEnd(node *end, int val) {
-  node *p = newNode(val);
-  end->next = p;
-  end = p;
-  return end;
+  end->next = newNode(val);
+  return end->next;
 }
 
 node *interspace(node *head1, node *head2) {
