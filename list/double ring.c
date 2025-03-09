@@ -95,10 +95,7 @@ dbnode *insertNode(dbnode *ring, int val) {
   q->prev = curr;
   curr->next->prev = q;
   curr->next = q;
-  if (val < curr->key)
-    return q;
-  else
-    return ring;
+  return (val < ring->key) ? q : ring;
 }
 
 dbnode *deleteNode(dbnode *ring, int val) {
@@ -136,12 +133,11 @@ dbnode *deleteNode(dbnode *ring, int val) {
 dbnode *freeRing(dbnode *ring) {
   if (!ring)
     return ring;
-  dbnode *p = ring->next;
-  while (p != ring) {
+  dbnode *p = ring;
+  do {
     dbnode *t = p;
     p = p->next;
     free(t);
-  }
-  free(p);
+  } while (p != ring);
   return NULL;
 }

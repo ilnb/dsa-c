@@ -130,12 +130,11 @@ node *deleteNode(node *ring, int val) {
 node *freeRing(node *ring) {
   if (!ring)
     return ring;
-  node *p = ring->next;
-  while (p != ring) {
+  node *p = ring;
+  do {
     node *t = p;
     p = p->next;
     free(t);
-  }
-  free(p);
+  } while (p != ring);
   return NULL;
 }
