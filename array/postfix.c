@@ -43,8 +43,6 @@ int main() {
   infixtopostfix(infix, str);
   int result = evaluatePostfix(str);
   printf("The result is %d\n", result);
-  memset(infix, 0, 30);
-  memset(str, 0, 30);
   return 0;
 }
 
