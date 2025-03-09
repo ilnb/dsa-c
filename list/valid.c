@@ -54,10 +54,7 @@ int validcheck(char *str) {
         return 0;
     }
   }
-  if (s)
-    return 0;
-  else
-    return 1;
+  return s ? 0 : 1;
 }
 
 int matchBrac(char c1, char c2) {
