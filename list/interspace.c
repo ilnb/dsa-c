@@ -1,6 +1,8 @@
 #include "node.h"
 
 node *interspace(node *, node *);
+node *newNode(int);
+node *newEnd(node *, int);
 
 int main(void) {
   node *head1 = NULL, *head2 = NULL;
@@ -23,40 +25,42 @@ int main(void) {
   return 0;
 }
 
+node *newNode(int val) {
+  node *p = malloc(sizeof(*p));
+  p->key = val;
+  p->next = NULL;
+  return p;
+}
+
+node *newEnd(node *end, int val) {
+  node *p = newNode(val);
+  end->next = p;
+  end = p;
+  return end;
+}
+
 node *interspace(node *head1, node *head2) {
-  if (head1 && !head2)
+  if (!head2)
     return head1;
   else if (!head1 && head2)
     return head2;
-  node *merged = NULL;
-  node *end, *p;
-  do {
-    p = malloc(sizeof(node));
-    p->key = head1->key;
-    p->next = NULL;
-    merged = p;
+  node *merged = newNode(head1->key);
+  head1 = head1->next;
+  node *end = newNode(head2->key);
+  head2 = head2->next;
+  merged->next = end;
+  while (head1 && head2) {
+    end = newEnd(end, head1->key);
     head1 = head1->next;
-    p = malloc(sizeof(node));
-    p->key = head2->key;
-    p->next = NULL;
-    merged->next = p;
-    end = p;
+    end = newEnd(end, head2->key);
     head2 = head2->next;
-  } while (head1 && head2);
+  }
   while (head1) {
-    p = malloc(sizeof(node));
-    p->key = head1->key;
-    p->next = NULL;
-    end->next = p;
-    end = p;
+    end = newEnd(end, head1->key);
     head1 = head1->next;
   }
   while (head2) {
-    p = malloc(sizeof(node));
-    p->key = head2->key;
-    p->next = NULL;
-    end->next = p;
-    end = p;
+    end = newEnd(end, head2->key);
     head2 = head2->next;
   }
   return merged;
