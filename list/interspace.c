@@ -1,8 +1,10 @@
 #include "node.h"
 
+#define newEnd(end, val) ((end)->next = newNode(val), (end) = (end)->next)
+
 node *interspace(node *, node *);
 node *newNode(int);
-node *newEnd(node *, int);
+node *copyList(node *);
 
 int main(void) {
   node *head1 = NULL, *head2 = NULL;
@@ -32,33 +34,45 @@ node *newNode(int val) {
   return p;
 }
 
-node *newEnd(node *end, int val) {
-  end->next = newNode(val);
-  return end->next;
+node *copyList(node *head) {
+  if (!head)
+    return NULL;
+  node *new = newNode(head->key);
+  head = head->next;
+  if (!head)
+    return new;
+  node *end = newNode(head->key);
+  head = head->next;
+  new->next = end;
+  while (head) {
+    newEnd(end, head->key);
+    head = head->next;
+  }
+  return new;
 }
 
 node *interspace(node *head1, node *head2) {
   if (!head2)
-    return head1;
+    return copyList(head1);
   else if (!head1 && head2)
-    return head2;
+    return copyList(head2);
   node *merged = newNode(head1->key);
   head1 = head1->next;
   node *end = newNode(head2->key);
   head2 = head2->next;
   merged->next = end;
   while (head1 && head2) {
-    end = newEnd(end, head1->key);
+    newEnd(end, head1->key);
     head1 = head1->next;
-    end = newEnd(end, head2->key);
+    newEnd(end, head2->key);
     head2 = head2->next;
   }
   while (head1) {
-    end = newEnd(end, head1->key);
+    newEnd(end, head1->key);
     head1 = head1->next;
   }
   while (head2) {
-    end = newEnd(end, head2->key);
+    newEnd(end, head2->key);
     head2 = head2->next;
   }
   return merged;
