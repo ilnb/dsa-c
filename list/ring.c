@@ -92,10 +92,7 @@ node *insertNode(node *ring, int val) {
     curr = curr->next;
   q->next = curr->next;
   curr->next = q;
-  if (val < ring->key)
-    return q;
-  else
-    return ring;
+  return (val < ring->key) ? q : ring;
 }
 
 node *deleteNode(node *ring, int val) {
