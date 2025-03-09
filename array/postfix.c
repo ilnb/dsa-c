@@ -190,7 +190,7 @@ int compute(int a, int b, char c) {
     case '*':
       return a * b;
     case '/':
-      return a / b;
+      return (b) ? a / b : 0;
     case '%':
       return a % b;
     default:
