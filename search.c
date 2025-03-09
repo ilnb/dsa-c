@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 int lSearch(int *, int, int);
 int binSearch(int *, int, int);
@@ -8,7 +7,7 @@ void inSort(int *, int);
 void printArr(int *, int);
 
 int main(void) {
-  int arr[] = {3, 2, 4, 0, 1};
+  int arr[5] = {3, 2, 4, 0, 1};
   printf("Unsorted array:\n");
   printArr(arr, 5);
   int n;
@@ -17,12 +16,16 @@ int main(void) {
   printf("Using linear search:\n");
   if (lSearch(arr, 5, n) != -1)
     printf("The item is found at index %d\n", lSearch(arr, 5, n));
+  else
+    printf("Item not found.\n");
   inSort(arr, 5);
   printf("Sorted array:\n");
   printArr(arr, 5);
   printf("Using binary search:\n");
   if (binSearch(arr, 5, n) != -1)
     printf("The item is found at index %d\n", binSearch(arr, 5, n));
+  else
+    printf("Item not found.\n");
   return 0;
 }
 
@@ -37,7 +40,6 @@ int lSearch(int *arr, int len, int item) {
     if (arr[i] == item)
       return i;
   }
-  printf("Item not found.\n");
   return -1;
 }
 
@@ -52,7 +54,6 @@ int binSearch(int *arr, int len, int item) {
     else
       return mid;
   }
-  printf("Item not found.\n");
   return -1;
 }
 

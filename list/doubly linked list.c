@@ -80,9 +80,8 @@ dbnode *sortedInsert(dbnode *head, int val) {
     return q;
   }
   dbnode *p = head;
-  while (p->next && val >= p->next->key) {
+  while (p->next && val >= p->next->key)
     p = p->next;
-  }
   q->next = p->next;
   q->prev = p;
   if (p->next)
@@ -92,14 +91,11 @@ dbnode *sortedInsert(dbnode *head, int val) {
 }
 
 dbnode *sortedDelete(dbnode *head, int val) {
-  if (!head) {
-    printf("Empty list\n");
+  if (!head)
     return head;
-  }
   dbnode **nptr = &head;
-  while (*nptr && (*nptr)->key < val) {
+  while (*nptr && (*nptr)->key < val)
     nptr = &(*nptr)->next;
-  }
   if (*nptr && (*nptr)->key == val) {
     dbnode *t = *nptr;
     *nptr = (*nptr)->next;

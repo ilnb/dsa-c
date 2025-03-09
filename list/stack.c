@@ -24,16 +24,18 @@ int main(void) {
       }
       case 2: {
         int n = pop(&top);
-        if (n != -1) {
+        if (n != -1)
           printf("Value popped is %d.\n", n);
-        }
+        else
+          printf("Empty stack\n");
         break;
       }
       case 3: {
         int n = peek(top);
-        if (n != -1) {
+        if (n != -1)
           printf("Value at the top is %d.\n", n);
-        }
+        else
+          printf("Empty stack\n");
         break;
       }
       case 4: {

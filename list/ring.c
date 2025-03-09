@@ -78,15 +78,18 @@ void printRing(node *ring) {
 
 node *insertNode(node *ring, int val) {
   node *q = malloc(sizeof(node));
+  if (!q) {
+    printf("Out of memory\n");
+    return ring;
+  }
   q->key = val;
   if (!ring) {
     q->next = q;
     return q;
   }
   node *curr = ring;
-  while (curr->next != ring && !(curr->key <= val && val < curr->next->key)) {
+  while (curr->next != ring && !(curr->key <= val && val < curr->next->key))
     curr = curr->next;
-  }
   q->next = curr->next;
   curr->next = q;
   if (val < ring->key)
@@ -96,10 +99,8 @@ node *insertNode(node *ring, int val) {
 }
 
 node *deleteNode(node *ring, int val) {
-  if (!ring) {
-    printf("Empty.\n");
+  if (!ring)
     return ring;
-  }
   if (val == ring->key) {
     node *t = ring;
     if (ring->next == ring) {
@@ -121,11 +122,10 @@ node *deleteNode(node *ring, int val) {
       node *t = p->next;
       p->next = t->next;
       free(t);
-    } else if (val > p->next->key) {
+    } else if (val > p->next->key)
       p = p->next;
-    } else {
+    else
       break;
-    }
   }
   return ring;
 }

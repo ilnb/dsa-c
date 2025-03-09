@@ -2,9 +2,9 @@
 
 void printMenu();
 int search(int *, int, int);
-void insert(int *, int *, int);
-void delete(int *, int *, int);
-void update(int *, int, int, int);
+void insertValue(int *, int *, int);
+void deleteIndex(int *, int *, int);
+void updateIndex(int *, int, int, int);
 void print(int *, int);
 
 int main(void) {
@@ -28,14 +28,14 @@ int main(void) {
         printf("Enter the value to be inserted: ");
         int val;
         scanf("%d", &val);
-        insert(arr, &n, val);
+        insertValue(arr, &n, val);
         break;
       }
       case 4: {
         printf("Enter the index to be deleted: ");
         int i;
         scanf("%d", &i);
-        delete (arr, &n, i);
+        deleteIndex(arr, &n, i);
         break;
       }
       case 5: {
@@ -44,7 +44,7 @@ int main(void) {
         scanf("%d", &i);
         printf("Enter the new value: ");
         scanf("%d", &val);
-        update(arr, n, i, val);
+        updateIndex(arr, n, i, val);
         break;
       }
       case 6:
@@ -93,7 +93,7 @@ int search(int *arr, int len, int value) {
   return -1;
 }
 
-void insert(int *arr, int *lenPtr, int value) {
+void insertValue(int *arr, int *lenPtr, int value) {
   if (value > arr[*lenPtr - 1]) {
     // largest number
     arr[*lenPtr] = value;
@@ -117,7 +117,7 @@ void insert(int *arr, int *lenPtr, int value) {
   }
 }
 
-void delete(int *arr, int *lenPtr, int index) {
+void deleteIndex(int *arr, int *lenPtr, int index) {
   if (index == *lenPtr - 1) {
     // largest entry
     --*lenPtr;
@@ -130,25 +130,8 @@ void delete(int *arr, int *lenPtr, int index) {
   --*lenPtr;
 }
 
-void update(int *arr, int len, int index, int value) {
-  for (int j = index; j < len - 1; j++) {
-    // "delete" the current value
-    arr[j] = arr[j + 1];
-  }
-  len--;
-  // insert function
-  if (value > arr[len - 1])
-    arr[len] = value;
-  else {
-    int i = 0;
-    for (int j = 1; j < len; j++) {
-      if (arr[j - 1] <= value && value < arr[j]) {
-        i = j;
-        break;
-      }
-    }
-    for (int j = len; j > i; j--)
-      arr[j] = arr[j - 1];
-    arr[i] = value;
-  }
+void updateIndex(int *arr, int len, int index, int value) {
+  int val = arr[index];
+  deleteIndex(arr, &len, index);
+  insertValue(arr, &len, val);
 }

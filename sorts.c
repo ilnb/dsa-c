@@ -91,12 +91,8 @@ void merge(int *arr, int low, int mid, int high) {
   memcpy(arrLow, arr + low, n1 * sizeof(int));
   memcpy(arrHigh, arr + mid + 1, n2 * sizeof(int));
   int i = 0, j = 0, k = low;
-  while (i < n1 && j < n2) {
-    if (arrLow[i] < arrHigh[j])
-      arr[k++] = arrLow[i++];
-    else
-      arr[k++] = arrHigh[j++];
-  }
+  while (i < n1 && j < n2)
+    arr[k++] = (arrLow[i] < arrHigh[j]) ? arrLow[i++] : arrHigh[j++];
   while (i < n1)
     arr[k++] = arrLow[i++];
   while (j < n2)
@@ -142,13 +138,11 @@ int partition(int *arr, int low, int high) {
   int pivot = arr[high];
   int i = low - 1;
   for (int j = low; j < high; j++) {
-    if (arr[j] < pivot) {
-      i++;
-      swap(arr + i, arr + j);
-    }
+    if (arr[j] < pivot)
+      swap(arr + ++i, arr + j);
   }
-  swap(arr + i + 1, arr + high);
-  return i + 1;
+  swap(arr + ++i, arr + high);
+  return i;
 }
 
 void quickSort(int *arr, int low, int high) {

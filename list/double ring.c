@@ -78,6 +78,10 @@ void printRing(dbnode *ring) {
 
 dbnode *insertNode(dbnode *ring, int val) {
   dbnode *q = malloc(sizeof(*q));
+  if (!q) {
+    printf("Out of memory\n");
+    return ring;
+  }
   q->key = val;
   if (!ring) {
     q->prev = q;
@@ -85,9 +89,8 @@ dbnode *insertNode(dbnode *ring, int val) {
     return q;
   }
   dbnode *curr = ring;
-  while (curr->next != ring && !(curr->key <= val && val < curr->next->key)) {
+  while (curr->next != ring && !(curr->key <= val && val < curr->next->key))
     curr = curr->next;
-  }
   q->next = curr->next;
   q->prev = curr;
   curr->next->prev = q;
@@ -99,10 +102,8 @@ dbnode *insertNode(dbnode *ring, int val) {
 }
 
 dbnode *deleteNode(dbnode *ring, int val) {
-  if (!ring) {
-    printf("Empty.");
+  if (!ring)
     return ring;
-  }
   if (val == ring->key) {
     dbnode *t = ring;
     if (ring->next == ring) {

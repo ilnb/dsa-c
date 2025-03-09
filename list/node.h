@@ -13,29 +13,29 @@ typedef struct node {
 
 node *sortedInsert(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
+  if (!p) {
+    printf("Out of memory.\n");
+    return head;
+  }
   p->key = val;
   if (!head || val < head->key) {
     p->next = head;
     return p;
   }
   node *q = head;
-  while (q->next && val >= q->next->key) {
+  while (q->next && val >= q->next->key)
     q = q->next;
-  }
   p->next = q->next;
   q->next = p;
   return head;
 }
 
 node *sortedDelete(node *head, int val) {
-  if (!head) {
-    printf("Empty list.\n");
+  if (!head)
     return head;
-  }
   node **nptr = &head;
-  while (*nptr && (*nptr)->key < val) {
+  while (*nptr && (*nptr)->key < val)
     nptr = &(*nptr)->next;
-  }
   if (*nptr && (*nptr)->key == val) {
     node *t = *nptr;
     *nptr = (*nptr)->next;
@@ -46,6 +46,10 @@ node *sortedDelete(node *head, int val) {
 
 node *insertStart(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
+  if (!p) {
+    printf("Out of memory.\n");
+    return NULL;
+  }
   p->key = val;
   p->next = head;
   return p;
@@ -53,28 +57,27 @@ node *insertStart(node *head, int val) {
 
 node *insertEnd(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
+  if (!p) {
+    printf("Out of memory.\n");
+    return NULL;
+  }
   p->key = val;
   p->next = NULL;
-  if (!head) {
+  if (!head)
     return p;
-  }
   node *q = head;
-  while (q->next) {
+  while (q->next)
     q = q->next;
-  }
   q->next = p;
   return head;
 }
 
 node *deleteNode(node *head, int val) {
-  if (!head) {
-    printf("Empty list.\n");
+  if (!head)
     return head;
-  }
   node **nptr = &head;
-  while (*nptr && (*nptr)->key != val) {
+  while (*nptr && (*nptr)->key != val)
     nptr = &(*nptr)->next;
-  }
   if (*nptr) {
     node *t = *nptr;
     *nptr = (*nptr)->next;
@@ -105,10 +108,8 @@ int lengthList(node *head) {
 }
 
 node *freeList(node *head) {
-  if (!head) {
-    printf("Empty list.\n");
+  if (!head)
     return head;
-  }
   while (head) {
     node *t = head;
     head = head->next;
@@ -136,6 +137,7 @@ void insertHStart(hnode *h_ptr, int val) {
   node *q = (node *)malloc(sizeof(node));
   if (!q) {
     printf("Out of memory.\n");
+    return;
   }
   q->key = val;
   q->next = h_ptr->start;
@@ -150,6 +152,7 @@ void insertHEnd(hnode *h_ptr, int val) {
   node *q = (node *)malloc(sizeof(node));
   if (!q) {
     printf("Out of memory.\n");
+    return;
   }
   q->key = val;
   q->next = NULL;
@@ -163,10 +166,8 @@ void insertHEnd(hnode *h_ptr, int val) {
 }
 
 void deleteHnode(hnode *h_ptr, int val) {
-  if (!h_ptr->start) {
-    printf("Empty list.\n");
+  if (!h_ptr->start)
     return;
-  }
   if (val == h_ptr->start->key) {
     node *t = h_ptr->start;
     h_ptr->start = t->next;
@@ -193,10 +194,8 @@ int displayHCount(hnode h) {
 }
 
 void freeHnode(hnode *h_ptr) {
-  if (!h_ptr->start) {
-    printf("Empty list.");
+  if (!h_ptr->start)
     return;
-  }
   while (h_ptr->start) {
     node *t = h_ptr->start;
     h_ptr->start = t->next;
@@ -208,9 +207,8 @@ void freeHnode(hnode *h_ptr) {
 void varFreeHnode(int count, ...) {
   va_list ptr;
   va_start(ptr, count);
-  for (int i = 0; i < count; i++) {
+  for (int i = 0; i < count; i++)
     freeHnode(va_arg(ptr, hnode *));
-  }
   va_end(ptr);
 }
 
@@ -227,20 +225,17 @@ void enqueue(queue *q_ptr, int val) {
   }
   t->key = val;
   t->next = NULL;
-  if (!q_ptr->rear) {
+  if (!q_ptr->rear)
     q_ptr->front = t;
-  } else {
+  else
     q_ptr->rear->next = t;
-  }
   q_ptr->rear = t;
   q_ptr->count++;
 }
 
 int dequeue(queue *q_ptr) {
-  if (!q_ptr->front) {
-    printf("The queue is empty.\n");
+  if (!q_ptr->front)
     return -1;
-  }
   node *t = q_ptr->front;
   int n = t->key;
   q_ptr->front = t->next;
@@ -259,7 +254,7 @@ void displayQueue(queue q) {
     printf("%d->", q.front->key);
     q.front = q.front->next;
   }
-  printf("NULL\n");
+  printf("\b\b<-REAR\n");
 }
 
 int displayQCount(queue q) {
@@ -268,10 +263,8 @@ int displayQCount(queue q) {
 }
 
 void freeQueue(queue *q_ptr) {
-  if (!q_ptr->front) {
-    printf("Empty list.\n");
+  if (!q_ptr->front)
     return;
-  }
   while (q_ptr->front) {
     node *t = q_ptr->front;
     q_ptr->front = t->next;
@@ -283,9 +276,8 @@ void freeQueue(queue *q_ptr) {
 void varFreeQueue(int count, ...) {
   va_list ptr;
   va_start(ptr, count);
-  for (int i = 0; i < count; i++) {
+  for (int i = 0; i < count; i++)
     free(va_arg(ptr, queue *));
-  }
   va_end(ptr);
 }
 
@@ -306,10 +298,8 @@ void push(stack **t, int val) {
 }
 
 int pop(stack **t) {
-  if (!*t) {
-    printf("Stack is empty.\n");
+  if (!*t)
     return -1;
-  }
   stack *q = *t;
   int n = q->key;
   *t = (*t)->next;
@@ -318,10 +308,8 @@ int pop(stack **t) {
 }
 
 int peek(stack *t) {
-  if (!t) {
-    printf("Stack is empty.\n");
+  if (!t)
     return -1;
-  }
   return t->key;
 }
 
@@ -335,10 +323,8 @@ void displayStack(stack *t) {
 }
 
 stack *freeStack(stack *top) {
-  if (!top) {
-    printf("Empty list.\n");
+  if (!top)
     return top;
-  }
   while (top) {
     stack *t = top;
     top = top->next;

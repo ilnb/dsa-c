@@ -19,9 +19,10 @@ int main(void) {
       }
       case 2: {
         int n = dequeue(&q);
-        if (n != -1) {
+        if (n != -1)
           printf("Value dequeued: %d.\n", n);
-        }
+        else
+          printf("Empty queue.\n");
         break;
       }
       case 3: {
