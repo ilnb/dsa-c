@@ -108,8 +108,6 @@ int lengthList(node *head) {
 }
 
 node *freeList(node *head) {
-  if (!head)
-    return head;
   while (head) {
     node *t = head;
     head = head->next;
@@ -323,8 +321,6 @@ void displayStack(stack *t) {
 }
 
 stack *freeStack(stack *top) {
-  if (!top)
-    return top;
   while (top) {
     stack *t = top;
     top = top->next;
