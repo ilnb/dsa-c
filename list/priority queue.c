@@ -32,7 +32,7 @@ int main() {
       }
       case 2: {
         pnode n = pDequeue(&head);
-        if (n.key != -1) {
+        if (!n.next) {
           printf("The value dequeued : %d\n", n.key);
           printf("Its priority: %d\n", n.rank);
         } else
@@ -84,7 +84,7 @@ void pEnqueue(pnode **hptr, int val, int pri) {
 
 pnode pDequeue(pnode **hptr) {
   if (!*hptr)
-    return (pnode){-1, 0, 0};
+    return (pnode){0, 0, 0};
   pnode *t = *hptr;
   *hptr = (*hptr)->next;
   return *t;
