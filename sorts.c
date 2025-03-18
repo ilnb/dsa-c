@@ -9,6 +9,8 @@ void mergeSort(int *, int, int);
 void countingSort(int *, int);
 int partition(int *, int, int);
 void quickSort(int *, int, int);
+void maxHeapify(int *, int, int);
+void heapSort(int *, int);
 void swap(int *, int *);
 
 int main(void) {
@@ -40,6 +42,10 @@ int main(void) {
   memcpy(arr, temp, 5 * sizeof(int));
   printf("Sorted by counting sort:\n");
   countingSort(arr, 5);
+  printArr(arr, 5);
+  memcpy(arr, temp, 5 * sizeof(int));
+  printf("Sorted by heap sort:\n");
+  heapSort(arr, 5);
   printArr(arr, 5);
   freeArrs(2, &arr, &temp);
   return 0;
@@ -150,5 +156,30 @@ void quickSort(int *arr, int low, int high) {
     int pi = partition(arr, low, high);
     quickSort(arr, low, pi - 1);
     quickSort(arr, pi + 1, high);
+  }
+}
+
+void maxHeapify(int *arr, int size, int index) {
+  int lChild = 2 * index + 1;
+  int rChild = 2 * index + 2;
+  int pIndex = index;
+  if (lChild < size && arr[lChild] > arr[pIndex])
+    pIndex = lChild;
+  if (rChild < size && arr[rChild] > arr[pIndex])
+    pIndex = rChild;
+  if (pIndex != index) {
+    swap(arr + index, arr + pIndex);
+    maxHeapify(arr, size, pIndex);
+  }
+}
+
+void heapSort(int *arr, int size) {
+  int i = size / 2 - 1;
+  while (i >= 0)
+    maxHeapify(arr, size, i--);
+  while (size) {
+    int n = arr[0];
+    swap(arr, arr + --size);
+    maxHeapify(arr, size, 0);
   }
 }
