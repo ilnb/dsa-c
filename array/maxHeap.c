@@ -46,6 +46,18 @@ int main() {
   } while (option != 4);
 }
 
+void swap(int *a, int *b) {
+  int t = *b;
+  *b = *a;
+  *a = t;
+}
+
+void printArr(int *arr, int len) {
+  for (int i = 0; i < len; i++)
+    printf("%3d", arr[i]);
+  printf("\n");
+}
+
 void menu() {
   printf("1. Insert value\n");
   printf("2. Delete max value\n");
@@ -93,16 +105,4 @@ int deleteMax(int *arr, int *size_p) {
     return n;
   }
   return -1;
-}
-
-void swap(int *a, int *b) {
-  int t = *b;
-  *b = *a;
-  *a = t;
-}
-
-void printArr(int *arr, int len) {
-  for (int i = 0; i < len; i++)
-    printf("%3d", arr[i]);
-  printf("\n");
 }
