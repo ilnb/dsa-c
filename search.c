@@ -67,7 +67,6 @@ int binSearchRec(int *arr, int low, int high, int item) {
     else
       return mid;
   }
-  printf("Item not found.\n");
   return -1;
 }
 
