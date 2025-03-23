@@ -1,5 +1,4 @@
 #include "node.h"
-#include <string.h>
 
 // #define newEnd(end, val) ((end)->next = newNode(val), (end) = (end)->next)
 
