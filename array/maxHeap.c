@@ -12,7 +12,6 @@ void insert(int *, int *, int);
 int deleteMax(int *, int *);
 int isKeyLine(int *, int, int);
 void printHeap(int *, int);
-int line;
 
 int main() {
   int arr[MAX], size = 15;
@@ -131,12 +130,9 @@ void printHeap(int *arr, int size) {
   int *keyLines = calloc(depth, sizeof(int));
   for (int i = 1; i < depth; i++)
     keyLines[i] = 3 * (1 << (i - 1)) - 1;
-  line = depth >= 2 ? 3 * (1 << (depth - 2)) - 1 : ((depth == 1) ? 3 : 1);
-  int maxSlash;
+  int line = depth >= 2 ? 3 * (1 << (depth - 2)) - 1 : ((depth == 1) ? 3 : 1);
   while (line >= 0 && depth) {
-    // print Init spaces
-    // loop through the values
-    // print all other slashes
+    // print initial spaces
     if (depth == 2)
       printf(" ");
     else if (depth > 2) {
@@ -144,6 +140,8 @@ void printHeap(int *arr, int size) {
         printf(" ");
     }
     int ln = 1 + (int)log2(size) - depth;
+    int maxSlash;
+    // print the values
     if (isKeyLine(keyLines, size, line)) {
       if (depth == 2)
         printf(" ");
@@ -164,7 +162,9 @@ void printHeap(int *arr, int size) {
           printf(" ");
       }
       printf("%2d\n", arr[rIndex]);
-    } else {
+    }
+    // or the slashes
+    else {
       int diff = keyLines[depth - 1] - line, slash = 0;
       for (int i = 0; i < (1 << ln) - 1 && slash < maxSlash; i++) {
         if (slash < maxSlash) {
@@ -197,4 +197,5 @@ void printHeap(int *arr, int size) {
       depth--;
   }
   printf("\n");
+  free(keyLines);
 }
