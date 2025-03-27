@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 typedef struct tree {
   int key;
   struct tree *left, *right;
@@ -56,4 +57,36 @@ void postorderPrint(tree *root) {
   postorderPrint(root->left);
   postorderPrint(root->right);
   printf("%d ", root->key);
+}
+
+int sameTree(tree *root1, tree *root2) {
+  if (!root1 && !root2)
+    return 1;
+  if (!root1 || !root2)
+    return 0;
+  int ptsame = root1->key == root2->key;
+  int lsame = sameTree(root1->left, root2->left);
+  int rsame = sameTree(root1->right, root2->right);
+  return ptsame && lsame && rsame;
+}
+
+int mirrorTree(tree *root1, tree *root2) {
+  if (!root1 && !root2)
+    return 1;
+  if (!root1 || !root2)
+    return 0;
+  int ptsame = root1->key == root2->key;
+  int lmirror = sameTree(root1->left, root2->right);
+  int rmirror = sameTree(root1->right, root2->left);
+  return ptsame && lmirror && rmirror;
+}
+
+tree *copyTree(tree *root) {
+  if (!root)
+    return NULL;
+  tree *new = malloc(sizeof(tree));
+  new->key = root->key;
+  new->left = copyTree(root->left);
+  new->right = copyTree(root->right);
+  return new;
 }
