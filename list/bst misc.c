@@ -40,7 +40,6 @@ void inorderPrint(tree *root) {
   inorderPrint(root->left);
   printf("%d ", root->key);
   inorderPrint(root->right);
-  printf("\n");
 }
 
 void preorderPrint(tree *root) {
@@ -49,7 +48,6 @@ void preorderPrint(tree *root) {
   printf("%d ", root->key);
   preorderPrint(root->left);
   preorderPrint(root->right);
-  printf("\n");
 }
 
 void postorderPrint(tree *root) {
@@ -58,5 +56,4 @@ void postorderPrint(tree *root) {
   postorderPrint(root->left);
   postorderPrint(root->right);
   printf("%d ", root->key);
-  printf("\n");
 }
