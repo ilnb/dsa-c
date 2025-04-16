@@ -2,8 +2,9 @@
 #include <stdlib.h>
 
 typedef struct tree {
+  struct tree *left;
   int key;
-  struct tree *left, *right;
+  struct tree *right;
 } tree;
 
 void menu();
