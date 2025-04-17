@@ -237,6 +237,8 @@ int dequeue(queue *q_ptr) {
   node *t = q_ptr->front;
   int n = t->key;
   q_ptr->front = t->next;
+  if (!q_ptr->front)
+    q_ptr->rear = 0;
   free(t);
   q_ptr->count--;
   return n;
