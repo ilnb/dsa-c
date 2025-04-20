@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct tree {
+typedef struct bst {
   int key;
-  struct tree *left, *right;
-} tree;
+  struct bst *left, *right;
+} bst;
 
-int heightTree(tree *root) {
+int heightBst(bst *root) {
   if (!root)
     return 0;
-  int hl = heightTree(root->left);
-  int hr = heightTree(root->right);
+  int hl = heightBst(root->left);
+  int hr = heightBst(root->right);
   return 1 + (hl > hr ? hl : hr);
 }
 
-int nodeCount(tree *root) {
+int nodeCount(bst *root) {
   if (!root)
     return 0;
   return 1 + nodeCount(root->left) + nodeCount(root->right);
 }
 
-int minValue(tree *root) {
+int minValue(bst *root) {
   if (!root)
     return -69;
   while (root->left)
@@ -27,7 +27,7 @@ int minValue(tree *root) {
   return root->key;
 }
 
-int maxValue(tree *root) {
+int maxValue(bst *root) {
   if (!root)
     return -69;
   while (root->right)
@@ -35,7 +35,7 @@ int maxValue(tree *root) {
   return root->key;
 }
 
-void inorderPrint(tree *root) {
+void inorderPrint(bst *root) {
   if (!root)
     return;
   inorderPrint(root->left);
@@ -43,7 +43,7 @@ void inorderPrint(tree *root) {
   inorderPrint(root->right);
 }
 
-void preorderPrint(tree *root) {
+void preorderPrint(bst *root) {
   if (!root)
     return;
   printf("%d ", root->key);
@@ -51,7 +51,7 @@ void preorderPrint(tree *root) {
   preorderPrint(root->right);
 }
 
-void postorderPrint(tree *root) {
+void postorderPrint(bst *root) {
   if (!root)
     return;
   postorderPrint(root->left);
@@ -59,34 +59,34 @@ void postorderPrint(tree *root) {
   printf("%d ", root->key);
 }
 
-int sameTree(tree *root1, tree *root2) {
+int sameBst(bst *root1, bst *root2) {
   if (!root1 && !root2)
     return 1;
   if (!root1 || !root2)
     return 0;
   int ptsame = root1->key == root2->key;
-  int lsame = sameTree(root1->left, root2->left);
-  int rsame = sameTree(root1->right, root2->right);
+  int lsame = sameBst(root1->left, root2->left);
+  int rsame = sameBst(root1->right, root2->right);
   return ptsame && lsame && rsame;
 }
 
-int mirrorTree(tree *root1, tree *root2) {
+int mirrorBst(bst *root1, bst *root2) {
   if (!root1 && !root2)
     return 1;
   if (!root1 || !root2)
     return 0;
   int ptsame = root1->key == root2->key;
-  int lmirror = sameTree(root1->left, root2->right);
-  int rmirror = sameTree(root1->right, root2->left);
+  int lmirror = sameBst(root1->left, root2->right);
+  int rmirror = sameBst(root1->right, root2->left);
   return ptsame && lmirror && rmirror;
 }
 
-tree *copyTree(tree *root) {
+bst *copyBst(bst *root) {
   if (!root)
     return NULL;
-  tree *new = malloc(sizeof(tree));
+  bst *new = malloc(sizeof(bst));
   new->key = root->key;
-  new->left = copyTree(root->left);
-  new->right = copyTree(root->right);
+  new->left = copyBst(root->left);
+  new->right = copyBst(root->right);
   return new;
 }

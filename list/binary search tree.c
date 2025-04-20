@@ -1,23 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct tree {
-  struct tree *left;
+typedef struct bst {
+  struct bst *left;
   int key;
-  struct tree *right;
-} tree;
+  struct bst *right;
+} bst;
 
 void menu();
-tree *newNode(int);
-tree *insertNode(tree *, int);
-tree *deleteNode(tree *, int);
-tree *searchInTree(tree *, int);
-tree *freeTree(tree *);
-int minValue(tree *);
-int inorderPrint(tree *);
+bst *newNode(int);
+bst *insertNode(bst *, int);
+bst *deleteNode(bst *, int);
+bst *searchInBst(bst *, int);
+bst *freeBst(bst *);
+int minValue(bst *);
+int inorderPrint(bst *);
 
 int main() {
-  tree *root = NULL;
+  bst *root = NULL;
   int option = 0;
   do {
     menu();
@@ -42,20 +42,20 @@ int main() {
         printf("Inorder: ");
         int n = inorderPrint(root);
         if (!n)
-          printf("Empty tree.\n");
+          printf("Empty bst.\n");
         else
           printf("\n");
         break;
       }
       case 4: {
-        root = freeTree(root);
+        root = freeBst(root);
         break;
       }
       case 5: {
         printf("Enter the value: ");
         int val;
         scanf("%d", &val);
-        tree *n = searchInTree(root, val);
+        bst *n = searchInBst(root, val);
         if (n)
           printf("Value found.\n");
         else
@@ -73,25 +73,25 @@ int main() {
 void menu() {
   printf("1. Insert a new node\n");
   printf("2. Delete a node\n");
-  printf("3. Print the tree\n");
-  printf("4. Free the tree\n");
+  printf("3. Print the bst\n");
+  printf("4. Free the bst\n");
   printf("5. Search a value\n");
   printf("6. Exit\n");
 }
 
-tree *newNode(int val) {
-  tree *q = malloc(sizeof(*q));
+bst *newNode(int val) {
+  bst *q = malloc(sizeof(*q));
   q->key = val;
   q->left = NULL;
   q->right = NULL;
   return q;
 }
 
-tree *insertNode(tree *root, int val) {
-  tree *t = newNode(val);
+bst *insertNode(bst *root, int val) {
+  bst *t = newNode(val);
   if (!root)
     return t;
-  tree *p = root;
+  bst *p = root;
   while (1) {
     if (p->left && val < p->key)
       p = p->left;
@@ -107,10 +107,10 @@ tree *insertNode(tree *root, int val) {
   return root;
 }
 
-tree *deleteNode(tree *root, int val) {
+bst *deleteNode(bst *root, int val) {
   if (!root)
     return root;
-  tree *q = NULL, *p = root;
+  bst *q = NULL, *p = root;
   while (p && val != p->key) {
     if (val < p->key) {
       q = p;
@@ -138,7 +138,7 @@ tree *deleteNode(tree *root, int val) {
   }
   // case 2: single child
   if (!p->left || !p->right) {
-    tree *r;
+    bst *r;
     r = p->left ? p->left : p->right;
     if (!q) {
       free(p);
@@ -160,27 +160,27 @@ tree *deleteNode(tree *root, int val) {
   return root;
 }
 
-tree *searchInTree(tree *root, int val) {
+bst *searchInBst(bst *root, int val) {
   if (!root)
     return NULL;
   if (val < root->key)
-    return searchInTree(root->left, val);
+    return searchInBst(root->left, val);
   else if (val > root->key)
-    return searchInTree(root->right, val);
+    return searchInBst(root->right, val);
   else
     return root;
 }
 
-tree *freeTree(tree *root) {
+bst *freeBst(bst *root) {
   if (!root)
     return NULL;
-  freeTree(root->left);
-  freeTree(root->right);
+  freeBst(root->left);
+  freeBst(root->right);
   free(root);
   return NULL;
 }
 
-int inorderPrint(tree *root) {
+int inorderPrint(bst *root) {
   if (!root) {
     return 0;
   }
@@ -190,7 +190,7 @@ int inorderPrint(tree *root) {
   return 1;
 }
 
-int minValue(tree *root) {
+int minValue(bst *root) {
   if (!root)
     return -69;
   while (root->left)
