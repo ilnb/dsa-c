@@ -136,8 +136,10 @@ void bfs(graph g) {
 void free_graph(graph *g) {
   for (int i = 0; i < g->vcount; i++) {
     free(g->vert[i].neigh);
+    g->vert[i].neigh = NULL;
     g->vert[i].ncount = 0;
   }
   free(g->vert);
+  g->vert = NULL;
   g->vcount = 0;
 }

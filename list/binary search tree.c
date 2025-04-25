@@ -138,8 +138,7 @@ bst *deleteNode(bst *root, int val) {
   }
   // case 2: single child
   if (!p->left || !p->right) {
-    bst *r;
-    r = p->left ? p->left : p->right;
+    bst *r = p->left ? p->left : p->right;
     if (!q) {
       free(p);
       return r;
