@@ -70,6 +70,16 @@ int sameBst(bst *root1, bst *root2) {
   return ptsame && lsame && rsame;
 }
 
+int sameStructure(bst *root1, bst *root2) {
+  if (!root1 && !root2)
+    return 1;
+  if (!root1 || !root2)
+    return 0;
+  int l = sameStructure(root1->left, root2->left);
+  int r = sameStructure(root1->right, root2->right);
+  return l && r;
+}
+
 int mirrorBst(bst *root1, bst *root2) {
   if (!root1 && !root2)
     return 1;
