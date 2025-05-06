@@ -2,8 +2,9 @@
 #include <stdlib.h>
 
 typedef struct dbnode {
+  struct dbnode *prev;
   int key;
-  struct dbnode *next, *prev;
+  struct dbnode *next;
 } dbnode;
 
 void menu(void);

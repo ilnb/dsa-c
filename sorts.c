@@ -177,7 +177,6 @@ void heapSort(int *arr, int size) {
   while (i >= 0)
     maxHeapify(arr, size, i--);
   while (size) {
-    int n = arr[0];
     swap(arr, arr + --size);
     maxHeapify(arr, size, 0);
   }

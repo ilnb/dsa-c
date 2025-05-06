@@ -77,16 +77,18 @@ void makeMinHeap(int *arr, int size) {
 }
 
 void minHeapify(int *arr, int size, int index) {
-  int lChild = 2 * index + 1;
-  int rChild = 2 * index + 2;
-  int pIndex = index;
-  if (lChild < size && arr[lChild] < arr[pIndex])
-    pIndex = lChild;
-  if (rChild < size && arr[rChild] < arr[pIndex])
-    pIndex = rChild;
-  if (pIndex != index) {
+  while (1) {
+    int lChild = 2 * index + 1;
+    int rChild = 2 * index + 2;
+    int pIndex = index;
+    if (lChild < size && arr[lChild] < arr[pIndex])
+      pIndex = lChild;
+    if (rChild < size && arr[rChild] < arr[pIndex])
+      pIndex = rChild;
+    if (pIndex == index)
+      break;
     swap(arr + index, arr + pIndex);
-    minHeapify(arr, size, pIndex);
+    index = pIndex;
   }
 }
 

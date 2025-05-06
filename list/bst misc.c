@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 typedef struct bst {
@@ -100,3 +101,14 @@ bst *copyBst(bst *root) {
   new->right = copyBst(root->right);
   return new;
 }
+
+int isValidBstHelper(bst *root, int min, int max) {
+  if (!root)
+    return 1;
+  if (root->key <= min || root->key >= max)
+    return 0;
+  return isValidBstHelper(root->left, min, root->key) &&
+         isValidBstHelper(root->right, root->key, max);
+}
+
+int validBst(bst *root) { return isValidBstHelper(root, INT_MIN, INT_MAX); }
