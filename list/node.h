@@ -87,10 +87,6 @@ node *deleteNode(node *head, int val) {
 }
 
 void displayList(node *head) {
-  if (!head) {
-    printf("Empty list.\n");
-    return;
-  }
   while (head) {
     printf("%d->", head->key);
     head = head->next;
@@ -139,9 +135,8 @@ void insertHStart(hnode *h_ptr, int val) {
   }
   q->key = val;
   q->next = h_ptr->start;
-  if (!h_ptr->start) {
+  if (!h_ptr->start)
     h_ptr->end = q;
-  }
   h_ptr->start = q;
   h_ptr->count++;
 }
@@ -154,11 +149,10 @@ void insertHEnd(hnode *h_ptr, int val) {
   }
   q->key = val;
   q->next = NULL;
-  if (!h_ptr->end) {
+  if (!h_ptr->end)
     h_ptr->start = q;
-  } else {
+  else
     h_ptr->end->next = q;
-  }
   h_ptr->end = q;
   h_ptr->count++;
 }
@@ -170,6 +164,8 @@ void deleteHnode(hnode *h_ptr, int val) {
     node *t = h_ptr->start;
     h_ptr->start = t->next;
     free(t);
+    if (!h_ptr->start)
+      h_ptr->end = NULL;
     h_ptr->count--;
     return;
   }
@@ -178,6 +174,8 @@ void deleteHnode(hnode *h_ptr, int val) {
     if (q->next->key == val) {
       node *t = q->next;
       q->next = t->next;
+      if (!q->next)
+        h_ptr->end = q;
       free(t);
       h_ptr->count--;
       return;
