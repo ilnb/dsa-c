@@ -61,8 +61,9 @@ sparse *createSparse(int **mat, int row, int col) {
 
 void printFromSparse(sparse *sparseMat) {
   int k = 1;
-  for (int i = 0; i < sparseMat[0].row; i++) {
-    for (int j = 0; j < sparseMat[0].col; j++) {
+  const int row = sparseMat[0].row, col = sparseMat[0].col;
+  for (int i = 0; i < row; i++) {
+    for (int j = 0; j < col; j++) {
       if (k <= sparseMat[0].val && i == sparseMat[k].row &&
           j == sparseMat[k].col)
         printf("%3d", sparseMat[k++].val);
@@ -95,7 +96,7 @@ sparse *addSparse(sparse *a, sparse *b) {
   while (j <= b[0].val)
     count++, j++;
   sparse *add = malloc((count + 1) * sizeof(*add));
-  add[0] = (sparse){a[0].row, a[0].col};
+  add[0] = (sparse){a[0].row, a[0].col, count};
   i = 1, j = 1;
   int k = 1;
   while (i <= a[0].val && j <= b[0].val) {
@@ -106,7 +107,7 @@ sparse *addSparse(sparse *a, sparse *b) {
       }
       i++, j++;
     } else if (a[i].row < b[j].row ||
-               (a[i].row == b[j].row && a[i].col < b[j].col))
+               a[i].row == b[j].row && a[i].col < b[j].col)
       add[k++] = a[i++];
     else
       add[k++] = b[j++];
@@ -115,7 +116,6 @@ sparse *addSparse(sparse *a, sparse *b) {
     add[k++] = a[i++];
   while (j <= b[0].val)
     add[k++] = b[j++];
-  add[0].val = k - 1;
   return add;
 }
 

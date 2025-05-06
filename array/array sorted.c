@@ -118,6 +118,9 @@ void insertValue(int *arr, int *lenPtr, int value) {
 }
 
 void deleteIndex(int *arr, int *lenPtr, int index) {
+  // invalid index
+  if (index >= *lenPtr)
+    return;
   if (index == *lenPtr - 1) {
     // largest entry
     --*lenPtr;
@@ -131,7 +134,8 @@ void deleteIndex(int *arr, int *lenPtr, int index) {
 }
 
 void updateIndex(int *arr, int len, int index, int value) {
-  int val = arr[index];
+  if (index >= len)
+    return;
   deleteIndex(arr, &len, index);
-  insertValue(arr, &len, val);
+  insertValue(arr, &len, value);
 }

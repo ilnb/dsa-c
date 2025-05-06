@@ -88,23 +88,6 @@ void selSort(int *arr, int len) {
   }
 }
 
-void merge(int *arr, int low, int mid, int high) {
-  int n1 = mid - low + 1;
-  int n2 = high - mid;
-  int *arrLow = Arr(n1);
-  int *arrHigh = Arr(n2);
-  memcpy(arrLow, arr + low, n1 * sizeof(int));
-  memcpy(arrHigh, arr + mid + 1, n2 * sizeof(int));
-  int i = 0, j = 0, k = low;
-  while (i < n1 && j < n2)
-    arr[k++] = (arrLow[i] < arrHigh[j]) ? arrLow[i++] : arrHigh[j++];
-  while (i < n1)
-    arr[k++] = arrLow[i++];
-  while (j < n2)
-    arr[k++] = arrHigh[j++];
-  freeArrs(2, &arrHigh, &arrLow);
-}
-
 void countingSort(int *arr, int len) {
   int min = arr[0];
   int max = arr[0];
@@ -120,7 +103,7 @@ void countingSort(int *arr, int len) {
     count[arr[i] - min]++;
   int *t = Arr(countLen);
   t[0] = 0;
-  for (int i = 0; i < countLen; i++)
+  for (int i = 1; i < countLen; i++)
     t[i] = t[i - 1] + count[i - 1];
   int *temp = Arr(len);
   for (int i = 0; i < len; i++)
@@ -128,6 +111,23 @@ void countingSort(int *arr, int len) {
   for (int i = 0; i < len; i++)
     arr[i] = temp[i];
   freeArrs(3, &temp, &count, &t);
+}
+
+void merge(int *arr, int low, int mid, int high) {
+  int n1 = mid - low + 1;
+  int n2 = high - mid;
+  int *arrLow = Arr(n1);
+  int *arrHigh = Arr(n2);
+  memcpy(arrLow, arr + low, n1 * sizeof(int));
+  memcpy(arrHigh, arr + mid + 1, n2 * sizeof(int));
+  int i = 0, j = 0, k = low;
+  while (i < n1 && j < n2)
+    arr[k++] = (arrLow[i] < arrHigh[j]) ? arrLow[i++] : arrHigh[j++];
+  while (i < n1)
+    arr[k++] = arrLow[i++];
+  while (j < n2)
+    arr[k++] = arrHigh[j++];
+  freeArrs(2, &arrHigh, &arrLow);
 }
 
 void mergeSort(int *arr, int low, int high) {
@@ -159,16 +159,18 @@ void quickSort(int *arr, int low, int high) {
 }
 
 void maxHeapify(int *arr, int size, int index) {
-  int lChild = 2 * index + 1;
-  int rChild = 2 * index + 2;
-  int pIndex = index;
-  if (lChild < size && arr[lChild] > arr[pIndex])
-    pIndex = lChild;
-  if (rChild < size && arr[rChild] > arr[pIndex])
-    pIndex = rChild;
-  if (pIndex != index) {
+  while (1) {
+    int lChild = 2 * index + 1;
+    int rChild = 2 * index + 2;
+    int pIndex = index;
+    if (lChild < size && arr[lChild] > arr[pIndex])
+      pIndex = lChild;
+    if (rChild < size && arr[rChild] > arr[pIndex])
+      pIndex = rChild;
+    if (pIndex == index)
+      break;
     swap(arr + index, arr + pIndex);
-    maxHeapify(arr, size, pIndex);
+    index = pIndex;
   }
 }
 
