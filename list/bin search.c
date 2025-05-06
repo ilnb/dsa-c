@@ -43,6 +43,8 @@ node *sortedInsert(node *head, int val) {
 node *binSearch(node *head, node *end, int val) {
   if (!head)
     return NULL;
+  else if (head->key == val)
+    return head;
   else if (head != end) {
     node *fast = head->next, *slow = head;
     while (fast && fast != end) {
@@ -58,7 +60,6 @@ node *binSearch(node *head, node *end, int val) {
       return binSearch(slow->next, fast, val);
     else
       return binSearch(head, slow, val);
-  } else if (head->key == val)
-    return head;
+  }
   return NULL;
 }

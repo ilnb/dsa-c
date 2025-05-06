@@ -107,8 +107,9 @@ int isValidBstHelper(bst *root, int min, int max) {
     return 1;
   if (root->key <= min || root->key >= max)
     return 0;
-  return isValidBstHelper(root->left, min, root->key) &&
-         isValidBstHelper(root->right, root->key, max);
+  int l = isValidBstHelper(root->left, min, root->key);
+  int r = isValidBstHelper(root->right, root->key, max);
+  return l && r;
 }
 
 int validBst(bst *root) { return isValidBstHelper(root, INT_MIN, INT_MAX); }

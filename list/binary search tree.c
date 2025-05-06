@@ -180,9 +180,8 @@ bst *freeBst(bst *root) {
 }
 
 int inorderPrint(bst *root) {
-  if (!root) {
+  if (!root)
     return 0;
-  }
   inorderPrint(root->left);
   printf("%d ", root->key);
   inorderPrint(root->right);

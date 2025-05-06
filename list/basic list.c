@@ -199,7 +199,7 @@ node *removeAtPos(node *head, int data, int position) {
       current = current->next;
     }
     // out of range
-    if (!current || current->next) {
+    if (!current || !current->next) {
       return head;
     }
     // save the to be deleted in temp
