@@ -44,7 +44,6 @@ char *reverseWords(char *s) {
   int size = 0;
   for (i = 0; i < count; i++)
     size += data[i].len + 1;
-  printf("%d %d\n", length, size);
   char *rev = calloc(size, sizeof(char));
   for (i = count - 1; i; i--) {
     strncat(rev, data[i].start, data[i].len);
