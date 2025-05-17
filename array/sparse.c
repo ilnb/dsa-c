@@ -36,10 +36,9 @@ int main(void) {
 sparse *createSparse(int **mat, int row, int col) {
   int count = 0;
   for (int i = 0; i < row; i++) {
-    for (int j = 0; j < col; j++) {
+    for (int j = 0; j < col; j++)
       if (mat[i][j] != 0)
         count++;
-    }
   }
   if (!count) {
     printf("No non-zero data found.\n");
@@ -50,10 +49,11 @@ sparse *createSparse(int **mat, int row, int col) {
   int k = 1;
   for (int i = 0; i < row; i++) {
     if (k <= count) {
-      for (int j = 0; j < col; j++) {
+      for (int j = 0; j < col; j++)
         if (k <= count && mat[i][j])
           sparseMat[k++] = (sparse){i, j, mat[i][j]};
-      }
+        else
+          continue;
     }
   }
   return sparseMat;

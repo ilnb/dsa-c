@@ -37,12 +37,10 @@ int main(void) {
         freeQueue(&q);
         break;
       }
-      case 6: {
+      case 6:
         break;
-      }
-      default: {
+      default:
         printf("Invalid option.\n");
-      }
     }
   } while (option != 6);
   freeQueue(&q);

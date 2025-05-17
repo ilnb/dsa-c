@@ -70,9 +70,8 @@ int findInList(node *head, int data) {
   int index = 0;
   while (current) {
     index++;
-    if (current->key == data) {
+    if (current->key == data)
       return index;
-    }
     current = current->next;
   }
   free(current);
@@ -99,14 +98,12 @@ node *insertAtHead(node *head, int data) {
 node *insertAtTail(node *head, int data) {
   node *new = getNode(data);
   // we have nothing to begin with
-  if (!head) {
+  if (!head)
     return new;
-  }
   node *current = head;
   // reach the last node
-  while (current->next) {
+  while (current->next)
     current = current->next;
-  }
   // new node is the new last
   current->next = new;
   return head;
@@ -132,9 +129,8 @@ node *insertAtPos(node *head, int data, int position) {
     //
     // getting to position just
     // before insertion point
-    for (int i = 1; i < position - 1 && prev; i++) {
+    for (int i = 1; i < position - 1 && prev; i++)
       prev = prev->next;
-    }
     if (!prev) {
       // position out of the list
       printf("Invalid position\n");
@@ -168,9 +164,8 @@ node *removeAtTail(node *head) {
   }
   node *current = head;
   // reaching the 2nd last node
-  while (current->next->next) {
+  while (current->next->next)
     current = current->next;
-  }
   // last node deleted
   free(current->next);
   // tail is set
@@ -195,13 +190,11 @@ node *removeAtPos(node *head, int data, int position) {
   } else {
     node *current = head;
     // reaching node just before removal point
-    for (int i = 1; i < position - 1 && current; i++) {
+    for (int i = 1; i < position - 1 && current; i++)
       current = current->next;
-    }
     // out of range
-    if (!current || !current->next) {
+    if (!current || !current->next)
       return head;
-    }
     // save the to be deleted in temp
     node *temp = current->next;
     // shift to the next node

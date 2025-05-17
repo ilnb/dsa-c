@@ -46,12 +46,10 @@ int main(void) {
         top = freeStack(top);
         break;
       }
-      case 6: {
+      case 6:
         break;
-      }
-      default: {
+      default:
         printf("Invalid option.\n");
-      }
     }
   } while (option != 5);
   top = freeStack(top);

@@ -53,9 +53,8 @@ int main(void) {
         printf("Option not found!\n");
         break;
     }
-    if (option == 6) {
+    if (option == 6)
       break;
-    }
   }
   return 0;
 }
@@ -80,14 +79,13 @@ int search(int *arr, int len, int value) {
   int low = 0, high = len - 1;
   int mid = (low + high) / 2;
   while (low <= len) {
-    if (value < arr[mid])
-      len = mid - 1;
-    else if (value > arr[mid])
-      low = mid + 1;
-    else {
+    if (value == arr[mid]) {
       printf("Value found at index: %d\n", mid);
       return mid;
-    }
+    } else if (value > arr[mid])
+      low = mid + 1;
+    else
+      len = mid - 1;
   }
   printf("Value not found\n");
   return -1;

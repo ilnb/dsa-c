@@ -13,10 +13,8 @@ typedef struct node {
 
 node *sortedInsert(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
-  if (!p) {
-    printf("Out of memory.\n");
+  if (!p)
     return head;
-  }
   p->key = val;
   if (!head || val < head->key) {
     p->next = head;
@@ -46,10 +44,8 @@ node *sortedDelete(node *head, int val) {
 
 node *insertStart(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
-  if (!p) {
-    printf("Out of memory.\n");
-    return NULL;
-  }
+  if (!p)
+    return head;
   p->key = val;
   p->next = head;
   return p;
@@ -57,10 +53,8 @@ node *insertStart(node *head, int val) {
 
 node *insertEnd(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
-  if (!p) {
-    printf("Out of memory.\n");
-    return NULL;
-  }
+  if (!p)
+    return head;
   p->key = val;
   p->next = NULL;
   if (!head)
@@ -129,10 +123,8 @@ typedef struct {
 
 void insertHStart(hnode *h_ptr, int val) {
   node *q = (node *)malloc(sizeof(node));
-  if (!q) {
-    printf("Out of memory.\n");
+  if (!q)
     return;
-  }
   q->key = val;
   q->next = h_ptr->start;
   if (!h_ptr->start)
@@ -143,10 +135,8 @@ void insertHStart(hnode *h_ptr, int val) {
 
 void insertHEnd(hnode *h_ptr, int val) {
   node *q = (node *)malloc(sizeof(node));
-  if (!q) {
-    printf("Out of memory.\n");
+  if (!q)
     return;
-  }
   q->key = val;
   q->next = NULL;
   if (!h_ptr->end)
@@ -215,10 +205,8 @@ typedef struct {
 
 void enqueue(queue *q_ptr, int val) {
   node *t = (node *)malloc(sizeof(node));
-  if (!t) {
-    printf("Queue overflow.\n");
+  if (!t)
     return;
-  }
   t->key = val;
   t->next = NULL;
   if (!q_ptr->rear)

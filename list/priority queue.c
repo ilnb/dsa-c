@@ -44,10 +44,11 @@ int main() {
         break;
       }
       case 4: {
-        goto quit;
+        head = freePlist(head);
+        break;
       }
       case 5:
-        break;
+        goto quit;
       default:
         printf("Invalid option\n");
     }
@@ -84,7 +85,7 @@ void pEnqueue(pnode **hptr, int val, int pri) {
 
 pnode pDequeue(pnode **hptr) {
   if (!*hptr)
-    return (pnode){0, 0, 0};
+    return (pnode){0};
   pnode *t = *hptr;
   *hptr = (*hptr)->next;
   return *t;

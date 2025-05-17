@@ -63,9 +63,8 @@ int main(void) {
         display2(d);
         break;
       }
-      case 7: {
+      case 7:
         break;
-      }
       default: {
         printf("Invalid option");
         break;

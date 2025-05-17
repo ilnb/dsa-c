@@ -116,10 +116,9 @@ int deleteMax(int *arr, int *size_p) {
 
 int isKeyLine(int *keyLines, int size, int line) {
   int depth = 1 + (int)log2(size);
-  for (int i = depth - 1; i >= 0; i--) {
+  for (int i = depth - 1; i >= 0; i--)
     if (line == keyLines[i])
       return 1;
-  }
   return 0;
 }
 

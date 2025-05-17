@@ -40,7 +40,7 @@ node *newNode(int val) {
 node *newEnd(node *end, int val) {
   node *p = malloc(sizeof(*p));
   if (!p)
-    return NULL;
+    return end;
   p->key = val;
   end->next = p;
   return p;

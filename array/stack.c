@@ -48,16 +48,14 @@ int main(void) {
         display(s);
         break;
       }
-      case 5: {
+      case 5:
         break;
-      }
       default:
         printf("\nInvalid option\n");
         break;
     }
-    if (option == 5) {
+    if (option == 5)
       break;
-    }
   }
   return 0;
 }

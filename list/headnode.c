@@ -39,16 +39,12 @@ int main(void) {
         displayHCount(h);
         break;
       }
-      case 6: {
+      case 6:
         freeHnode(&h);
+      case 7:
         break;
-      }
-      case 7: {
-        break;
-      }
-      default: {
+      default:
         printf("Invalid option.\n");
-      }
     }
   } while (option != 7);
   freeHnode(&h);

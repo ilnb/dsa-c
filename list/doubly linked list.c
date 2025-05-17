@@ -45,16 +45,12 @@ int main(void) {
         printf("The length of the list is: %d\n", n);
         break;
       }
-      case 5: {
+      case 5:
         head = freeList(head);
+      case 6:
         break;
-      }
-      case 6: {
-        break;
-      }
-      default: {
+      default:
         printf("Invalid option.\n");
-      }
     }
   } while (option != 6);
   head = freeList(head);
@@ -72,6 +68,8 @@ void menu(void) {
 
 dbnode *sortedInsert(dbnode *head, int val) {
   dbnode *q = malloc(sizeof(dbnode));
+  if (!q)
+    return head;
   q->key = val;
   if (!head || val < head->key) {
     q->next = head;
@@ -91,6 +89,21 @@ dbnode *sortedInsert(dbnode *head, int val) {
   return head;
 }
 
+// dbnode *sortedDelete(dbnode *head, int val) {
+//   dbnode *t = head;
+//   while (t && t->key != val)
+//     t = t->next;
+//   if (!t) return head;
+//   if (t->prev)
+//     t->prev->next = t->next;
+//   else
+//     head = t->next;
+//   if (t->next)
+//     t->next->prev = t->prev;
+//   free(t);
+//   return head;
+// }
+
 dbnode *sortedDelete(dbnode *head, int val) {
   if (!head)
     return head;
@@ -99,12 +112,14 @@ dbnode *sortedDelete(dbnode *head, int val) {
     nptr = &(*nptr)->next;
   if (*nptr && (*nptr)->key == val) {
     dbnode *t = *nptr;
-    *nptr = (*nptr)->next;
+    *nptr = t->next;
+    if (t->next)
+      t->next->prev = t->prev;
     free(t);
   }
+
   return head;
 }
-
 int lengthList(dbnode *head) {
   int n = 0;
   while (head) {

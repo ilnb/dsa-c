@@ -97,9 +97,8 @@ void dfs_visit(graph g, int *visited, int u_index) {
 
 void dfs(graph g) {
   int *visited = calloc(g.vcount, sizeof(int));
-  for (int i = 0; i < g.vcount; i++) {
+  for (int i = 0; i < g.vcount; i++)
     if (!visited[i])
       dfs_visit(g, visited, i);
-  }
   free(visited);
 }

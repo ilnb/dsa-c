@@ -113,17 +113,15 @@ void infixtopostfix(char *infix, char *postfix) {
   strcat(infix, ")");
   int i = 0, j = 0;
   while (infix[i] != '\0') {
-    if (isoperand(infix[i])) {
+    if (isoperand(infix[i]))
       postfix[j++] = infix[i++];
-    } else if (isoperator(infix[i])) {
-      while (!isEmpty(s) && icp(infix[i]) <= isp(s.arr[s.top])) {
+    else if (isoperator(infix[i])) {
+      while (!isEmpty(s) && icp(infix[i]) <= isp(s.arr[s.top]))
         postfix[j++] = pop(&s);
-      }
       push(&s, infix[i++]);
     } else if (infix[i] == ')') {
-      while (!isEmpty(s) && s.arr[s.top] != '(') {
+      while (!isEmpty(s) && s.arr[s.top] != '(')
         postfix[j++] = pop(&s);
-      }
       if (!isEmpty(s))
         pop(&s);
       i++;
@@ -135,11 +133,10 @@ void infixtopostfix(char *infix, char *postfix) {
 void infixtoprefix(char *infix, char *prefix) {
   rev(infix);
   for (int i = 0; i < strlen(infix); i++) {
-    if (infix[i] == '(') {
+    if (infix[i] == '(')
       infix[i] = ')';
-    } else if (infix[i] == ')') {
+    else if (infix[i] == ')')
       infix[i] = '(';
-    }
   }
   infixtopostfix(infix, prefix);
   rev(prefix);
@@ -165,16 +162,15 @@ int evaluatePostfix(char *postfix) {
   stack s;
   init(&s);
   while (postfix[i]) {
-    if (isoperand(postfix[i])) {
+    if (isoperand(postfix[i]))
       push(&s, value(postfix[i++]));
-    } else if (isoperator(postfix[i])) {
+    else if (isoperator(postfix[i])) {
       int op1 = pop(&s);
       int op2 = pop(&s);
       int result = compute(op2, op1, postfix[i++]);
       push(&s, result);
-    } else {
+    } else
       printf("Invalid.\n");
-    }
   }
   return s.arr[s.top];
 }

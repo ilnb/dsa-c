@@ -57,9 +57,8 @@ int main(void) {
         printf("Option not found!\n");
         break;
     }
-    if (option == 6) {
+    if (option == 6)
       break;
-    }
   }
   return 0;
 }
@@ -74,10 +73,9 @@ void printMenu() {
 }
 
 int search(int *arr, int size, int value) {
-  for (int i = 0; i < size; i++) {
+  for (int i = 0; i < size; i++)
     if (arr[i] == value)
       return i;
-  }
   return -1;
 }
 

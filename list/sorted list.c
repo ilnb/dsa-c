@@ -35,12 +35,10 @@ int main(void) {
         head = freeList(head);
         break;
       }
-      case 5: {
+      case 5:
         break;
-      }
-      default: {
+      default:
         printf("Invalid option.\n");
-      }
     }
   } while (option != 5);
   head = freeList(head);

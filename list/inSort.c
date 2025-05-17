@@ -44,10 +44,8 @@ node *inSort(node *head) {
 
 node *sortedInsert(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
-  if (!p) {
-    printf("Out of memory.\n");
+  if (!p)
     return head;
-  }
   p->key = val;
   if (!head || val < head->key) {
     p->next = head;

@@ -39,16 +39,12 @@ int main() {
         printRing(ring);
         break;
       }
-      case 4: {
+      case 4:
         ring = freeRing(ring);
+      case 5:
         break;
-      }
-      case 5: {
-        break;
-      }
-      default: {
+      default:
         printf("Invalid option\n");
-      }
     }
   } while (option != 5);
   ring = freeRing(ring);
@@ -79,10 +75,8 @@ void printRing(dbnode *ring) {
 
 dbnode *insertNode(dbnode *ring, int val) {
   dbnode *q = malloc(sizeof(*q));
-  if (!q) {
-    printf("Out of memory\n");
+  if (!q)
     return ring;
-  }
   q->key = val;
   if (!ring) {
     q->prev = q;

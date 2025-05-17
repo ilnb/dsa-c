@@ -45,17 +45,15 @@ int main(void) {
         display(q);
         break;
       }
-      case 4: {
+      case 4:
         break;
-      }
       default: {
         printf("Invalid option.\n");
         break;
       }
     }
-    if (option == 4) {
+    if (option == 4)
       break;
-    }
   }
   return 0;
 }
@@ -69,9 +67,9 @@ void menu() {
 }
 
 void enqueue(queue *q, int val) {
-  if (isFull(*q)) {
+  if (isFull(*q))
     printf("The queue is full");
-  } else {
+  else {
     q->arr[q->rear] = val;
     q->rear = (q->rear + 1) % MAX;
   }

@@ -42,12 +42,10 @@ int main() {
         ring = freeRing(ring);
         break;
       }
-      case 5: {
+      case 5:
         break;
-      }
-      default: {
+      default:
         printf("Invalid option\n");
-      }
     }
   } while (option != 5);
   ring = freeRing(ring);
@@ -78,10 +76,8 @@ void printRing(node *ring) {
 
 node *insertNode(node *ring, int val) {
   node *q = malloc(sizeof(node));
-  if (!q) {
-    printf("Out of memory\n");
+  if (!q)
     return ring;
-  }
   q->key = val;
   if (!ring) {
     q->next = q;

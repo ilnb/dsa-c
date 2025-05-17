@@ -70,20 +70,18 @@ void inSort(int *arr, int len) {
 
 void bubSort(int *arr, int len) {
   for (int j = len - 1; j > 0; j--) {
-    for (int i = 0; i < j; i++) {
+    for (int i = 0; i < j; i++)
       if (arr[i + 1] < arr[i])
         swap(arr + i, arr + i + 1);
-    }
   }
 }
 
 void selSort(int *arr, int len) {
   for (int i = 0; i < len - 1; i++) {
     int min = i;
-    for (int j = i + 1; j < len; j++) {
+    for (int j = i + 1; j < len; j++)
       if (arr[min] > arr[j])
         min = j;
-    }
     swap(arr + min, arr + i);
   }
 }
@@ -142,10 +140,9 @@ void mergeSort(int *arr, int low, int high) {
 int partition(int *arr, int low, int high) {
   int pivot = arr[high];
   int i = low - 1;
-  for (int j = low; j < high; j++) {
+  for (int j = low; j < high; j++)
     if (arr[j] < pivot)
       swap(arr + ++i, arr + j);
-  }
   swap(arr + ++i, arr + high);
   return i;
 }
