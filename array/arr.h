@@ -67,30 +67,26 @@ void scanMat(int **Mat, int row, int col) {
 
 int **addMat(int **Mat1, int **Mat2, int row, int col) {
   int **Mat3 = Mat(row, col);
-  for (int i = 0; i < row; i++) {
+  for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
       Mat3[i][j] = Mat1[i][j] + Mat2[i][j];
-  }
   return Mat3;
 }
 
 int **subMat(int **Mat1, int **Mat2, int row, int col) {
   int **Mat3 = Mat(row, col);
-  for (int i = 0; i < row; i++) {
+  for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
       Mat3[i][j] = Mat1[i][j] - Mat2[i][j];
-  }
   return Mat3;
 }
 
 int **mulMat(int **Mul1, int **Mul2, int row, int n, int col) {
   int **Mul = Mat(row, col);
-  for (int i = 0; i < row; i++) {
-    for (int j = 0; j < col; j++) {
+  for (int i = 0; i < row; i++)
+    for (int j = 0; j < col; j++)
       for (int k = 0; k < n; k++)
         Mul[i][j] += Mul1[i][k] * Mul2[k][j];
-    }
-  }
   return Mul;
 }
 

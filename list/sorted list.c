@@ -31,10 +31,8 @@ int main(void) {
         displayList(head);
         break;
       }
-      case 4: {
+      case 4:
         head = freeList(head);
-        break;
-      }
       case 5:
         break;
       default:

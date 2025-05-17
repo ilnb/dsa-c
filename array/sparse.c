@@ -52,8 +52,6 @@ sparse *createSparse(int **mat, int row, int col) {
       for (int j = 0; j < col; j++)
         if (k <= count && mat[i][j])
           sparseMat[k++] = (sparse){i, j, mat[i][j]};
-        else
-          continue;
     }
   }
   return sparseMat;

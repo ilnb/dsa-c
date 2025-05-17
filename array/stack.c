@@ -44,10 +44,8 @@ int main(void) {
         printf("The value at the top is %d.\n", i);
         break;
       }
-      case 4: {
+      case 4:
         display(s);
-        break;
-      }
       case 5:
         break;
       default:
@@ -80,9 +78,8 @@ int pop(stack *s_ptr) {
   if (s_ptr->top == -1) {
     printf("\nStack is empty.\n");
     return -273;
-  } else {
+  } else
     return s_ptr->arr[s_ptr->top--];
-  }
 }
 
 int peek(stack s) {

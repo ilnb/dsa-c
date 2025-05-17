@@ -40,17 +40,12 @@ int main(void) {
         }
         break;
       }
-      case 3: {
-        printf("The queue is:\n");
+      case 3:
         display(q);
-        break;
-      }
       case 4:
         break;
-      default: {
+      default:
         printf("Invalid option.\n");
-        break;
-      }
     }
     if (option == 4)
       break;

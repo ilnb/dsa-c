@@ -38,10 +38,9 @@ node *newNode(int val) {
 }
 
 node *newEnd(node *end, int val) {
-  node *p = malloc(sizeof(*p));
+  node *p = newNode(val);
   if (!p)
     return end;
-  p->key = val;
   end->next = p;
   return p;
 }

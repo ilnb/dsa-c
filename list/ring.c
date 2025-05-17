@@ -38,10 +38,8 @@ int main() {
         printRing(ring);
         break;
       }
-      case 4: {
+      case 4:
         ring = freeRing(ring);
-        break;
-      }
       case 5:
         break;
       default:

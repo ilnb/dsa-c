@@ -18,10 +18,8 @@ typedef struct {
 
 void enqueue(queue *q_ptr, int val) {
   node *t = malloc(sizeof(node));
-  if (!t) {
-    printf("Queue overflow.\n");
+  if (!t)
     return;
-  }
   t->index = val;
   t->next = NULL;
   if (!q_ptr->rear)

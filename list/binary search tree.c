@@ -100,10 +100,7 @@ bst *insertNode(bst *root, int val) {
     else
       break;
   }
-  if (val < p->key)
-    p->left = t;
-  else
-    p->right = t;
+  val < p->key ? (p->left = t) : (p->right = t);
   return root;
 }
 
@@ -129,10 +126,7 @@ bst *deleteNode(bst *root, int val) {
       free(p);
       return NULL;
     }
-    if (p == q->left)
-      q->left = NULL;
-    else
-      q->right = NULL;
+    p == q->left ? (q->left = NULL) : (q->right = NULL);
     free(p);
     return root;
   }
@@ -143,10 +137,7 @@ bst *deleteNode(bst *root, int val) {
       free(p);
       return r;
     }
-    if (p == q->left)
-      q->left = r;
-    else
-      q->right = r;
+    p == q->left ? (q->left = r) : (q->right = r);
     free(p);
     return root;
   }
@@ -162,12 +153,12 @@ bst *deleteNode(bst *root, int val) {
 bst *searchInBst(bst *root, int val) {
   if (!root)
     return NULL;
-  if (val < root->key)
-    return searchInBst(root->left, val);
+  if (val == root->key)
+    return root;
   else if (val > root->key)
     return searchInBst(root->right, val);
   else
-    return root;
+    return searchInBst(root->left, val);
 }
 
 bst *freeBst(bst *root) {

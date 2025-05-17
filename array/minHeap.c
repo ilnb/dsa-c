@@ -39,10 +39,8 @@ int main() {
           printf("The number deleted is %d\n", n);
         break;
       }
-      case 3: {
+      case 3:
         printHeap(arr, size);
-        break;
-      }
       case 4:
         break;
       default:
@@ -116,10 +114,9 @@ int deleteMin(int *arr, int *size_p) {
 
 int isKeyLine(int *keyLines, int size, int line) {
   int depth = 1 + (int)log2(size);
-  for (int i = depth - 1; i >= 0; i--) {
+  for (int i = depth - 1; i >= 0; i--)
     if (line == keyLines[i])
       return 1;
-  }
   return 0;
 }
 
@@ -137,10 +134,9 @@ void printHeap(int *arr, int size) {
     // print initial spaces
     if (depth == 2)
       printf(" ");
-    else if (depth > 2) {
+    else if (depth > 2)
       for (int i = 0; i < line; i++)
         printf(" ");
-    }
     int ln = 1 + (int)log2(size) - depth;
     int maxSlash;
     // print the values

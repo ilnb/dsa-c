@@ -33,10 +33,8 @@ int main(void) {
         displayQCount(q);
         break;
       }
-      case 5: {
+      case 5:
         freeQueue(&q);
-        break;
-      }
       case 6:
         break;
       default:

@@ -69,11 +69,10 @@ void inSort(int *arr, int len) {
 }
 
 void bubSort(int *arr, int len) {
-  for (int j = len - 1; j > 0; j--) {
+  for (int j = len - 1; j > 0; j--)
     for (int i = 0; i < j; i++)
       if (arr[i + 1] < arr[i])
         swap(arr + i, arr + i + 1);
-  }
 }
 
 void selSort(int *arr, int len) {

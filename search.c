@@ -36,10 +36,9 @@ void printArr(int *arr, int len) {
 }
 
 int lSearch(int *arr, int len, int item) {
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < len; i++)
     if (arr[i] == item)
       return i;
-  }
   return -1;
 }
 
@@ -60,12 +59,12 @@ int binSearch(int *arr, int len, int item) {
 int binSearchRec(int *arr, int low, int high, int item) {
   int mid = (low + high) / 2;
   while (low <= high) {
-    if (arr[mid] < item)
-      return binSearchRec(arr, mid + 1, high, item);
+    if (arr[mid] == item)
+      return mid;
     else if (arr[mid] > item)
       return binSearchRec(arr, low, mid - 1, item);
     else
-      return mid;
+      return binSearchRec(arr, mid + 1, high, item);
   }
   return -1;
 }

@@ -42,10 +42,8 @@ int main(void) {
         displayStack(top);
         break;
       }
-      case 5: {
+      case 5:
         top = freeStack(top);
-        break;
-      }
       case 6:
         break;
       default:
