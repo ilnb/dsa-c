@@ -11,6 +11,7 @@ typedef struct node {
   struct node *next;
 } node;
 
+// insert val in a sorted list
 node *sortedInsert(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
   if (!p)
@@ -28,6 +29,7 @@ node *sortedInsert(node *head, int val) {
   return head;
 }
 
+// delete first instance val from a sorted list
 node *sortedDelete(node *head, int val) {
   if (!head)
     return head;
@@ -42,6 +44,7 @@ node *sortedDelete(node *head, int val) {
   return head;
 }
 
+// insert val at the head of list
 node *insertStart(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
   if (!p)
@@ -51,6 +54,7 @@ node *insertStart(node *head, int val) {
   return p;
 }
 
+// insert val at the end of list
 node *insertEnd(node *head, int val) {
   node *p = (node *)malloc(sizeof(node));
   if (!p)
@@ -66,6 +70,7 @@ node *insertEnd(node *head, int val) {
   return head;
 }
 
+// delete first instance of val from list
 node *deleteNode(node *head, int val) {
   if (!head)
     return head;
@@ -80,6 +85,7 @@ node *deleteNode(node *head, int val) {
   return head;
 }
 
+// print a list
 void displayList(node *head) {
   while (head) {
     printf("%d->", head->key);
@@ -88,6 +94,7 @@ void displayList(node *head) {
   printf("NULL\n");
 }
 
+// returns and displays length of a list
 int lengthList(node *head) {
   int n = 0;
   while (head) {
@@ -97,6 +104,7 @@ int lengthList(node *head) {
   return n;
 }
 
+// free all nodes of a list
 node *freeList(node *head) {
   while (head) {
     node *t = head;
@@ -106,6 +114,7 @@ node *freeList(node *head) {
   return NULL;
 }
 
+// free mutliple lists
 void varFreeList(int count, ...) {
   va_list ptr;
   va_start(ptr, count);
@@ -121,6 +130,7 @@ typedef struct {
   int count;
 } hnode;
 
+// insert at the start of headnode list
 void insertHStart(hnode *h_ptr, int val) {
   node *q = (node *)malloc(sizeof(node));
   if (!q)
@@ -133,6 +143,7 @@ void insertHStart(hnode *h_ptr, int val) {
   h_ptr->count++;
 }
 
+// insert at the end of headnode list
 void insertHEnd(hnode *h_ptr, int val) {
   node *q = (node *)malloc(sizeof(node));
   if (!q)
@@ -147,6 +158,7 @@ void insertHEnd(hnode *h_ptr, int val) {
   h_ptr->count++;
 }
 
+// delete first instance of val from headnode list
 void deleteHnode(hnode *h_ptr, int val) {
   if (!h_ptr->start)
     return;
@@ -174,11 +186,13 @@ void deleteHnode(hnode *h_ptr, int val) {
   }
 }
 
+// returns and prints length of headnode list
 int displayHCount(hnode h) {
   printf("The length is %d.\n", h.count);
   return h.count;
 }
 
+// frees headnode list
 void freeHnode(hnode *h_ptr) {
   if (!h_ptr->start)
     return;
@@ -190,6 +204,7 @@ void freeHnode(hnode *h_ptr) {
   memset(h_ptr, 0, sizeof(hnode));
 }
 
+// frees mutliple heanode lists
 void varFreeHnode(int count, ...) {
   va_list ptr;
   va_start(ptr, count);
@@ -203,6 +218,7 @@ typedef struct {
   int count;
 } queue;
 
+// enqueues val to the queue
 void enqueue(queue *q_ptr, int val) {
   node *t = (node *)malloc(sizeof(node));
   if (!t)
@@ -217,6 +233,7 @@ void enqueue(queue *q_ptr, int val) {
   q_ptr->count++;
 }
 
+// dequeues from queue
 int dequeue(queue *q_ptr) {
   if (!q_ptr->front)
     return -1;
@@ -230,6 +247,7 @@ int dequeue(queue *q_ptr) {
   return n;
 }
 
+// prints the queue
 void displayQueue(queue q) {
   if (!q.front) {
     printf("The queue is empty.\n");
@@ -243,11 +261,13 @@ void displayQueue(queue q) {
   printf("\b\b<-REAR\n");
 }
 
+// returns and displays length of queue
 int displayQCount(queue q) {
   printf("The length of queue is %d.\n", q.count);
   return q.count;
 }
 
+// frees queue
 void freeQueue(queue *q_ptr) {
   if (!q_ptr->front)
     return;
@@ -259,6 +279,7 @@ void freeQueue(queue *q_ptr) {
   memset(q_ptr, 0, sizeof(queue));
 }
 
+// frees mutliple queues
 void varFreeQueue(int count, ...) {
   va_list ptr;
   va_start(ptr, count);
@@ -272,6 +293,7 @@ typedef struct stack {
   struct stack *next;
 } stack;
 
+// pushes val to stack
 void push(stack **t, int val) {
   stack *q = (stack *)malloc(sizeof(stack));
   if (!q) {
@@ -283,6 +305,7 @@ void push(stack **t, int val) {
   *t = q;
 }
 
+// pops from stack
 int pop(stack **t) {
   if (!*t)
     return -1;
@@ -293,12 +316,14 @@ int pop(stack **t) {
   return n;
 }
 
+// peeks on the stack and returns
 int peek(stack *t) {
   if (!t)
     return -1;
   return t->key;
 }
 
+// prints the stack
 void displayStack(stack *t) {
   while (t) {
     printf("%d\n", t->key);
@@ -308,6 +333,7 @@ void displayStack(stack *t) {
   printf("NULL\n");
 }
 
+// frees stack
 stack *freeStack(stack *top) {
   while (top) {
     stack *t = top;
@@ -317,6 +343,7 @@ stack *freeStack(stack *top) {
   return NULL;
 }
 
+// frees mutliple stacks
 void varFreeStack(int count, ...) {
   va_list ptr;
   va_start(ptr, count);
