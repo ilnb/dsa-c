@@ -19,9 +19,9 @@ int main() {
 }
 
 FUNC choice(char *str) {
-  if (!strcmp(str, "ins"))
+  if (!strncmp(str, "ins", strlen(str)))
     return sortedInsert;
-  else if (!strcmp(str, "del"))
+  else if (!strncmp(str, "del", strlen(str)))
     return sortedDelete;
   return NULL;
 }
