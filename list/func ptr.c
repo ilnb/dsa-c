@@ -2,7 +2,9 @@
 
 typedef node *(*FUNC)(node *, int);
 
-FUNC choice(char *);
+// returns insert / delete function
+FUNC choice(char *choice);
+// node *(*choice(char *choice))(node *, int);
 
 int main() {
   node *head = NULL;
@@ -12,6 +14,7 @@ int main() {
   for (int i = 0; i < 11; i += 2)
     head = (*choice("delete"))(head, i);
   displayList(head);
+  head = freeList(head);
   return 0;
 }
 
