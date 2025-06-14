@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #define MAX 30
 
-void swap(int *, int *);
+inline void swap(int *, int *);
 void printArr(int *, int);
 void menu();
 void makeMinHeap(int *, int);
@@ -49,7 +49,7 @@ int main() {
   } while (option != 4);
 }
 
-void swap(int *a, int *b) {
+inline void swap(int *a, int *b) {
   int t = *b;
   *b = *a;
   *a = t;

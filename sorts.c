@@ -11,7 +11,7 @@ int partition(int *, int, int);
 void quickSort(int *, int, int);
 void maxHeapify(int *, int, int);
 void heapSort(int *, int);
-void swap(int *, int *);
+inline void swap(int *, int *);
 
 int main(void) {
   int *arr = malloc(sizeof(int) * 5);
@@ -51,7 +51,7 @@ int main(void) {
   return 0;
 }
 
-void swap(int *a, int *b) {
+inline void swap(int *a, int *b) {
   int t = *a;
   *a = *b;
   *b = t;
