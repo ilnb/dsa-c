@@ -1,3 +1,4 @@
+// this is the bad super slow
 #include <stdio.h>
 #include <stdlib.h>
 
