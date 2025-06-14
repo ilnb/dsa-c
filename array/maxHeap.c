@@ -49,7 +49,7 @@ int main() {
   } while (option != 4);
 }
 
-inline void swap(int *a, int *b) {
+void swap(int *a, int *b) {
   int t = *b;
   *b = *a;
   *a = t;

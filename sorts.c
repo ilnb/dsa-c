@@ -51,7 +51,7 @@ int main(void) {
   return 0;
 }
 
-inline void swap(int *a, int *b) {
+void swap(int *a, int *b) {
   int t = *a;
   *a = *b;
   *b = t;
