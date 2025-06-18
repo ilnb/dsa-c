@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int lSearch(int *, int, int);
 int binSearch(int *, int, int);
 int binSearchRec(int *, int, int, int);
-void inSort(int *, int);
+int cmp(const void *a, const void *b) { return *(int *)a > *(int *)b ? 1 : 0; }
 void printArr(int *, int);
 
 int main(void) {
@@ -18,7 +19,7 @@ int main(void) {
     printf("The item is found at index %d\n", lSearch(arr, 5, n));
   else
     printf("Item not found.\n");
-  inSort(arr, 5);
+  qsort(arr, 5, sizeof(int), cmp);
   printf("Sorted array:\n");
   printArr(arr, 5);
   printf("Using binary search:\n");
@@ -67,15 +68,4 @@ int binSearchRec(int *arr, int low, int high, int item) {
       return binSearchRec(arr, mid + 1, high, item);
   }
   return -1;
-}
-
-void inSort(int *arr, int len) {
-  for (int i = 1; i < len; i++) {
-    int j = i - 1, val = arr[i];
-    while (j >= 0 && arr[j] > val) {
-      arr[j + 1] = arr[j];
-      j--;
-    }
-    arr[j + 1] = val;
-  }
 }
