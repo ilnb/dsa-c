@@ -11,12 +11,24 @@ int *Arr(int n) {
   return arr;
 }
 
+// returns an array of n members of size s
+void *pArr(int n, int s) { return malloc(n * s); }
+
 // returns a row x col matrix
 int **Mat(int row, int col) {
   int **mat = (int **)malloc(row * sizeof(int));
   int *data = (int *)calloc(row * col, sizeof(int));
   for (int i = 0; i < row; i++)
     mat[i] = data + i * col;
+  return mat;
+}
+
+// returns a row x col matrix of s-sized members
+void **Mat(int row, int col, int s) {
+  void **mat = (void **)malloc(row * s);
+  char *data = (char *)malloc(row * col * s);
+  for (int i = 0; i < row; i++)
+    mat[i] = data + i * col * s;
   return mat;
 }
 
