@@ -24,7 +24,7 @@ int **Mat(int row, int col) {
 }
 
 // returns a row x col matrix of s-sized members
-void **Mat(int row, int col, int s) {
+void **pMat(int row, int col, int s) {
   void **mat = (void **)malloc(row * s);
   char *data = (char *)malloc(row * col * s);
   for (int i = 0; i < row; i++)
