@@ -23,6 +23,13 @@ int **Mat(int row, int col) {
   return mat;
 }
 
+// int **Mat(int row, int col) {
+//   int **mat = (int **)malloc(row*sizeof(int*));
+//   for (int i = 0; i < col; i++)
+//     mat[i] = (int *)calloc(col, sizeof(int));
+//   return mat;
+// }
+
 // returns a row x col matrix of s-sized members
 void **pMat(int row, int col, int s) {
   void **mat = (void **)malloc(row * s);
@@ -31,6 +38,13 @@ void **pMat(int row, int col, int s) {
     mat[i] = data + i * col * s;
   return mat;
 }
+
+// void **pMat(int row, int col, int s) {
+//   void **mat = (void **)malloc(row *sizeof(void *));
+//   for (int i= 0; i <row; i++)
+//     mat[i] = malloc(col *s);
+//   return mat;
+// }
 
 // print an array of n integers
 void printArr(int *arr, int n) {
