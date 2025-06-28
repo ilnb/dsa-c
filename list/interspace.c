@@ -5,25 +5,25 @@
 node *interspace(node *, node *);
 node *newNode(int);
 node *newEnd(node *, int);
-node *copyList(node *);
 
 int main(void) {
-  node *head1 = NULL, *head2 = NULL;
-  for (int i = 1; i <= 10; i += 2) {
-    head1 = sortedInsert(head1, i);
-    head2 = sortedInsert(head2, i - 1);
+  node *head1 = sortedInsert(0, 1);
+  node *head2 = sortedInsert(0, 0);
+  for (int i = 3; i <= 10; i += 2) {
+    sortedInsert(head1, i);
+    sortedInsert(head2, i - 1);
   }
-  head1 = sortedDelete(head1, 3);
-  head1 = sortedDelete(head1, 7);
-  head2 = sortedDelete(head2, 4);
-  head2 = sortedDelete(head2, 6);
+  sortedDelete(head1, 3);
+  sortedDelete(head1, 7);
+  sortedDelete(head2, 4);
+  sortedDelete(head2, 6);
   printf("The first linked list: ");
-  displayList(head1);
+  printList(head1);
   printf("The second linked list: ");
-  displayList(head2);
+  printList(head2);
   node *merged = interspace(head1, head2);
   printf("Interspace merged list: ");
-  displayList(merged);
+  printList(merged);
   varFreeList(3, &head1, &head2, &merged);
   return 0;
 }
@@ -43,19 +43,6 @@ node *newEnd(node *end, int val) {
     return end;
   end->next = p;
   return p;
-}
-
-node *copyList(node *head) {
-  if (!head)
-    return NULL;
-  node *new = newNode(head->key);
-  node *end = new;
-  head = head->next;
-  while (head) {
-    end = newEnd(end, head->key);
-    head = head->next;
-  }
-  return new;
 }
 
 node *interspace(node *head1, node *head2) {

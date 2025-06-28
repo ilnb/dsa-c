@@ -1,11 +1,6 @@
 #include "node.h"
 
 void menu();
-void push(stack **, int);
-int pop(stack **);
-int peek(stack *);
-void displayStack(stack *t);
-stack *freeStack(stack *);
 
 int main(void) {
   stack *top = NULL;
@@ -39,7 +34,7 @@ int main(void) {
         break;
       }
       case 4: {
-        displayStack(top);
+        printStack(top);
         break;
       }
       case 5:

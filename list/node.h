@@ -13,7 +13,7 @@ typedef struct node {
 
 // insert val in a sorted list
 node *sortedInsert(node *head, int val) {
-  node *p = (node *)malloc(sizeof(node));
+  node *p = (node *)malloc(sizeof(*p));
   if (!p)
     return head;
   p->key = val;
@@ -46,7 +46,7 @@ node *sortedDelete(node *head, int val) {
 
 // insert val at the head of list
 node *insertStart(node *head, int val) {
-  node *p = (node *)malloc(sizeof(node));
+  node *p = (node *)malloc(sizeof(*p));
   if (!p)
     return head;
   p->key = val;
@@ -56,7 +56,7 @@ node *insertStart(node *head, int val) {
 
 // insert val at the end of list
 node *insertEnd(node *head, int val) {
-  node *p = (node *)malloc(sizeof(node));
+  node *p = (node *)malloc(sizeof(*p));
   if (!p)
     return head;
   p->key = val;
@@ -85,8 +85,27 @@ node *deleteNode(node *head, int val) {
   return head;
 }
 
+// deep copy list
+node *copyList(node *head) {
+  if (!head)
+    return NULL;
+  node *n = (node *)malloc(sizeof(*n));
+  n->key = head->key;
+  n->next = NULL;
+  node *e = n;
+  head = head->next;
+  while (head) {
+    node *t = (node *)malloc(sizeof(*t));
+    t->key = head->key;
+    e->next = t;
+    e = t;
+    head = head->next;
+  }
+  return n;
+}
+
 // print a list
-void displayList(node *head) {
+void printList(node *head) {
   while (head) {
     printf("%d->", head->key);
     head = head->next;
@@ -94,7 +113,7 @@ void displayList(node *head) {
   printf("NULL\n");
 }
 
-// returns and displays length of a list
+// returns and prints length of a list
 int lengthList(node *head) {
   int n = 0;
   while (head) {
@@ -132,7 +151,7 @@ typedef struct {
 
 // insert at the start of headnode list
 void insertHStart(hnode *h_ptr, int val) {
-  node *q = (node *)malloc(sizeof(node));
+  node *q = (node *)malloc(sizeof(*q));
   if (!q)
     return;
   q->key = val;
@@ -145,7 +164,7 @@ void insertHStart(hnode *h_ptr, int val) {
 
 // insert at the end of headnode list
 void insertHEnd(hnode *h_ptr, int val) {
-  node *q = (node *)malloc(sizeof(node));
+  node *q = (node *)malloc(sizeof(*q));
   if (!q)
     return;
   q->key = val;
@@ -187,7 +206,7 @@ void deleteHnode(hnode *h_ptr, int val) {
 }
 
 // returns and prints length of headnode list
-int displayHCount(hnode h) {
+int printHCount(hnode h) {
   printf("The length is %d.\n", h.count);
   return h.count;
 }
@@ -220,7 +239,7 @@ typedef struct {
 
 // enqueues val to the queue
 void enqueue(queue *q_ptr, int val) {
-  node *t = (node *)malloc(sizeof(node));
+  node *t = (node *)malloc(sizeof(*t));
   if (!t)
     return;
   t->key = val;
@@ -248,7 +267,7 @@ int dequeue(queue *q_ptr) {
 }
 
 // prints the queue
-void displayQueue(queue q) {
+void printQueue(queue q) {
   if (!q.front) {
     printf("The queue is empty.\n");
     return;
@@ -261,8 +280,8 @@ void displayQueue(queue q) {
   printf("\b\b<-REAR\n");
 }
 
-// returns and displays length of queue
-int displayQCount(queue q) {
+// returns and prints length of queue
+int printQCount(queue q) {
   printf("The length of queue is %d.\n", q.count);
   return q.count;
 }
@@ -295,7 +314,7 @@ typedef struct stack {
 
 // pushes val to stack
 void push(stack **t, int val) {
-  stack *q = (stack *)malloc(sizeof(stack));
+  stack *q = (stack *)malloc(sizeof(*q));
   if (!q) {
     printf("Stack overflow.\n");
     return;
@@ -324,7 +343,7 @@ int peek(stack *t) {
 }
 
 // prints the stack
-void displayStack(stack *t) {
+void printStack(stack *t) {
   while (t) {
     printf("%d\n", t->key);
     printf("↓\n");

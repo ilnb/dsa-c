@@ -10,7 +10,7 @@ typedef struct dbnode {
 void menu(void);
 dbnode *sortedInsert(dbnode *, int);
 dbnode *sortedDelete(dbnode *, int);
-void displayList(dbnode *);
+void printList(dbnode *);
 int lengthList(dbnode *);
 dbnode *freeList(dbnode *);
 
@@ -37,7 +37,7 @@ int main(void) {
         break;
       }
       case 3: {
-        displayList(head);
+        printList(head);
         break;
       }
       case 4: {
@@ -129,7 +129,7 @@ int lengthList(dbnode *head) {
   return n;
 }
 
-void displayList(dbnode *head) {
+void printList(dbnode *head) {
   if (!head) {
     printf("Empty list.\n");
     return;

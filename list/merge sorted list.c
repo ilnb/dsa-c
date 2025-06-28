@@ -3,23 +3,24 @@
 void merge(node *, node *, hnode *);
 
 int main(void) {
-  node *head1, *head2;
-  for (int i = 1; i < 10; i += 2) {
-    head1 = sortedInsert(head1, i);
-    head2 = sortedInsert(head2, i - 1);
+  node *head1 = sortedInsert(0, 1);
+  node *head2 = sortedInsert(0, 0);
+  for (int i = 3; i <= 10; i += 2) {
+    sortedInsert(head1, i);
+    sortedInsert(head2, i - 1);
   }
-  head1 = sortedDelete(head1, 3);
-  head1 = sortedDelete(head1, 7);
-  head2 = sortedDelete(head2, 4);
-  head2 = sortedDelete(head2, 6);
+  sortedDelete(head1, 3);
+  sortedDelete(head1, 7);
+  sortedDelete(head2, 4);
+  sortedDelete(head2, 6);
   printf("The first linked list: ");
-  displayList(head1);
+  printList(head1);
   printf("The second linked list: ");
-  displayList(head2);
+  printList(head2);
   hnode h = {0};
   printf("Merged list: ");
   merge(head1, head2, &h);
-  displayList(h.start);
+  printList(h.start);
   varFreeList(2, &head1, &head2), freeHnode(&h);
   return 0;
 }

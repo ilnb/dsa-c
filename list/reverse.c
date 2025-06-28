@@ -7,11 +7,11 @@ int main(void) {
   for (int i = 0; i < 5; i++)
     insertHEnd(&h, i + 1);
   printf("List right now: ");
-  displayList(h.start);
+  printList(h.start);
   printf("Address of start: %p\nAddress of end: %p\n", h.start, h.end);
   reverse(&h);
   printf("List reversed: ");
-  displayList(h.start);
+  printList(h.start);
   printf("Address of start: %p\nAddress of end: %p\n", h.start, h.end);
   return 0;
 }

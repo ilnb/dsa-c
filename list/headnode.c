@@ -32,11 +32,11 @@ int main(void) {
         break;
       }
       case 4: {
-        displayList(h.start);
+        printList(h.start);
         break;
       }
       case 5: {
-        displayHCount(h);
+        printHCount(h);
         break;
       }
       case 6:

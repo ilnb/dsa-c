@@ -10,7 +10,7 @@ typedef struct pnode {
 void menu();
 void pEnqueue(pnode **, int, int);
 pnode pDequeue(pnode **);
-void displayPlist(pnode *);
+void printPlist(pnode *);
 pnode *freePlist(pnode *);
 
 int main() {
@@ -40,7 +40,7 @@ int main() {
         break;
       }
       case 3: {
-        displayPlist(head);
+        printPlist(head);
         break;
       }
       case 4: {
@@ -91,7 +91,7 @@ pnode pDequeue(pnode **hptr) {
   return *t;
 }
 
-void displayPlist(pnode *head) {
+void printPlist(pnode *head) {
   if (!head) {
     printf("Empty list\n");
     return;

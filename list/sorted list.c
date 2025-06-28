@@ -28,7 +28,7 @@ int main(void) {
         break;
       }
       case 3: {
-        displayList(head);
+        printList(head);
         break;
       }
       case 4:

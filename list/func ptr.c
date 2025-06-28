@@ -10,10 +10,10 @@ int main() {
   node *head = NULL;
   for (int i = 0; i < 11; i++)
     head = (*choice("ins"))(head, i);
-  displayList(head);
+  printList(head);
   for (int i = 0; i < 11; i += 2)
     head = (*choice("del"))(head, i);
-  displayList(head);
+  printList(head);
   head = freeList(head);
   return 0;
 }

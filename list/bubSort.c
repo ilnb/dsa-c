@@ -3,17 +3,16 @@
 node *bubSort(node *);
 
 int main(void) {
-  node *head = NULL;
-  head = insertStart(head, 2);
+  node *head = insertStart(0, 2);
   head = insertStart(head, 1);
   head = insertStart(head, 5);
   head = insertStart(head, 3);
   head = insertStart(head, 4);
   printf("List right now: ");
-  displayList(head);
+  printList(head);
   head = bubSort(head);
   printf("Sorted list: ");
-  displayList(head);
+  printList(head);
   head = freeList(head);
   return 0;
 }

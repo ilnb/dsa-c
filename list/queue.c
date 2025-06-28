@@ -26,11 +26,11 @@ int main(void) {
         break;
       }
       case 3: {
-        displayQueue(q);
+        printQueue(q);
         break;
       }
       case 4: {
-        displayQCount(q);
+        printQCount(q);
         break;
       }
       case 5:

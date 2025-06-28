@@ -32,7 +32,7 @@ int **Mat(int row, int col) {
 
 // returns a row x col matrix of s-sized members
 void **pMat(int row, int col, int s) {
-  void **mat = (void **)malloc(row * s);
+  void **mat = (void **)malloc(row * sizeof(void *));
   char *data = (char *)malloc(row * col * s);
   for (int i = 0; i < row; i++)
     mat[i] = data + i * col * s;
@@ -40,9 +40,9 @@ void **pMat(int row, int col, int s) {
 }
 
 // void **pMat(int row, int col, int s) {
-//   void **mat = (void **)malloc(row *sizeof(void *));
-//   for (int i= 0; i <row; i++)
-//     mat[i] = malloc(col *s);
+//   void **mat = (void **)malloc(row * sizeof(void *));
+//   for (int i = 0; i < row; i++)
+//     mat[i] = malloc(col * s);
 //   return mat;
 // }
 
@@ -88,12 +88,11 @@ void printMat(int **mat, int row, int col) {
 
 // input a row x col matrix
 void scanMat(int **mat, int row, int col) {
-  for (int i = 0; i < row; i++) {
+  for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++) {
       printf("Element %d%d: ", i, j);
       scanf("%d", &mat[i][j]);
     }
-  }
 }
 
 // returns sum MAT1 + MAT2
@@ -115,12 +114,12 @@ int **subMat(int **mat1, int **mat2, int row, int col) {
 }
 
 // returns product MAT1 x MAT2
-int **mulMat(int **mul1, int **mul2, int row, int n, int col) {
+int **mulMat(int **mat1, int **mat2, int row, int n, int col) {
   int **mul = Mat(row, col);
   for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
       for (int k = 0; k < n; k++)
-        mul[i][j] += mul1[i][k] * mul2[k][j];
+        mul[i][j] += mat1[i][k] * mat2[k][j];
   return mul;
 }
 

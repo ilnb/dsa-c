@@ -11,9 +11,9 @@ node *sortedInsert(node *, int);
 void printList(node *);
 
 int main() {
-  node *head = NULL;
-  for (int i = 0; i < 11; i++)
-    head = sortedInsert(head, i);
+  node *head = sortedInsert(0, 0);
+  for (int i = 1; i < 11; i++)
+    sortedInsert(head, i);
   printList(head);
   head = inSort(head);
   printList(head);
