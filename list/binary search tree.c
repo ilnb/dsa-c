@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 typedef struct bst {
-  struct bst *left;
   int key;
+  struct bst *left;
   struct bst *right;
 } bst;
 
@@ -81,9 +81,7 @@ void menu() {
 
 bst *newNode(int val) {
   bst *q = malloc(sizeof(*q));
-  q->key = val;
-  q->left = NULL;
-  q->right = NULL;
+  *q = (bst){val};
   return q;
 }
 

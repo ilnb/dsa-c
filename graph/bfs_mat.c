@@ -51,12 +51,11 @@ void bfs(graph g) {
   while (q.count) {
     int u = dequeue(&q);
     printf("Visiting vertex %d\n", u);
-    for (int v = 0; v < g.vcount; v++) {
+    for (int v = 0; v < g.vcount; v++)
       if (g.matrix[u][v] && !visited[v]) {
         visited[v] = 1;
         enqueue(&q, v);
       }
-    }
   }
   free(visited);
 }

@@ -112,7 +112,7 @@ void infixtopostfix(char *infix, char *postfix) {
   push(&s, '(');
   strcat(infix, ")");
   int i = 0, j = 0;
-  while (infix[i] != '\0') {
+  while (infix[i]) {
     if (isoperand(infix[i]))
       postfix[j++] = infix[i++];
     else if (isoperator(infix[i])) {

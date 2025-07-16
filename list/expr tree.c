@@ -2,15 +2,14 @@
 #include <stdlib.h>
 
 typedef struct bst {
-  struct bst *left;
   int key;
+  struct bst *left;
   struct bst *right;
 } bst;
 
 bst *newNode(int val) {
   bst *t = malloc(sizeof(bst));
-  t->key = val;
-  t->left = t->right = 0;
+  *t = (bst){val};
   return t;
 }
 
@@ -25,6 +24,7 @@ void inOrder(bst *root) {
   inOrder(root->right);
   if (n)
     printf(")");
+  printf("\n");
 }
 
 int main() {
@@ -35,6 +35,5 @@ int main() {
   r->left = newNode('2');
   r->right = newNode('x');
   inOrder(root);
-  printf("\n");
   return 0;
 }

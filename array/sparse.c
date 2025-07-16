@@ -47,13 +47,11 @@ sparse *createSparse(int **mat, int row, int col) {
   sparse *sparseMat = malloc(sizeof(sparse) * (count + 1));
   sparseMat[0] = (sparse){row, col, count};
   int k = 1;
-  for (int i = 0; i < row; i++) {
-    if (k <= count) {
+  for (int i = 0; i < row; i++)
+    if (k <= count)
       for (int j = 0; j < col; j++)
         if (k <= count && mat[i][j])
           sparseMat[k++] = (sparse){i, j, mat[i][j]};
-    }
-  }
   return sparseMat;
 }
 

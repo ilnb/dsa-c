@@ -35,12 +35,8 @@ void merge(node *head1, node *head2, hnode *merged) {
       head2 = head2->next;
     }
   }
-  while (head1) {
+  for (; head1; head1 = head1->next)
     insertHEnd(merged, head1->key);
-    head1 = head1->next;
-  }
-  while (head2) {
+  for (; head2; head2 = head2->next)
     insertHEnd(merged, head2->key);
-    head2 = head2->next;
-  }
 }

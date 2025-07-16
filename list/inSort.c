@@ -60,9 +60,7 @@ node *sortedInsert(node *head, int val) {
 }
 
 void printList(node *head) {
-  while (head) {
+  for (; head; head = head->next)
     printf("%d->", head->key);
-    head = head->next;
-  }
   printf("NULL\n");
 }

@@ -64,10 +64,10 @@ void printRing(dbnode *ring) {
     printf("Empty.\n");
     return;
   }
-  printf("HEAD<->");
+  printf("HEAD  ");
   dbnode *t = ring;
   do {
-    printf("%d<->", t->key);
+    printf("%d  ", t->key);
     t = t->next;
   } while (t != ring);
   printf("HEAD\n");
@@ -88,8 +88,7 @@ dbnode *insertNode(dbnode *ring, int val) {
     curr = curr->next;
   q->next = curr->next;
   q->prev = curr;
-  curr->next->prev = q;
-  curr->next = q;
+  curr->next = curr->next->prev = q;
   return (val < ring->key) ? q : ring;
 }
 
@@ -105,9 +104,8 @@ dbnode *deleteNode(dbnode *ring, int val) {
     dbnode *end = ring;
     while (end->next != ring)
       end = end->next;
-    end->next = t->next;
+    end->next = ring = t->next;
     t->next->prev = end;
-    ring = t->next;
     free(t);
     return ring;
   }

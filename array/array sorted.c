@@ -124,10 +124,9 @@ void deleteIndex(int *arr, int *lenPtr, int index) {
     --*lenPtr;
     return;
   }
-  for (int j = index; j < *lenPtr - 1; j++) {
-    // shift the values to left
+  // shift the values to left
+  for (int j = index; j < *lenPtr - 1; j++)
     arr[j] = arr[j + 1];
-  }
   --*lenPtr;
 }
 

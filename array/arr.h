@@ -12,7 +12,7 @@ int *Arr(int n) {
 }
 
 // returns an array of n members of size s
-void *pArr(int n, int s) { return malloc(n * s); }
+void *pArr(int n, int s) { return calloc(n, s); }
 
 // returns a row x col matrix
 int **Mat(int row, int col) {
@@ -23,7 +23,7 @@ int **Mat(int row, int col) {
   return mat;
 }
 
-// int **Mat(int row, int col) {
+// int **Mat(int row, int col)  {
 //   int **mat = (int **)malloc(row*sizeof(int*));
 //   for (int i = 0; i < col; i++)
 //     mat[i] = (int *)calloc(col, sizeof(int));
@@ -39,7 +39,7 @@ void **pMat(int row, int col, int s) {
   return mat;
 }
 
-// void **pMat(int row, int col, int s) {
+// void **pMat(int row, int col, int s)  {
 //   void **mat = (void **)malloc(row * sizeof(void *));
 //   for (int i = 0; i < row; i++)
 //     mat[i] = malloc(col * s);

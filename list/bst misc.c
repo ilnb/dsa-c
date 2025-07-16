@@ -1,6 +1,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 typedef struct bst {
   int key;
   struct bst *left, *right;
@@ -102,14 +103,14 @@ bst *copyBst(bst *root) {
   return new;
 }
 
-int isValidBstHelper(bst *root, int min, int max) {
+int __validBst(bst *root, int min, int max) {
   if (!root)
     return 1;
   if (root->key <= min || root->key >= max)
     return 0;
-  int l = isValidBstHelper(root->left, min, root->key);
-  int r = isValidBstHelper(root->right, root->key, max);
+  int l = __validBst(root->left, min, root->key);
+  int r = __validBst(root->right, root->key, max);
   return l && r;
 }
 
-int validBst(bst *root) { return isValidBstHelper(root, INT_MIN, INT_MAX); }
+int validBst(bst *root) { return __validBst(root, INT_MIN, INT_MAX); }

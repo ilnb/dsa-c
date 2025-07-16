@@ -55,13 +55,12 @@ void bfs(graph g, int start) {
   while (q.count) {
     int u = dequeue(&q);
     // printf("Visiting vertex %d, Distance: %d\n", u, distance[u]);
-    for (int v = 0; v < g.vcount; v++) {
+    for (int v = 0; v < g.vcount; v++)
       if (g.matrix[u][v] && !visited[v]) {
         visited[v] = 1;
         distance[v] = distance[u] + 1;
         enqueue(&q, v);
       }
-    }
   }
 
   printf("\nFrom vertex %d:\n", start);

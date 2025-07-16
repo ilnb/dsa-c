@@ -12,7 +12,7 @@ int *Arr(int n) {
 }
 
 // returns an array of n members of size s
-void *pArr(int n, int s) { return malloc(n * s); }
+void *pArr(int n, int s) { return calloc(n, s); }
 
 // returns a row x col matrix
 int **Mat(int row, int col) {
@@ -88,12 +88,11 @@ void printMat(int **mat, int row, int col) {
 
 // input a row x col matrix
 void scanMat(int **mat, int row, int col) {
-  for (int i = 0; i < row; i++) {
+  for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++) {
       printf("Element %d%d: ", i, j);
       scanf("%d", &mat[i][j]);
     }
-  }
 }
 
 // returns sum MAT1 + MAT2

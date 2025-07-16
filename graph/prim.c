@@ -11,10 +11,9 @@ typedef struct {
 
 int minKey(int *key, int *mstSet, int vcount) {
   int min = INF, min_index = -1;
-  for (int v = 0; v < vcount; v++) {
+  for (int v = 0; v < vcount; v++)
     if (!mstSet[v] && key[v] < min)
       min = key[v], min_index = v;
-  }
   return min_index;
 }
 
@@ -28,10 +27,9 @@ void primMST(graph g) {
   for (int i = 0; i < g.vcount - 1; i++) {
     int u = minKey(key, mstSet, g.vcount);
     mstSet[u] = 1;
-    for (int v = 0; v < g.vcount; v++) {
+    for (int v = 0; v < g.vcount; v++)
       if (g.matrix[u][v] && !mstSet[v] && g.matrix[u][v] < key[v])
         parent[v] = u, key[v] = g.matrix[u][v];
-    }
   }
   printf("Edge \tWeight\n");
   for (int i = 1; i < g.vcount; i++)

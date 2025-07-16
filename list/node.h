@@ -97,8 +97,7 @@ node *copyList(node *head) {
   while (head) {
     node *t = (node *)malloc(sizeof(*t));
     t->key = head->key;
-    e->next = t;
-    e = t;
+    e = e->next = t;
     head = head->next;
   }
   return n;
@@ -106,20 +105,16 @@ node *copyList(node *head) {
 
 // print a list
 void printList(node *head) {
-  while (head) {
+  for (; head; head = head->next)
     printf("%d->", head->key);
-    head = head->next;
-  }
   printf("NULL\n");
 }
 
 // returns and prints length of a list
 int lengthList(node *head) {
   int n = 0;
-  while (head) {
-    n++;
-    head = head->next;
-  }
+  for (; head; head = head->next)
+    ++n;
   return n;
 }
 
@@ -206,10 +201,7 @@ void deleteHnode(hnode *h_ptr, int val) {
 }
 
 // returns and prints length of headnode list
-int printHCount(hnode h) {
-  printf("The length is %d.\n", h.count);
-  return h.count;
-}
+inline int printHCount(hnode h) { return h.count; }
 
 // frees headnode list
 void freeHnode(hnode *h_ptr) {
@@ -273,18 +265,13 @@ void printQueue(queue q) {
     return;
   }
   printf("FRONT->");
-  while (q.front) {
-    printf("%d->", q.front->key);
+  for (; q.front; q.front = q.front->next)
     q.front = q.front->next;
-  }
   printf("\b\b<-REAR\n");
 }
 
 // returns and prints length of queue
-int printQCount(queue q) {
-  printf("The length of queue is %d.\n", q.count);
-  return q.count;
-}
+inline int printQCount(queue q) { return q.count; }
 
 // frees queue
 void freeQueue(queue *q_ptr) {
@@ -315,10 +302,8 @@ typedef struct stack {
 // pushes val to stack
 void push(stack **t, int val) {
   stack *q = (stack *)malloc(sizeof(*q));
-  if (!q) {
-    printf("Stack overflow.\n");
+  if (!q)
     return;
-  }
   q->key = val;
   q->next = *t;
   *t = q;
@@ -336,7 +321,7 @@ int pop(stack **t) {
 }
 
 // peeks on the stack and returns
-int peek(stack *t) {
+inline int peek(stack *t) {
   if (!t)
     return -1;
   return t->key;
@@ -344,11 +329,8 @@ int peek(stack *t) {
 
 // prints the stack
 void printStack(stack *t) {
-  while (t) {
-    printf("%d\n", t->key);
-    printf("↓\n");
-    t = t->next;
-  }
+  for (; t; t = t->next)
+    printf("%d\n↓\n", t->key);
   printf("NULL\n");
 }
 

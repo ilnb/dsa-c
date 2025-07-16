@@ -32,8 +32,7 @@ node *newNode(int val) {
   node *p = malloc(sizeof(*p));
   if (!p)
     return NULL;
-  p->key = val;
-  p->next = NULL;
+  *p = (node){val};
   return p;
 }
 

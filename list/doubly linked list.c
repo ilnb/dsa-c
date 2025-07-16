@@ -117,15 +117,13 @@ dbnode *sortedDelete(dbnode *head, int val) {
       t->next->prev = t->prev;
     free(t);
   }
-
   return head;
 }
+
 int lengthList(dbnode *head) {
   int n = 0;
-  while (head) {
+  for (; head; head = head->next)
     n++;
-    head = head->next;
-  }
   return n;
 }
 
@@ -135,11 +133,9 @@ void printList(dbnode *head) {
     return;
   }
   printf("NULL<-");
-  do {
-    printf("%d->", head->key);
-    head = head->next;
-  } while (head);
-  printf("NULL\n");
+  for (; head->next; head = head->next)
+    printf("%d  ", head->key);
+  printf("%d->NULL\n", head->key);
 }
 
 dbnode *freeList(dbnode *head) {

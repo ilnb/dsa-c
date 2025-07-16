@@ -97,10 +97,8 @@ void printPlist(pnode *head) {
     return;
   }
   printf("\n(key, rank) pairs:\n");
-  while (head) {
+  for (; head; head = head->next)
     printf("(%d, %d)->", head->key, head->rank);
-    head = head->next;
-  }
   printf("NULL\n");
 }
 
