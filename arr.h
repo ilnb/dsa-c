@@ -33,7 +33,7 @@ int **Mat(int row, int col) {
 // returns a row x col matrix of s-sized members
 void **pMat(int row, int col, int s) {
   void **mat = (void **)malloc(row * sizeof(void *));
-  char *data = (char *)malloc(row * col * s);
+  char *data = (char *)calloc(row * col, s);
   for (int i = 0; i < row; i++)
     mat[i] = data + i * col * s;
   return mat;
