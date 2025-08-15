@@ -24,7 +24,7 @@ int main(void) {
   node *merged = interspace(head1, head2);
   printf("Interspace merged list: ");
   printList(merged);
-  varFreeList(3, &head1, &head2, &merged);
+  varFreeList(&head1, &head2, &merged);
   return 0;
 }
 

@@ -118,7 +118,7 @@ int lengthList(node *head) {
   return n;
 }
 
-// free all nodes of a list
+// frees all nodes of a list
 node *freeList(node *head) {
   while (head) {
     node *t = head;
@@ -128,15 +128,14 @@ node *freeList(node *head) {
   return NULL;
 }
 
-// free mutliple lists
-void varFreeList(int count, ...) {
-  va_list ptr;
-  va_start(ptr, count);
-  for (int i = 0; i < count; i++) {
-    node **t = va_arg(ptr, node **);
-    *t = freeList(*t);
-  }
-  va_end(ptr);
+// frees mutliple lists
+#define varFreeList(...)                                                       \
+  __varFreeList((node **[]){__VA_ARGS__},                                      \
+                sizeof((node **[]){__VA_ARGS__}) / sizeof(node **))
+
+void __varFreeList(node **lists[], size_t count) {
+  for (size_t i = 0; i < count; i++)
+    *lists[i] = freeList(*lists[i]);
 }
 
 typedef struct {
@@ -215,13 +214,14 @@ void freeHnode(hnode *h_ptr) {
   memset(h_ptr, 0, sizeof(hnode));
 }
 
-// frees mutliple heanode lists
-void varFreeHnode(int count, ...) {
-  va_list ptr;
-  va_start(ptr, count);
-  for (int i = 0; i < count; i++)
-    freeHnode(va_arg(ptr, hnode *));
-  va_end(ptr);
+// frees mutliple headnode lists
+#define varFreeHnode(...)                                                      \
+  __varFreeHnode((hnode **[]){__VA_ARGS__},                                    \
+                 sizeof((hnode **[]){__VA_ARGS__}) / sizeof(hnode **))
+
+void __varFreeHnode(hnode **lists[], size_t count) {
+  for (size_t i = 0; i < count; i++)
+    freeHnode(*lists[i]);
 }
 
 typedef struct {
@@ -286,12 +286,13 @@ void freeQueue(queue *q_ptr) {
 }
 
 // frees mutliple queues
-void varFreeQueue(int count, ...) {
-  va_list ptr;
-  va_start(ptr, count);
-  for (int i = 0; i < count; i++)
-    free(va_arg(ptr, queue *));
-  va_end(ptr);
+#define varFreeQueue(...)                                                      \
+  __varFreeQueue((queue *[]){__VA_ARGS__},                                     \
+                 sizeof((queue *[]){__VA_ARGS__}) / sizeof(queue *))
+
+void __varFreeQueue(queue *queues[], size_t count) {
+  for (size_t i = 0; i < count; ++i)
+    freeQueue(queues[i]);
 }
 
 typedef struct stack {
@@ -345,14 +346,13 @@ stack *freeStack(stack *top) {
 }
 
 // frees mutliple stacks
-void varFreeStack(int count, ...) {
-  va_list ptr;
-  va_start(ptr, count);
-  for (int i = 0; i < count; i++) {
-    stack **t = va_arg(ptr, stack **);
-    *t = freeStack(*t);
-  }
-  va_end(ptr);
+#define varFreeStack(...)                                                      \
+  __varFreeStack((stack **[]){__VA_ARGS__},                                    \
+                 sizeof((stack **[]){__VA_ARGS__}) / sizeof(stack **))
+
+void __varFreeStack(stack **stacks[], size_t count) {
+  for (size_t i = 0; i < count; ++i)
+    *stacks[i] = freeStack(*stacks[i]);
 }
 
 #endif

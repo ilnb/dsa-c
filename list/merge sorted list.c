@@ -21,7 +21,7 @@ int main(void) {
   printf("Merged list: ");
   merge(head1, head2, &h);
   printList(h.start);
-  varFreeList(2, &head1, &head2), freeHnode(&h);
+  varFreeList(&head1, &head2), freeHnode(&h);
   return 0;
 }
 
