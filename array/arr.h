@@ -66,15 +66,15 @@ int **freeMat(int **mat, int row) {
 }
 
 // free mutliple integer arrays
-void freeArrs(int count, ...) {
-  va_list ptr;
-  va_start(ptr, count);
-  for (int i = 0; i < count; i++) {
-    void **t = va_arg(ptr, void **);
-    free(*t);
-    *t = NULL;
+#define freeArrs(...)                                                          \
+  __freeArrs((int **[]){__VA_ARGS__},                                          \
+             sizeof((int **[]){__VA_ARGS__}) / sizeof(int **));
+
+void __freeArrs(int **arrs[], size_t count) {
+  for (size_t i = 0; i < count; ++i) {
+    free(*arrs[i]);
+    *arrs[i] = NULL;
   }
-  va_end(ptr);
 }
 
 // print a row x col matrix

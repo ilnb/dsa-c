@@ -47,7 +47,7 @@ int main(void) {
   printf("Sorted by heap sort:\n");
   heapSort(arr, 5);
   printArr(arr, 5);
-  freeArrs(2, &arr, &temp);
+  freeArrs(&arr, &temp);
   return 0;
 }
 
@@ -107,7 +107,7 @@ void countingSort(int *arr, int len) {
     temp[t[arr[i] - min]++] = arr[i];
   for (int i = 0; i < len; i++)
     arr[i] = temp[i];
-  freeArrs(3, &temp, &count, &t);
+  freeArrs(&temp, &count, &t);
 }
 
 void merge(int *arr, int low, int mid, int high) {
@@ -124,7 +124,7 @@ void merge(int *arr, int low, int mid, int high) {
     arr[k++] = arrLow[i++];
   while (j < n2)
     arr[k++] = arrHigh[j++];
-  freeArrs(2, &arrHigh, &arrLow);
+  freeArrs(&arrHigh, &arrLow);
 }
 
 void mergeSort(int *arr, int low, int high) {

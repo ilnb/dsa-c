@@ -29,17 +29,16 @@ int main(void) {
   printFromSparse(sparseMat3);
   freeMat(mat1, 3), freeMat(mat2, 3);
   mat1 = mat2 = NULL;
-  freeArrs(4, &sparseMat1, &sparseMat2, &sparseMat3, &trans);
+  freeArrs(&sparseMat1, &sparseMat2, &sparseMat3, &trans);
   return 0;
 }
 
 sparse *createSparse(int **mat, int row, int col) {
   int count = 0;
-  for (int i = 0; i < row; i++) {
+  for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
-      if (mat[i][j] != 0)
+      if (mat[i][j])
         count++;
-  }
   if (!count) {
     printf("No non-zero data found.\n");
     return NULL;
@@ -136,7 +135,7 @@ sparse *transSparse(sparse *a) {
   trans[0] = (sparse){a[0].col, a[0].row, a[0].val};
   for (int i = 1; i <= a[0].val; i++)
     trans[t[a[i].col - min]++] = (sparse){a[i].col, a[i].row, a[i].val};
-  freeArrs(2, &t, &count);
+  freeArrs(&t, &count);
   return trans;
 }
 
