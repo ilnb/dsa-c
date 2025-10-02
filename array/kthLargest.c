@@ -2,17 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void swap(int *a, int *b) {
-  int t = *a;
-  *a = *b;
-  *b = t;
-}
+#define swap(type, a, b)                                                                           \
+  do {                                                                                             \
+    type t = a;                                                                                    \
+    a = b;                                                                                         \
+    b = t;                                                                                         \
+  } while (0)
 
 void bubSort(int *arr, int len) {
   for (int j = len - 1; j > 0; j--)
     for (int i = 0; i < j; i++)
       if (arr[i + 1] > arr[i])
-        swap(arr + i, arr + i + 1);
+        swap(int, arr[i], arr[i + 1]);
 }
 
 void revInsert(int *arr, int n, int val) {

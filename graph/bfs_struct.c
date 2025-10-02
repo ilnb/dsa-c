@@ -84,7 +84,8 @@ graph new_graph() {
 
 void enqueue(queue *q_ptr, int index) {
   node *t = malloc(sizeof(node));
-  if (!t) return;
+  if (!t)
+    return;
   t->index = index;
   t->next = NULL;
   if (!q_ptr->rear)

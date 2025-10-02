@@ -2,36 +2,17 @@
 #define _ARR_H
 
 #include <stdarg.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-// retuns an array of n integers
-int *Arr(int n) {
-  int *arr = (int *)calloc(n, sizeof(int));
-  return arr;
-}
-
 // returns an array of n members of size s
-void *pArr(int n, int s) { return calloc(n, s); }
+static inline void *__arr(int n, size_t s) { return calloc(n, s); }
 
-// returns a row x col matrix
-int **Mat(int row, int col) {
-  int **mat = (int **)malloc(row * sizeof(int));
-  int *data = (int *)calloc(row * col, sizeof(int));
-  for (int i = 0; i < row; i++)
-    mat[i] = data + i * col;
-  return mat;
-}
-
-// int **Mat(int row, int col) {
-//   int **mat = (int **)malloc(row*sizeof(int*));
-//   for (int i = 0; i < col; i++)
-//     mat[i] = (int *)calloc(col, sizeof(int));
-//   return mat;
-// }
+#define ARR(type, n) __arr(n, sizeof(type))
 
 // returns a row x col matrix of s-sized members
-void **pMat(int row, int col, int s) {
+static inline void **__mat(int row, int col, size_t s) {
   void **mat = (void **)malloc(row * sizeof(void *));
   char *data = (char *)calloc(row * col, s);
   for (int i = 0; i < row; i++)
@@ -39,46 +20,42 @@ void **pMat(int row, int col, int s) {
   return mat;
 }
 
-// void **pMat(int row, int col, int s) {
-//   void **mat = (void **)malloc(row * sizeof(void *));
-//   for (int i = 0; i < row; i++)
-//     mat[i] = malloc(col * s);
-//   return mat;
-// }
+#define MAT(type, r, c) __mat(r, c, sizeof(type))
+
+// free a matrix with row rows
+static inline void **__freeMat(void **mat, int row) {
+  free(*mat), free(mat);
+  return NULL;
+}
+
+#define freeMat(mat, row) __freeMat((void **)mat, row)
 
 // print an array of n integers
-void printArr(int *arr, int n) {
+static inline void printArr(int *arr, int n) {
   for (int i = 0; i < n; i++)
     printf("%3d", arr[i]);
   printf("\n");
 }
 
 // input for an array of n integers
-void scanArr(int *arr, int len) {
+static inline void scanArr(int *arr, int len) {
   for (int i = 0; i < len; i++)
     scanf("%d", arr + i);
 }
 
-// free a matrix with row rows
-int **freeMat(int **mat, int row) {
-  free(*mat), free(mat);
-  return NULL;
-}
-
 // free mutliple integer arrays
-#define freeArrs(...)                                                          \
-  __freeArrs((int **[]){__VA_ARGS__},                                          \
-             sizeof((int **[]){__VA_ARGS__}) / sizeof(int **));
-
-void __freeArrs(int **arrs[], size_t count) {
+static inline void __freeArrs(void **arrs[], size_t count) {
   for (size_t i = 0; i < count; ++i) {
     free(*arrs[i]);
     *arrs[i] = NULL;
   }
 }
 
+#define freeArrs(...)                                                                              \
+  __freeArrs((void **[]){__VA_ARGS__}, sizeof((void **[]){__VA_ARGS__}) / sizeof(void **));
+
 // print a row x col matrix
-void printMat(int **mat, int row, int col) {
+static inline void printMat(int **mat, int row, int col) {
   for (int i = 0; i < row; i++) {
     for (int j = 0; j < col; j++)
       printf("%3d", mat[i][j]);
@@ -87,7 +64,7 @@ void printMat(int **mat, int row, int col) {
 }
 
 // input a row x col matrix
-void scanMat(int **mat, int row, int col) {
+static inline void scanMat(int **mat, int row, int col) {
   for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++) {
       printf("Element %d%d: ", i, j);
@@ -96,8 +73,8 @@ void scanMat(int **mat, int row, int col) {
 }
 
 // returns sum MAT1 + MAT2
-int **addMat(int **mat1, int **mat2, int row, int col) {
-  int **mat3 = Mat(row, col);
+static inline int **addMat(int **mat1, int **mat2, int row, int col) {
+  int **mat3 = (int **)MAT(int, row, col);
   for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
       mat3[i][j] = mat1[i][j] + mat2[i][j];
@@ -105,17 +82,17 @@ int **addMat(int **mat1, int **mat2, int row, int col) {
 }
 
 // returns diff MAT1 - MAT2
-int **subMat(int **mat1, int **mat2, int row, int col) {
-  int **mat3 = Mat(row, col);
+static inline int **subMat(int **mat1, int **mat2, int row, int col) {
+  int **mat3 = (int **)MAT(int, row, col);
   for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
       mat3[i][j] = mat1[i][j] - mat2[i][j];
   return mat3;
 }
 
-// returns product MAT1 x MAT2
-int **mulMat(int **mat1, int **mat2, int row, int n, int col) {
-  int **mul = Mat(row, col);
+// returns product MAT1 [row x n] x MAT2 [n x col]
+static inline int **mulMat(int **mat1, int **mat2, int row, int n, int col) {
+  int **mul = (int **)MAT(int, row, col);
   for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
       for (int k = 0; k < n; k++)

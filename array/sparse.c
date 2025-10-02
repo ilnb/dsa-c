@@ -11,7 +11,7 @@ sparse *transSparse(sparse *);
 sparse *mulSparse(sparse *, sparse *);
 
 int main(void) {
-  int **mat1 = Mat(3, 3);
+  int **mat1 = (int **)MAT(int, 3, 3);
   mat1[0][0] = 1, mat1[1][0] = 2, mat1[2][2] = 1;
   sparse *sparseMat1 = createSparse(mat1, 3, 3);
   printf("Parent matrix of the first sparse matrix:\n");
@@ -19,7 +19,7 @@ int main(void) {
   sparse *trans = transSparse(sparseMat1);
   printf("Trans of it is:\n");
   printFromSparse(trans);
-  int **mat2 = Mat(3, 3);
+  int **mat2 = (int **)MAT(int, 3, 3);
   mat2[0][2] = 1, mat2[1][0] = -2, mat2[2][0] = 1;
   sparse *sparseMat2 = createSparse(mat2, 3, 3);
   printf("Parent matrix of the second sparse matrix:\n");
@@ -59,8 +59,7 @@ void printFromSparse(sparse *sparseMat) {
   const int row = sparseMat[0].row, col = sparseMat[0].col;
   for (int i = 0; i < row; i++) {
     for (int j = 0; j < col; j++) {
-      if (k <= sparseMat[0].val && i == sparseMat[k].row &&
-          j == sparseMat[k].col)
+      if (k <= sparseMat[0].val && i == sparseMat[k].row && j == sparseMat[k].col)
         printf("%3d", sparseMat[k++].val);
       else
         printf("%3d", 0);
@@ -80,8 +79,7 @@ sparse *addSparse(sparse *a, sparse *b) {
       if (a[i].val + b[j].val)
         count++;
       i++, j++;
-    } else if (a[i].row < b[j].row ||
-               a[i].row == b[j].row && a[i].col < b[j].col)
+    } else if (a[i].row < b[j].row || a[i].row == b[j].row && a[i].col < b[j].col)
       count++, i++;
     else
       count++, j++;
@@ -101,8 +99,7 @@ sparse *addSparse(sparse *a, sparse *b) {
         add[k++].val = a[i].val + b[j].val;
       }
       i++, j++;
-    } else if (a[i].row < b[j].row ||
-               a[i].row == b[j].row && a[i].col < b[j].col)
+    } else if (a[i].row < b[j].row || a[i].row == b[j].row && a[i].col < b[j].col)
       add[k++] = a[i++];
     else
       add[k++] = b[j++];
@@ -124,10 +121,10 @@ sparse *transSparse(sparse *a) {
       min = a[i].col;
   }
   int countLen = max - min + 1;
-  int *count = Arr(countLen);
+  int *count = ARR(int, countLen);
   for (int i = 1; i <= a[0].val; i++)
     count[a[i].col - min]++;
-  int *t = Arr(countLen);
+  int *t = ARR(int, countLen);
   t[0] = 1;
   for (int i = 1; i < countLen; i++)
     t[i] = t[i - 1] + count[i - 1];

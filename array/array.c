@@ -39,7 +39,7 @@ int main(void) {
         printf("Enter the index to be deleted: ");
         int index;
         scanf("%d", &index);
-        delete (arr, &n, index);
+        delete(arr, &n, index);
         break;
       }
       case 5: {

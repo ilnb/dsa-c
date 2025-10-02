@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define isChar(c)                                                              \
-  ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9')
+#define isChar(c) ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9')
 
 char *reverseWords(char *s) {
   if (!s)
@@ -18,11 +17,10 @@ char *reverseWords(char *s) {
       t++;
   }
   t = s;
-  typedef struct {
+  struct {
     char *start;
     int len;
-  } words;
-  words *data = malloc(sizeof(words) * count);
+  } *data = malloc(sizeof(*data) * count);
   int i = 0;
   while (*t) {
     if (isChar(*t)) {
@@ -55,7 +53,10 @@ char *reverseWords(char *s) {
 }
 
 int main() {
-  printf("%s\n", reverseWords("  hello galz  "));
-  printf("%s\n", reverseWords("are you crazies"));
+  char *s1 = reverseWords("  hello galz  ");
+  char *s2 = reverseWords("are you crazies");
+  printf("%s\n", s1);
+  printf("%s\n", s2);
+  free(s1), free(s2);
   return 0;
 }

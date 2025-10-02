@@ -12,14 +12,14 @@ int main(void) {
   return 0;
 }
 
-int *merge(int *array1, int len1, int *array2, int len2) {
+int *merge(int *arr1, int len1, int *arr2, int len2) {
   int i = 0, j = 0, k = 0;
-  int *c = malloc((len1 + len2) * sizeof(*c));
+  int *c = ARR(int, len1 + len2);
   while (i < len1 && j < len2)
-    c[k++] = (array1[i] < array2[j]) ? array1[i++] : array2[j++];
+    c[k++] = (arr1[i] < arr2[j]) ? arr1[i++] : arr2[j++];
   while (i < len1)
-    c[k++] = array1[i++];
+    c[k++] = arr1[i++];
   while (j < len2)
-    c[k++] = array2[j++];
+    c[k++] = arr2[j++];
   return c;
 }

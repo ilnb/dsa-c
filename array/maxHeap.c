@@ -74,19 +74,19 @@ void makeMaxHeap(int *arr, int size) {
     maxHeapify(arr, size, i--);
 }
 
-void maxHeapify(int *arr, int size, int index) {
+void maxHeapify(int *arr, int size, int idx) {
   while (1) {
-    int lChild = 2 * index + 1;
-    int rChild = 2 * index + 2;
-    int pIndex = index;
-    if (lChild < size && arr[lChild] > arr[pIndex])
-      pIndex = lChild;
-    if (rChild < size && arr[rChild] > arr[pIndex])
-      pIndex = rChild;
-    if (pIndex == index)
+    int l = 2 * idx + 1;
+    int r = 2 * idx + 2;
+    int p = idx;
+    if (l < size && arr[l] > arr[p])
+      p = l;
+    if (r < size && arr[r] > arr[p])
+      p = r;
+    if (p == idx)
       break;
-    swap(arr + index, arr + pIndex);
-    index = pIndex;
+    swap(arr + idx, arr + p);
+    idx = p;
   }
 }
 

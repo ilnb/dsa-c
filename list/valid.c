@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define matchBrac(c1, c2)                                                                          \
+  ((c1 == '[' && c2 == ']') || (c1 == '{' && c2 == '}') || (c1 == '(' && c2 == ')'))
+
 typedef struct stack {
   char key;
   struct stack *next;
@@ -10,7 +13,6 @@ typedef struct stack {
 int validcheck(char *);
 void push(stack **, char);
 char pop(stack **);
-int matchBrac(char, char);
 
 int main() {
   printf("Enter the expression: ");
@@ -42,7 +44,7 @@ char pop(stack **s_ptr) {
 }
 
 int validcheck(char *str) {
-  stack *s = {0};
+  stack *s = NULL;
   for (int i = 0; i < strlen(str); i++) {
     if (str[i] == '(' || str[i] == '{' || str[i] == '[')
       push(&s, str[i]);
@@ -55,14 +57,4 @@ int validcheck(char *str) {
     }
   }
   return s ? 0 : 1;
-}
-
-int matchBrac(char c1, char c2) {
-  if (c1 == '[' && c2 == ']')
-    return 1;
-  if (c1 == '{' && c2 == '}')
-    return 1;
-  if (c1 == '(' && c2 == ')')
-    return 1;
-  return 0;
 }
