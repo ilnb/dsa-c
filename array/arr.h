@@ -23,12 +23,12 @@ static inline void **__mat(int row, int col, size_t s) {
 #define MAT(type, r, c) __mat(r, c, sizeof(type))
 
 // free a matrix with row rows
-static inline void **__freeMat(void **mat, int row) {
+static inline void *__freeMat(void **mat) {
   free(*mat), free(mat);
   return NULL;
 }
 
-#define freeMat(mat, row) __freeMat((void **)mat, row)
+#define freeMat(mat) __freeMat((void **)mat)
 
 // print an array of n integers
 static inline void printArr(int *arr, int n) {

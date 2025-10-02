@@ -27,8 +27,7 @@ int main(void) {
   sparse *sparseMat3 = addSparse(sparseMat1, sparseMat2);
   printf("Matrix after adding the parent matrices:\n");
   printFromSparse(sparseMat3);
-  freeMat(mat1, 3), freeMat(mat2, 3);
-  mat1 = mat2 = NULL;
+  mat1 = freeMat(mat1), mat2 = freeMat(mat2);
   freeArrs(&sparseMat1, &sparseMat2, &sparseMat3, &trans);
   return 0;
 }

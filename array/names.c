@@ -26,12 +26,7 @@ int main() {
     for (int j = 0; j < 2; j++)
       free(lots_of_names[i][j]);
   }
-  freeMat(lots_of_names, 2);
-  // free list of pointers
-  free(*lots_of_names);
-  // free parent ptr block
-  free(lots_of_names);
-  lots_of_names = 0;
+  lots_of_names = freeMat(lots_of_names);
   for (int i = 0; i < 5; i++)
     free(names[i]);
   free(names);
