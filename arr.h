@@ -9,7 +9,7 @@
 // returns an array of n members of size s
 static inline void *__arr(int n, size_t s) { return calloc(n, s); }
 
-#define ARR(type, n) __arr(n, sizeof(type))
+#define ARR(type, n) (type *)__arr(n, sizeof(type))
 
 // returns a row x col matrix of s-sized members
 static inline void **__mat(int row, int col, size_t s) {
@@ -20,7 +20,7 @@ static inline void **__mat(int row, int col, size_t s) {
   return mat;
 }
 
-#define MAT(type, r, c) __mat(r, c, sizeof(type))
+#define MAT(type, r, c) (type **)__mat(r, c, sizeof(type))
 
 // free a matrix with row rows
 static inline void **__freeMat(void **mat) {
@@ -28,7 +28,7 @@ static inline void **__freeMat(void **mat) {
   return NULL;
 }
 
-#define freeMat(mat) __freeMat((void **)mat)
+#define freeMat(mat) (void *)__freeMat((void **)mat)
 
 // print an array of n integers
 static inline void printArr(int *arr, int n) {

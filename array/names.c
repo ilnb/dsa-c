@@ -3,7 +3,7 @@
 
 int main() {
   char **names = ARR(char *, 5);
-  char ***lots_of_names = (char ***)MAT(char *, 2, 2);
+  char ***lots_of_names = MAT(char *, 2, 2);
   char buf[30] = {0};
   for (int i = 0; i < 2; i++)
     for (int j = 0; j < 2; j++) {
@@ -22,10 +22,9 @@ int main() {
   for (int i = 0; i < 5; i++)
     printf("Name %d: %s\n", i + 1, names[i]);
   // free individual strings
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 2; i++)
     for (int j = 0; j < 2; j++)
       free(lots_of_names[i][j]);
-  }
   lots_of_names = freeMat(lots_of_names);
   for (int i = 0; i < 5; i++)
     free(names[i]);

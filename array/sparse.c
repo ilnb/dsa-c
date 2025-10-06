@@ -11,7 +11,7 @@ sparse *transSparse(sparse *);
 sparse *mulSparse(sparse *, sparse *);
 
 int main(void) {
-  int **mat1 = (int **)MAT(int, 3, 3);
+  int **mat1 = MAT(int, 3, 3);
   mat1[0][0] = 1, mat1[1][0] = 2, mat1[2][2] = 1;
   sparse *sparseMat1 = createSparse(mat1, 3, 3);
   printf("Parent matrix of the first sparse matrix:\n");
@@ -19,7 +19,7 @@ int main(void) {
   sparse *trans = transSparse(sparseMat1);
   printf("Trans of it is:\n");
   printFromSparse(trans);
-  int **mat2 = (int **)MAT(int, 3, 3);
+  int **mat2 = MAT(int, 3, 3);
   mat2[0][2] = 1, mat2[1][0] = -2, mat2[2][0] = 1;
   sparse *sparseMat2 = createSparse(mat2, 3, 3);
   printf("Parent matrix of the second sparse matrix:\n");
