@@ -7,22 +7,22 @@
 #include <string.h>
 
 typedef struct node {
-  int key;
   struct node *next;
+  int val;
 } node;
 
 // insert val in a sorted list
-static inline node *sortedInsert(node *head, int val) {
-  node *p = (node *)malloc(sizeof(*p));
+static inline node *sorted_push(node *head, int val) {
+  node *p = (node *)malloc(sizeof *p);
   if (!p)
     return head;
-  p->key = val;
-  if (!head || val < head->key) {
+  p->val = val;
+  if (!head || val < head->val) {
     p->next = head;
     return p;
   }
   node *q = head;
-  while (q->next && val >= q->next->key)
+  while (q->next && val >= q->next->val)
     q = q->next;
   p->next = q->next;
   q->next = p;
@@ -30,13 +30,11 @@ static inline node *sortedInsert(node *head, int val) {
 }
 
 // delete first instance val from a sorted list
-static inline node *sortedDelete(node *head, int val) {
-  if (!head)
-    return head;
+static inline node *sorted_pop(node *head, int val) {
   node **nptr = &head;
-  while (*nptr && (*nptr)->key < val)
+  while (*nptr && (*nptr)->val < val)
     nptr = &(*nptr)->next;
-  if (*nptr && (*nptr)->key == val) {
+  if (*nptr && (*nptr)->val == val) {
     node *t = *nptr;
     *nptr = (*nptr)->next;
     free(t);
@@ -45,21 +43,21 @@ static inline node *sortedDelete(node *head, int val) {
 }
 
 // insert val at the head of list
-static inline node *insertStart(node *head, int val) {
-  node *p = (node *)malloc(sizeof(*p));
+static inline node *push_front(node *head, int val) {
+  node *p = (node *)malloc(sizeof *p);
   if (!p)
     return head;
-  p->key = val;
+  p->val = val;
   p->next = head;
   return p;
 }
 
 // insert val at the end of list
-static inline node *insertEnd(node *head, int val) {
-  node *p = (node *)malloc(sizeof(*p));
+static inline node *push_back(node *head, int val) {
+  node *p = (node *)malloc(sizeof *p);
   if (!p)
     return head;
-  p->key = val;
+  p->val = val;
   p->next = NULL;
   if (!head)
     return p;
@@ -71,11 +69,9 @@ static inline node *insertEnd(node *head, int val) {
 }
 
 // delete first instance of val from list
-static inline node *deleteNode(node *head, int val) {
-  if (!head)
-    return head;
+static inline node *pop_node(node *head, int val) {
   node **nptr = &head;
-  while (*nptr && (*nptr)->key != val)
+  while (*nptr && (*nptr)->val != val)
     nptr = &(*nptr)->next;
   if (*nptr) {
     node *t = *nptr;
@@ -86,17 +82,17 @@ static inline node *deleteNode(node *head, int val) {
 }
 
 // deep copy list
-static inline node *copyList(node *head) {
+static inline node *clone(node *head) {
   if (!head)
     return NULL;
-  node *n = (node *)malloc(sizeof(*n));
-  n->key = head->key;
+  node *n = (node *)malloc(sizeof *n);
+  n->val = head->val;
   n->next = NULL;
   node *e = n;
   head = head->next;
   while (head) {
-    node *t = (node *)malloc(sizeof(*t));
-    t->key = head->key;
+    node *t = (node *)malloc(sizeof *t);
+    t->val = head->val;
     e = e->next = t;
     head = head->next;
   }
@@ -104,205 +100,201 @@ static inline node *copyList(node *head) {
 }
 
 // print a list
-static inline void printList(node *head) {
+static inline void print_list(node *head) {
   for (; head; head = head->next)
-    printf("%d->", head->key);
+    printf("%d->", head->val);
   printf("NULL\n");
 }
 
-// returns and prints length of a list
-static inline int lengthList(node *head) {
+// returns and prints ngth of a list
+static inline int len_list(node *head) {
   int n = 0;
-  for (; head; head = head->next)
-    ++n;
+  for (; head; head = head->next, ++n)
+    ;
   return n;
 }
 
 // frees all nodes of a list
-static inline node *freeList(node *head) {
-  while (head) {
-    node *t = head;
-    head = head->next;
-    free(t);
+static inline void free_list(node **ptr) {
+  node *first = *ptr;
+  if (!first)
+    return;
+  while (first) {
+    node *t = first;
+    first = first->next;
   }
-  return NULL;
+  *ptr = 0;
 }
 
 // frees mutliple lists
-#define varFreeList(...)                                                                           \
-  __varFreeList((node **[]){__VA_ARGS__}, sizeof((node **[]){__VA_ARGS__}) / sizeof(node **))
+#define var_free_list(...)                                                                         \
+  _var_free_list((node **[]){__VA_ARGS__}, sizeof((node **[]){__VA_ARGS__}) / sizeof(node **))
 
-static inline void __varFreeList(node **lists[], size_t count) {
+static inline void _var_free_list(node **lists[], size_t count) {
   for (size_t i = 0; i < count; i++)
-    *lists[i] = freeList(*lists[i]);
+    free_list(lists[i]);
 }
 
 typedef struct {
   node *start, *end;
-  int count;
+  int len;
 } hnode;
 
 // insert at the start of headnode list
-static inline void insertHStart(hnode *h_ptr, int val) {
-  node *q = (node *)malloc(sizeof(*q));
+static inline void h_push_front(hnode *h, int val) {
+  node *q = (node *)malloc(sizeof *q);
   if (!q)
     return;
-  q->key = val;
-  q->next = h_ptr->start;
-  if (!h_ptr->start)
-    h_ptr->end = q;
-  h_ptr->start = q;
-  h_ptr->count++;
+  q->val = val;
+  q->next = h->start;
+  if (!h->start)
+    h->end = q;
+  h->start = q;
+  h->len++;
 }
 
 // insert at the end of headnode list
-static inline void insertHEnd(hnode *h_ptr, int val) {
-  node *q = (node *)malloc(sizeof(*q));
+static inline void h_push_back(hnode *h, int val) {
+  node *q = (node *)malloc(sizeof *q);
   if (!q)
     return;
-  q->key = val;
+  q->val = val;
   q->next = NULL;
-  if (!h_ptr->end)
-    h_ptr->start = q;
+  if (!h->end)
+    h->start = q;
   else
-    h_ptr->end->next = q;
-  h_ptr->end = q;
-  h_ptr->count++;
+    h->end->next = q;
+  h->end = q;
+  h->len++;
 }
 
 // delete first instance of val from headnode list
-static inline void deleteHnode(hnode *h_ptr, int val) {
-  if (!h_ptr->start)
+static inline void h_del_node(hnode *h, int val) {
+  if (!h->start)
     return;
-  if (val == h_ptr->start->key) {
-    node *t = h_ptr->start;
-    h_ptr->start = t->next;
+  if (val == h->start->val) {
+    node *t = h->start;
+    h->start = t->next;
     free(t);
-    if (!h_ptr->start)
-      h_ptr->end = NULL;
-    h_ptr->count--;
+    if (!h->start)
+      h->end = NULL;
+    h->len--;
     return;
   }
-  node *q = h_ptr->start;
+  node *q = h->start;
   while (q->next) {
-    if (q->next->key == val) {
+    if (q->next->val == val) {
       node *t = q->next;
       q->next = t->next;
       if (!q->next)
-        h_ptr->end = q;
+        h->end = q;
       free(t);
-      h_ptr->count--;
+      h->len--;
       return;
     }
     q = q->next;
   }
 }
 
-// returns and prints length of headnode list
-static inline inline int printHCount(hnode h) { return h.count; }
-
 // frees headnode list
-static inline void freeHnode(hnode *h_ptr) {
-  if (!h_ptr->start)
+static inline void free_hlist(hnode *h) {
+  if (!h->start)
     return;
-  while (h_ptr->start) {
-    node *t = h_ptr->start;
-    h_ptr->start = t->next;
+  while (h->start) {
+    node *t = h->start;
+    h->start = t->next;
     free(t);
   }
-  memset(h_ptr, 0, sizeof(hnode));
+  memset(h, 0, sizeof *h);
 }
 
 // frees mutliple headnode lists
-#define varFreeHnode(...)                                                                          \
-  __varFreeHnode((hnode **[]){__VA_ARGS__}, sizeof((hnode **[]){__VA_ARGS__}) / sizeof(hnode **))
+#define var_free_hlist(...)                                                                        \
+  _var_free_hlist((hnode **[]){__VA_ARGS__}, sizeof(hnode * *[]){__VA_ARGS__}) / sizeof(hnode **)
 
-static inline void __varFreeHnode(hnode **lists[], size_t count) {
+static inline void _var_free_hlist(hnode **lists[], size_t count) {
   for (size_t i = 0; i < count; i++)
-    freeHnode(*lists[i]);
+    free_hlist(*lists[i]);
 }
 
 typedef struct {
   node *front, *rear;
-  int count;
+  int len;
 } queue;
 
 // enqueues val to the queue
-static inline void enqueue(queue *q_ptr, int val) {
-  node *t = (node *)malloc(sizeof(*t));
+static inline void enqueue(queue *q, int val) {
+  node *t = (node *)malloc(sizeof *t);
   if (!t)
     return;
-  t->key = val;
+  t->val = val;
   t->next = NULL;
-  if (!q_ptr->rear)
-    q_ptr->front = t;
+  if (!q->rear)
+    q->front = t;
   else
-    q_ptr->rear->next = t;
-  q_ptr->rear = t;
-  q_ptr->count++;
+    q->rear->next = t;
+  q->rear = t;
+  q->len++;
 }
 
 // dequeues from queue
-static inline int dequeue(queue *q_ptr) {
-  if (!q_ptr->front)
+static inline int dequeue(queue *q) {
+  if (!q->front)
     return -1;
-  node *t = q_ptr->front;
-  int n = t->key;
-  q_ptr->front = t->next;
-  if (!q_ptr->front)
-    q_ptr->rear = 0;
+  node *t = q->front;
+  int n = t->val;
+  q->front = t->next;
+  if (!q->front)
+    q->rear = 0;
   free(t);
-  q_ptr->count--;
+  q->len--;
   return n;
 }
 
 // prints the queue
-static inline void printQueue(queue q) {
-  if (!q.front) {
+static inline void print_queue(queue *q) {
+  if (!q->front) {
     printf("The queue is empty.\n");
     return;
   }
   printf("FRONT->");
-  for (; q.front; q.front = q.front->next)
-    q.front = q.front->next;
+  for (; q->front; q->front = q->front->next)
+    q->front = q->front->next;
   printf("\b\b<-REAR\n");
 }
 
-// returns and prints length of queue
-static inline inline int printQCount(queue q) { return q.count; }
-
 // frees queue
-static inline void freeQueue(queue *q_ptr) {
-  if (!q_ptr->front)
+static inline void free_queue(queue *q) {
+  if (!q->front)
     return;
-  while (q_ptr->front) {
-    node *t = q_ptr->front;
-    q_ptr->front = t->next;
+  while (q->front) {
+    node *t = q->front;
+    q->front = t->next;
     free(t);
   }
-  memset(q_ptr, 0, sizeof(queue));
+  memset(q, 0, sizeof *q);
 }
 
 // frees mutliple queues
-#define varFreeQueue(...)                                                                          \
-  __varFreeQueue((queue *[]){__VA_ARGS__}, sizeof((queue *[]){__VA_ARGS__}) / sizeof(queue *))
+#define var_free_queue(...)                                                                        \
+  _var_free_queue((queue *[]){__VA_ARGS__}, sizeof(queue *[]){__VA_ARGS__}) / sizeof(queue *)
 
-static inline void __varFreeQueue(queue *queues[], size_t count) {
+static inline void _var_free_queue(queue *queues[], size_t count) {
   for (size_t i = 0; i < count; ++i)
-    freeQueue(queues[i]);
+    free_queue(queues[i]);
 }
 
 typedef struct stack {
-  int key;
   struct stack *next;
+  int val;
 } stack;
 
 // pushes val to stack
 static inline void push(stack **t, int val) {
-  stack *q = (stack *)malloc(sizeof(*q));
+  stack *q = (stack *)malloc(sizeof *q);
   if (!q)
     return;
-  q->key = val;
+  q->val = val;
   q->next = *t;
   *t = q;
 }
@@ -312,43 +304,45 @@ static inline int pop(stack **t) {
   if (!*t)
     return -1;
   stack *q = *t;
-  int n = q->key;
+  int n = q->val;
   *t = (*t)->next;
   free(q);
   return n;
 }
 
 // peeks on the stack and returns
-static inline inline int peek(stack *t) {
+static inline int peek(stack *t) {
   if (!t)
     return -1;
-  return t->key;
+  return t->val;
 }
 
 // prints the stack
-static inline void printStack(stack *t) {
+static inline void print_stack(stack *t) {
   for (; t; t = t->next)
-    printf("%d\n↓\n", t->key);
+    printf("%d\n↓\n", t->val);
   printf("NULL\n");
 }
 
 // frees stack
-static inline stack *freeStack(stack *top) {
-  while (top) {
-    stack *t = top;
-    top = top->next;
-    free(t);
+static inline void free_stack(stack **ptr) {
+  stack *first = *ptr;
+  if (!first)
+    return;
+  while (first) {
+    stack *t = first;
+    first = first->next;
   }
-  return NULL;
+  *ptr = 0;
 }
 
 // frees mutliple stacks
-#define varFreeStack(...)                                                                          \
-  __varFreeStack((stack **[]){__VA_ARGS__}, sizeof((stack **[]){__VA_ARGS__}) / sizeof(stack **))
+#define var_free_stack(...)                                                                        \
+  _var_free_stack((stack **[]){__VA_ARGS__}, sizeof(stack * *[]){__VA_ARGS__}) / sizeof(stack **)
 
-static inline void __varFreeStack(stack **stacks[], size_t count) {
+static inline void _var_free_stack(stack **stacks[], size_t count) {
   for (size_t i = 0; i < count; ++i)
-    *stacks[i] = freeStack(*stacks[i]);
+    free_stack(stacks[i]);
 }
 
 #endif

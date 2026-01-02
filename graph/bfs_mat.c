@@ -1,9 +1,10 @@
+#include "../cleanup.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct node {
-  int index;
   struct node *next;
+  int index;
 } node;
 
 typedef struct queue {
@@ -16,46 +17,45 @@ typedef struct {
   int vcount;
 } graph;
 
-void enqueue(queue *q_ptr, int val) {
-  node *t = malloc(sizeof(node));
+void enqueue(queue *q, int x) {
+  node *t = malloc(sizeof *t);
   if (!t)
     return;
-  t->index = val;
+  t->index = x;
   t->next = NULL;
-  if (!q_ptr->rear)
-    q_ptr->front = t;
+  if (!q->rear)
+    q->front = t;
   else
-    q_ptr->rear->next = t;
-  q_ptr->rear = t;
-  q_ptr->count++;
+    q->rear->next = t;
+  q->rear = t;
+  q->count++;
 }
 
-int dequeue(queue *q_ptr) {
-  if (!q_ptr->front)
+int dequeue(queue *q) {
+  if (!q->front)
     return -1;
-  node *t = q_ptr->front;
+  node *t = q->front;
   int n = t->index;
-  q_ptr->front = t->next;
-  if (!q_ptr->front)
-    q_ptr->rear = 0;
+  q->front = t->next;
+  if (!q->front)
+    q->rear = 0;
   free(t);
-  q_ptr->count--;
+  q->count--;
   return n;
 }
 
 void bfs(graph g) {
-  int *visited = calloc(g.vcount, sizeof(int));
+  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
   queue q = {0};
   enqueue(&q, 0);
-  visited[0] = 1;
+  vis[0] = 1;
   while (q.count) {
     int u = dequeue(&q);
     printf("Visiting vertex %d\n", u);
     for (int v = 0; v < g.vcount; v++)
-      if (g.matrix[u][v] && !visited[v]) {
-        visited[v] = 1;
+      if (g.matrix[u][v] && !vis[v]) {
+        vis[v] = 1;
         enqueue(&q, v);
       }
   }
-  free(visited);
 }

@@ -10,44 +10,44 @@ typedef struct {
 void menu();
 void enqueue(queue *, int);
 int dequeue(queue *);
-void display(queue);
-int isFull(queue);
-int isEmpty(queue);
+void display(queue *);
+static inline int is_full(queue *);
+static inline int is_empty(queue *);
 
 int main(void) {
   queue q = {0};
   while (1) {
     menu();
     printf("Enter an appropriate option: ");
-    int option;
-    scanf("%d", &option);
-    switch (option) {
-      case 1: {
-        printf("Enter the value to be queued: ");
-        int val;
-        scanf("%d", &val);
-        enqueue(&q, val);
-        printf("The updated queue:\n");
-        display(q);
-        break;
-      }
-      case 2: {
-        int i = dequeue(&q);
-        if (i != -273) {
-          printf("The value dequeued is %d.\n", i);
-          printf("The updated queue:\n");
-          display(q);
-        }
-        break;
-      }
-      case 3:
-        display(q);
-      case 4:
-        break;
-      default:
-        printf("Invalid option.\n");
+    int opt;
+    scanf("%d", &opt);
+    switch (opt) {
+    case 1: {
+      printf("Enter the value to be queued: ");
+      int val;
+      scanf("%d", &val);
+      enqueue(&q, val);
+      printf("The updated queue:\n");
+      display(&q);
+      break;
     }
-    if (option == 4)
+    case 2: {
+      int i = dequeue(&q);
+      if (i != -273) {
+        printf("The value dequeued is %d.\n", i);
+        printf("The updated queue:\n");
+        display(&q);
+      }
+      break;
+    }
+    case 3:
+      display(&q);
+    case 4:
+      break;
+    default:
+      printf("Invalid option.\n");
+    }
+    if (opt == 4)
       break;
   }
   return 0;
@@ -62,7 +62,7 @@ void menu() {
 }
 
 void enqueue(queue *q, int val) {
-  if (isFull(*q))
+  if (is_full(q))
     printf("The queue is full");
   else {
     q->arr[q->rear] = val;
@@ -71,7 +71,7 @@ void enqueue(queue *q, int val) {
 }
 
 int dequeue(queue *q) {
-  if (isEmpty(*q)) {
+  if (is_empty(q)) {
     printf("The queue is empty.\n");
     return -273;
   } else {
@@ -81,19 +81,19 @@ int dequeue(queue *q) {
   }
 }
 
-void display(queue q) {
-  if (isEmpty(q)) {
+void display(queue *q) {
+  if (is_empty(q)) {
     printf("The queue is empty.\n");
     return;
   }
-  int i = q.front;
-  while (i != q.rear) {
-    printf("%d ", q.arr[i]);
+  int i = q->front;
+  while (i != q->rear) {
+    printf("%d ", q->arr[i]);
     i = (i + 1) % MAX;
   }
   printf("\n");
 }
 
-int isFull(queue q) { return (q.rear + 1) % MAX == q.front; }
+int is_full(queue *q) { return (q->rear + 1) % MAX == q->front; }
 
-int isEmpty(queue q) { return q.front == q.rear; }
+int is_empty(queue *q) { return q->front == q->rear; }

@@ -1,14 +1,15 @@
+#include "../cleanup.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct node {
-  int index;
   struct node *next;
+  int index;
 } node;
 
 typedef struct {
-  int self;
   int *neigh;
+  int self;
   int ncount;
 } vertices;
 
@@ -23,31 +24,9 @@ void dfs_visit(graph, int *, int);
 void dfs(graph);
 
 int main() {
-  graph graph = new_graph();
-  dfs(graph);
-  goto exit;
-  // while (1) {
-  //   printf("Wanna find something? [1/0]:");
-  //   int choice;
-  //   scanf("%d", &choice);
-  //   switch (choice) {
-  //     case 1: {
-  //       printf("Enter the value you want to find: ");
-  //       int val;
-  //       scanf("%d", &val);
-  //       if (find_bfs(graph, val))
-  //         printf("The vertex was found.\n");
-  //       else
-  //         printf("Not found.\n");
-  //     }
-  //     case 2:
-  //       goto exit;
-  //   }
-  // }
-exit: {
-  free_graph(&graph);
-  printf("Exited.\n");
-}
+  cl(free_graph) graph g = new_graph();
+  int opt;
+  dfs(g);
   return 0;
 }
 
@@ -85,20 +64,19 @@ void free_graph(graph *g) {
   g->vcount = 0;
 }
 
-void dfs_visit(graph g, int *visited, int u_index) {
-  visited[u_index] = 1;
-  printf("Visiting vertex %d\n", g.vert[u_index].self);
-  for (int i = 0; i < g.vert[u_index].ncount; i++) {
-    int neigh_index = g.vert[u_index].neigh[i];
-    if (!visited[neigh_index])
-      dfs_visit(g, visited, neigh_index);
+void dfs_visit(graph g, int *vis, int u) {
+  vis[u] = 1;
+  printf("Visiting vertex %d\n", g.vert[u].self);
+  for (int i = 0; i < g.vert[u].ncount; i++) {
+    int v = g.vert[u].neigh[i];
+    if (!vis[v])
+      dfs_visit(g, vis, v);
   }
 }
 
 void dfs(graph g) {
-  int *visited = calloc(g.vcount, sizeof(int));
+  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
   for (int i = 0; i < g.vcount; i++)
-    if (!visited[i])
-      dfs_visit(g, visited, i);
-  free(visited);
+    if (!vis[i])
+      dfs_visit(g, vis, i);
 }

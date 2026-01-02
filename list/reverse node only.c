@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 typedef struct node {
-  int key;
   struct node *next;
+  int val;
 } node;
 
 node *reverse(node *head) {

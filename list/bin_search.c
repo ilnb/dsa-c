@@ -2,48 +2,49 @@
 #include <stdlib.h>
 
 typedef struct node {
-  int key;
   struct node *next;
+  int val;
 } node;
 
-node *binSearch(node *, node *, int);
-node *sortedInsert(node *, int);
+node *bin_search(node *, node *, int);
+node *push_sorted(node *, int);
+void free_list(node **);
 
 int main() {
-  node *head = NULL;
+  [[gnu::cleanup(free_list)]] node *head = NULL;
   for (int i = 0; i < 9; i++)
-    head = sortedInsert(head, i);
+    head = push_sorted(head, i);
   printf("What do you wanna search for? ");
   int n;
   scanf("%d", &n);
-  node *f = binSearch(head, NULL, n);
+  node *f = bin_search(head, NULL, n);
   f ? printf("Node found.\n") : printf("Node not found.\n");
   return 0;
 }
 
-node *sortedInsert(node *head, int val) {
-  node *p = (node *)malloc(sizeof(node));
+node *push_sorted(node *head, int val) {
+  node *p = malloc(sizeof *p);
   if (!p) {
     printf("Out of memory.\n");
     return head;
   }
-  p->key = val;
-  if (!head || val < head->key) {
+  p->val = val;
+  if (!head || val < head->val) {
     p->next = head;
     return p;
   }
   node *q = head;
-  while (q->next && val >= q->next->key)
+  while (q->next && val >= q->next->val)
     q = q->next;
   p->next = q->next;
   q->next = p;
   return head;
 }
 
-node *binSearch(node *head, node *end, int val) {
+node *bin_search(node *head, node *end, int val) {
   if (!head)
     return NULL;
-  else if (head->key == val)
+  else if (head->val == val)
     return head;
   else if (head != end) {
     node *fast = head->next, *slow = head;
@@ -54,12 +55,23 @@ node *binSearch(node *head, node *end, int val) {
         fast = fast->next;
       }
     }
-    if (slow->key == val)
+    if (slow->val == val)
       return slow;
-    else if (slow->key < val)
-      return binSearch(slow->next, fast, val);
+    else if (slow->val < val)
+      return bin_search(slow->next, fast, val);
     else
-      return binSearch(head, slow, val);
+      return bin_search(head, slow, val);
   }
   return NULL;
+}
+
+void free_list(node **ptr) {
+  node *first = *ptr;
+  if (!first)
+    return;
+  while (first) {
+    node *t = first;
+    first = first->next;
+  }
+  *ptr = 0;
 }

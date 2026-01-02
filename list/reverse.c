@@ -3,25 +3,25 @@
 void reverse(hnode *);
 
 int main(void) {
-  hnode h = {0};
+  [[gnu::cleanup(free_hlist)]] hnode h = {0};
   for (int i = 0; i < 5; i++)
-    insertHEnd(&h, i + 1);
+    h_push_back(&h, i + 1);
   printf("List right now: ");
-  printList(h.start);
+  print_list(h.start);
   printf("Address of start: %p\nAddress of end: %p\n", h.start, h.end);
   reverse(&h);
   printf("List reversed: ");
-  printList(h.start);
+  print_list(h.start);
   printf("Address of start: %p\nAddress of end: %p\n", h.start, h.end);
   return 0;
 }
 
-void reverse(hnode *h_ptr) {
+void reverse(hnode *h) {
   node *prev, *curr, *next;
   prev = NULL;
-  curr = h_ptr->start;
-  next = h_ptr->start->next;
-  h_ptr->end = h_ptr->start;
+  curr = h->start;
+  next = h->start->next;
+  h->end = h->start;
   while (next) {
     curr->next = prev;
     prev = curr;
@@ -29,5 +29,5 @@ void reverse(hnode *h_ptr) {
     next = next->next;
   }
   curr->next = prev;
-  h_ptr->start = curr;
+  h->start = curr;
 }

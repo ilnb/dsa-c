@@ -1,9 +1,10 @@
+#include "../cleanup.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct node {
-  int index;
   struct node *next;
+  int index;
 } node;
 
 typedef struct queue {
@@ -12,8 +13,8 @@ typedef struct queue {
 } queue;
 
 typedef struct {
-  int self;
   int *neigh;
+  int self;
   int ncount;
 } vertices;
 
@@ -29,31 +30,9 @@ void bfs(graph);
 void free_graph(graph *);
 
 int main() {
-  graph graph = new_graph();
-  bfs(graph);
-  goto exit;
-  // while (1) {
-  //   printf("Wanna find something? [1/0]:");
-  //   int choice;
-  //   scanf("%d", &choice);
-  //   switch (choice) {
-  //     case 1: {
-  //       printf("Enter the value you want to find: ");
-  //       int val;
-  //       scanf("%d", &val);
-  //       if (find_bfs(graph, val))
-  //         printf("The vertex was found.\n");
-  //       else
-  //         printf("Not found.\n");
-  //     }
-  //     case 2:
-  //       goto exit;
-  //   }
-  // }
-exit: {
-  free_graph(&graph);
-  printf("Exited.\n");
-}
+  cl(free_graph) graph g = new_graph();
+  int opt;
+  bfs(g);
   return 0;
 }
 
@@ -82,53 +61,50 @@ graph new_graph() {
   return g;
 }
 
-void enqueue(queue *q_ptr, int index) {
-  node *t = malloc(sizeof(node));
+void enqueue(queue *q, int x) {
+  node *t = malloc(sizeof *t);
   if (!t)
     return;
-  t->index = index;
+  t->index = x;
   t->next = NULL;
-  if (!q_ptr->rear)
-    q_ptr->front = t;
+  if (!q->rear)
+    q->front = t;
   else
-    q_ptr->rear->next = t;
-  q_ptr->rear = t;
-  q_ptr->count++;
+    q->rear->next = t;
+  q->rear = t;
+  q->count++;
 }
 
-int dequeue(queue *q_ptr) {
-  if (!q_ptr->front)
+int dequeue(queue *q) {
+  if (!q->front)
     return -1;
-  node *t = q_ptr->front;
+  node *t = q->front;
   int n = t->index;
-  q_ptr->front = t->next;
-  if (!q_ptr->front)
-    q_ptr->rear = 0;
+  q->front = t->next;
+  if (!q->front)
+    q->rear = 0;
   free(t);
-  q_ptr->count--;
+  q->count--;
   return n;
 }
 
 void bfs(graph g) {
-  int *visited = calloc(g.vcount, sizeof(int));
+  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
   queue q = {0};
-  // consider the first entry in
-  // the vertices array as the root
   enqueue(&q, 0);
-  visited[0] = 1;
+  vis[0] = 1;
   while (q.count) {
-    int u_index = dequeue(&q);
-    vertices u = g.vert[u_index];
-    printf("Visiting vertex %d\n", u.self);
-    for (int i = 0; i < u.ncount; i++) {
-      int neigh_index = u.neigh[i];
-      if (!visited[neigh_index]) {
-        visited[neigh_index] = 1;
-        enqueue(&q, neigh_index);
+    int u = dequeue(&q);
+    vertices u_vert = g.vert[u];
+    printf("Visiting vertex %d\n", u_vert.self);
+    for (int i = 0; i < u_vert.ncount; i++) {
+      int v = u_vert.neigh[i];
+      if (!vis[v]) {
+        vis[v] = 1;
+        enqueue(&q, v);
       }
     }
   }
-  free(visited);
 }
 
 void free_graph(graph *g) {

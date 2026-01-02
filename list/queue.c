@@ -3,45 +3,44 @@
 void menu();
 
 int main(void) {
-  queue q = {0};
-  int option;
+  [[gnu::cleanup(free_queue)]] queue q = {0};
+  int opt;
   do {
     menu();
     printf("What's on your mind? ");
-    scanf("%d", &option);
-    switch (option) {
-      case 1: {
-        printf("Enter the value to be enqueued: ");
-        int val;
-        scanf("%d", &val);
-        enqueue(&q, val);
-        break;
-      }
-      case 2: {
-        int n = dequeue(&q);
-        if (n != -1)
-          printf("Value dequeued: %d.\n", n);
-        else
-          printf("Empty queue.\n");
-        break;
-      }
-      case 3: {
-        printQueue(q);
-        break;
-      }
-      case 4: {
-        printQCount(q);
-        break;
-      }
-      case 5:
-        freeQueue(&q);
-      case 6:
-        break;
-      default:
-        printf("Invalid option.\n");
+    scanf("%d", &opt);
+    switch (opt) {
+    case 1: {
+      printf("Enter the value to be enqueued: ");
+      int val;
+      scanf("%d", &val);
+      enqueue(&q, val);
+      break;
     }
-  } while (option != 6);
-  freeQueue(&q);
+    case 2: {
+      int n = dequeue(&q);
+      if (n != -1)
+        printf("Value dequeued: %d.\n", n);
+      else
+        printf("Empty queue.\n");
+      break;
+    }
+    case 3: {
+      print_queue(&q);
+      break;
+    }
+    case 4: {
+      printf("Length of queue is %d\n", q.len);
+      break;
+    }
+    case 5:
+      free_queue(&q);
+    case 6:
+      break;
+    default:
+      printf("Invalid opt.\n");
+    }
+  } while (opt != 6);
   return 0;
 }
 

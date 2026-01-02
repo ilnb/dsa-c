@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define matchBrac(c1, c2)                                                                          \
+#define match_brac(c1, c2)                                                                         \
   ((c1 == '[' && c2 == ']') || (c1 == '{' && c2 == '}') || (c1 == '(' && c2 == ')'))
 
 typedef struct stack {
-  char key;
   struct stack *next;
+  char val;
 } stack;
 
-int validcheck(char *);
+int valid_check(char *);
 void push(stack **, char);
 char pop(stack **);
 
@@ -18,7 +18,7 @@ int main() {
   printf("Enter the expression: ");
   char str[50] = {0};
   scanf("%s", str);
-  int valid = validcheck(str);
+  int valid = valid_check(str);
   if (valid)
     printf("Valid expression.\n");
   else
@@ -26,24 +26,24 @@ int main() {
   return 0;
 }
 
-void push(stack **s_ptr, char c) {
-  stack *q = malloc(sizeof(*q));
-  q->key = c;
-  q->next = *s_ptr;
-  *s_ptr = q;
+void push(stack **s, char c) {
+  stack *q = malloc(sizeof *q);
+  q->val = c;
+  q->next = *s;
+  *s = q;
 }
 
-char pop(stack **s_ptr) {
-  if (!*s_ptr)
+char pop(stack **s) {
+  if (!*s)
     return 0;
-  stack *s = *s_ptr;
-  char c = s->key;
-  *s_ptr = (*s_ptr)->next;
-  free(s);
+  stack *t = *s;
+  char c = t->val;
+  *s = (*s)->next;
+  free(t);
   return c;
 }
 
-int validcheck(char *str) {
+int valid_check(char *str) {
   stack *s = NULL;
   for (int i = 0; i < strlen(str); i++) {
     if (str[i] == '(' || str[i] == '{' || str[i] == '[')
@@ -52,7 +52,7 @@ int validcheck(char *str) {
       if (!s)
         return 0;
       char c = pop(&s);
-      if (!matchBrac(c, str[i]))
+      if (!match_brac(c, str[i]))
         return 0;
     }
   }

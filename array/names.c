@@ -15,17 +15,16 @@ int main() {
     for (int j = 0; j < 2; j++)
       printf("%s\n", lots_of_names[i][j]);
   for (int i = 0; i < 5; i++) {
-    printf("Enter name[%d]: ", i + 1);
+    printf("Enter name[%d]: ", i);
     scanf("%s", buf);
     names[i] = strdup(buf);
   }
   for (int i = 0; i < 5; i++)
-    printf("Name %d: %s\n", i + 1, names[i]);
-  // free individual strings
+    printf("Name %d: %s\n", i, names[i]);
   for (int i = 0; i < 2; i++)
     for (int j = 0; j < 2; j++)
       free(lots_of_names[i][j]);
-  lots_of_names = freeMat(lots_of_names);
+  lots_of_names = free_mat(lots_of_names);
   for (int i = 0; i < 5; i++)
     free(names[i]);
   free(names);

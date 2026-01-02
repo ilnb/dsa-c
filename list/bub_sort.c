@@ -1,33 +1,32 @@
 #include "node.h"
 
-node *bubSort(node *);
+node *bub_sort(node *);
 
 int main(void) {
-  node *head = insertStart(0, 2);
-  head = insertStart(head, 1);
-  head = insertStart(head, 5);
-  head = insertStart(head, 3);
-  head = insertStart(head, 4);
+  [[gnu::cleanup(free_list)]] node *head = push_front(0, 2);
+  head = push_front(head, 1);
+  head = push_front(head, 5);
+  head = push_front(head, 3);
+  head = push_front(head, 4);
   printf("List right now: ");
-  printList(head);
-  head = bubSort(head);
+  print_list(head);
+  head = bub_sort(head);
   printf("Sorted list: ");
-  printList(head);
-  head = freeList(head);
+  print_list(head);
   return 0;
 }
 
-node *bubSort(node *head) {
+node *bub_sort(node *head) {
   if (!head)
     return head;
   node *p = head;
   while (p->next) {
     node *q = p->next;
     while (q) {
-      if (p->key > q->key) {
-        int t = p->key;
-        p->key = q->key;
-        q->key = t;
+      if (p->val > q->val) {
+        int t = p->val;
+        p->val = q->val;
+        q->val = t;
       }
       q = q->next;
     }

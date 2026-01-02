@@ -7,21 +7,20 @@ FUNC choice(char *choice);
 // node *(*choice(char *choice))(node *, int);
 
 int main() {
-  node *head = NULL;
+  [[gnu::cleanup(free_list)]] node *head = NULL;
   for (int i = 0; i < 11; i++)
     head = (*choice("ins"))(head, i);
-  printList(head);
+  print_list(head);
   for (int i = 0; i < 11; i += 2)
     head = (*choice("del"))(head, i);
-  printList(head);
-  head = freeList(head);
+  print_list(head);
   return 0;
 }
 
 FUNC choice(char *str) {
   if (!strncmp(str, "ins", strlen(str)))
-    return sortedInsert;
+    return sorted_push;
   else if (!strncmp(str, "del", strlen(str)))
-    return sortedDelete;
+    return sorted_pop;
   return NULL;
 }

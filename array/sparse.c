@@ -1,38 +1,38 @@
+#include "../cleanup.h"
 #include "arr.h"
 
 typedef struct {
   int row, col, val;
 } sparse;
 
-sparse *createSparse(int **, int, int);
-void printFromSparse(sparse *);
-sparse *addSparse(sparse *, sparse *);
-sparse *transSparse(sparse *);
-sparse *mulSparse(sparse *, sparse *);
+sparse *mk_sp(int **, int, int);
+void print_sp(sparse *);
+sparse *add_sp(sparse *, sparse *);
+sparse *trans_sp(sparse *);
+sparse *mul_sp(sparse *, sparse *);
 
 int main(void) {
   int **mat1 = MAT(int, 3, 3);
   mat1[0][0] = 1, mat1[1][0] = 2, mat1[2][2] = 1;
-  sparse *sparseMat1 = createSparse(mat1, 3, 3);
+  cl(clean_one) sparse *sm1 = mk_sp(mat1, 3, 3);
   printf("Parent matrix of the first sparse matrix:\n");
-  printFromSparse(sparseMat1);
-  sparse *trans = transSparse(sparseMat1);
+  print_sp(sm1);
+  cl(clean_one) sparse *trans = trans_sp(sm1);
   printf("Trans of it is:\n");
-  printFromSparse(trans);
+  print_sp(trans);
   int **mat2 = MAT(int, 3, 3);
   mat2[0][2] = 1, mat2[1][0] = -2, mat2[2][0] = 1;
-  sparse *sparseMat2 = createSparse(mat2, 3, 3);
+  cl(clean_one) sparse *sm2 = mk_sp(mat2, 3, 3);
   printf("Parent matrix of the second sparse matrix:\n");
-  printFromSparse(sparseMat2);
-  sparse *sparseMat3 = addSparse(sparseMat1, sparseMat2);
+  print_sp(sm2);
+  cl(clean_one) sparse *sm3 = add_sp(sm1, sm2);
   printf("Matrix after adding the parent matrices:\n");
-  printFromSparse(sparseMat3);
-  mat1 = freeMat(mat1), mat2 = freeMat(mat2);
-  freeArrs(&sparseMat1, &sparseMat2, &sparseMat3, &trans);
+  print_sp(sm3);
+  mat1 = free_mat(mat1), mat2 = free_mat(mat2);
   return 0;
 }
 
-sparse *createSparse(int **mat, int row, int col) {
+sparse *mk_sp(int **mat, int row, int col) {
   int count = 0;
   for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
@@ -42,24 +42,24 @@ sparse *createSparse(int **mat, int row, int col) {
     printf("No non-zero data found.\n");
     return NULL;
   }
-  sparse *sparseMat = malloc(sizeof(sparse) * (count + 1));
-  sparseMat[0] = (sparse){row, col, count};
+  sparse *sm = ARR(sparse, count + 1);
+  sm[0] = (sparse){row, col, count};
   int k = 1;
   for (int i = 0; i < row; i++)
     if (k <= count)
       for (int j = 0; j < col; j++)
         if (k <= count && mat[i][j])
-          sparseMat[k++] = (sparse){i, j, mat[i][j]};
-  return sparseMat;
+          sm[k++] = (sparse){i, j, mat[i][j]};
+  return sm;
 }
 
-void printFromSparse(sparse *sparseMat) {
+void print_sp(sparse *sm) {
   int k = 1;
-  const int row = sparseMat[0].row, col = sparseMat[0].col;
-  for (int i = 0; i < row; i++) {
-    for (int j = 0; j < col; j++) {
-      if (k <= sparseMat[0].val && i == sparseMat[k].row && j == sparseMat[k].col)
-        printf("%3d", sparseMat[k++].val);
+  const int r = sm[0].row, c = sm[0].col;
+  for (int i = 0; i < r; i++) {
+    for (int j = 0; j < c; j++) {
+      if (k <= sm[0].val && i == sm[k].row && j == sm[k].col)
+        printf("%3d", sm[k++].val);
       else
         printf("%3d", 0);
     }
@@ -67,18 +67,21 @@ void printFromSparse(sparse *sparseMat) {
   }
 }
 
-sparse *addSparse(sparse *a, sparse *b) {
+sparse *add_sp(sparse *a, sparse *b) {
   if (a[0].row != b[0].row || a[0].col != b[0].col) {
     printf("The dimensions of the two are different.\n");
     return NULL;
   }
   int count = 0, i = 1, j = 1;
   while (i <= a[0].val && j <= b[0].val) {
-    if (a[i].row == b[j].row && a[i].col == b[j].col) {
-      if (a[i].val + b[j].val)
+    int ar = a[i].row, ac = a[i].col;
+    int br = b[j].row, bc = b[j].col;
+    int av = a[i].val, bv = b[j].val;
+    if (ar == br && ac == bc) {
+      if (av + bv)
         count++;
       i++, j++;
-    } else if (a[i].row < b[j].row || a[i].row == b[j].row && a[i].col < b[j].col)
+    } else if (ar < br || ar == br && ac < bc)
       count++, i++;
     else
       count++, j++;
@@ -87,18 +90,21 @@ sparse *addSparse(sparse *a, sparse *b) {
     count++, i++;
   while (j <= b[0].val)
     count++, j++;
-  sparse *add = malloc((count + 1) * sizeof(*add));
+  sparse *add = ARR(sparse, count + 1);
   add[0] = (sparse){a[0].row, a[0].col, count};
   i = 1, j = 1;
   int k = 1;
   while (i <= a[0].val && j <= b[0].val) {
-    if (a[i].row == b[j].row && a[i].col == b[j].col) {
-      if (a[i].val + b[j].val) {
-        add[k] = (sparse){a[i].row, a[i].col};
-        add[k++].val = a[i].val + b[j].val;
+    int ar = a[i].row, ac = a[i].col;
+    int br = b[j].row, bc = b[j].col;
+    int av = a[i].val, bv = b[j].val;
+    if (ar == br && ac == bc) {
+      if (av + bv) {
+        add[k] = (sparse){ar, ac};
+        add[k++].val = av + bv;
       }
       i++, j++;
-    } else if (a[i].row < b[j].row || a[i].row == b[j].row && a[i].col < b[j].col)
+    } else if (ar < br || ar == br && ac < bc)
       add[k++] = a[i++];
     else
       add[k++] = b[j++];
@@ -110,38 +116,36 @@ sparse *addSparse(sparse *a, sparse *b) {
   return add;
 }
 
-sparse *transSparse(sparse *a) {
-  int min = a[1].col;
-  int max = a[1].col;
-  for (int i = 1; i <= a[0].val; i++) {
+sparse *trans_sp(sparse *a) {
+  int min = a[1].col, max = a[1].col;
+  int n = a[0].val;
+  for (int i = 2; i <= n; i++) {
     if (max < a[i].col)
       max = a[i].col;
     if (min > a[i].col)
       min = a[i].col;
   }
-  int countLen = max - min + 1;
-  int *count = ARR(int, countLen);
-  for (int i = 1; i <= a[0].val; i++)
+  int countn = max - min + 1;
+  [[gnu::cleanup(clean_one)]] int *count = ARR(int, countn);
+  for (int i = 1; i <= n; i++)
     count[a[i].col - min]++;
-  int *t = ARR(int, countLen);
+  [[gnu::cleanup(clean_one)]] int *t = ARR(int, countn);
   t[0] = 1;
-  for (int i = 1; i < countLen; i++)
+  for (int i = 1; i < countn; i++)
     t[i] = t[i - 1] + count[i - 1];
-  sparse *trans = malloc(sizeof(sparse) * (a[0].val + 1));
-  trans[0] = (sparse){a[0].col, a[0].row, a[0].val};
-  for (int i = 1; i <= a[0].val; i++)
+  sparse *trans = ARR(sparse, n + 1);
+  trans[0] = (sparse){a[0].col, a[0].row, n};
+  for (int i = 1; i <= n; i++)
     trans[t[a[i].col - min]++] = (sparse){a[i].col, a[i].row, a[i].val};
-  freeArrs(&t, &count);
   return trans;
 }
 
-sparse *mulSparse(sparse *a, sparse *b) {
+sparse *mul_sp(sparse *a, sparse *b) {
   if (a[0].col != b[0].row) {
     printf("The dimensions are not compatible.\n");
     return NULL;
   }
-  sparse *mul = malloc(sizeof(sparse));
-  mul[0] = (sparse){a[0].row, a[0].col};
-  int i = 1, j = 1, k = 1;
+  sparse *mul;
+  // TODO: implement multiplication
   return mul;
 }

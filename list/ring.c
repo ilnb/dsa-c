@@ -2,51 +2,50 @@
 #include <stdlib.h>
 
 typedef struct node {
-  int key;
   struct node *next;
+  int val;
 } node;
 
 void menu();
-node *insertNode(node *, int);
-node *deleteNode(node *, int);
-void printRing(node *);
-node *freeRing(node *);
+node *push_sorted(node *, int);
+node *pop_sorted(node *, int);
+void print_ring(node *);
+void free_ring(node **);
 
 int main() {
-  node *ring = 0;
-  int option;
+  [[gnu::cleanup(free_ring)]] node *ring = 0;
+  int opt;
   do {
     menu();
     printf("What's on your mind? ");
-    scanf("%d", &option);
-    switch (option) {
-      case 1: {
-        printf("Enter the value you want to insert: ");
-        int val;
-        scanf("%d", &val);
-        ring = insertNode(ring, val);
-        break;
-      }
-      case 2: {
-        printf("Enter the value you want to delete: ");
-        int val;
-        scanf("%d", &val);
-        ring = deleteNode(ring, val);
-        break;
-      }
-      case 3: {
-        printRing(ring);
-        break;
-      }
-      case 4:
-        ring = freeRing(ring);
-      case 5:
-        break;
-      default:
-        printf("Invalid option\n");
+    scanf("%d", &opt);
+    switch (opt) {
+    case 1: {
+      printf("Enter the value you want to insert: ");
+      int val;
+      scanf("%d", &val);
+      ring = push_sorted(ring, val);
+      break;
     }
-  } while (option != 5);
-  ring = freeRing(ring);
+    case 2: {
+      printf("Enter the value you want to delete: ");
+      int val;
+      scanf("%d", &val);
+      ring = pop_sorted(ring, val);
+      break;
+    }
+    case 3: {
+      print_ring(ring);
+      break;
+    }
+    case 4:
+      free_ring(&ring);
+    case 5:
+      break;
+    default:
+      printf("Invalid opt\n");
+    }
+  } while (opt != 5);
   return 0;
 }
 
@@ -58,7 +57,7 @@ void menu() {
   printf("5. Exit\n");
 }
 
-void printRing(node *ring) {
+void print_ring(node *ring) {
   if (!ring) {
     printf("Empty.\n");
     return;
@@ -66,33 +65,33 @@ void printRing(node *ring) {
   printf("HEAD->");
   node *t = ring;
   do {
-    printf("%d->", t->key);
+    printf("%d->", t->val);
     t = t->next;
   } while (t != ring);
   printf("HEAD\n");
 }
 
-node *insertNode(node *ring, int val) {
+node *push_sorted(node *ring, int val) {
   node *q = malloc(sizeof(node));
   if (!q)
     return ring;
-  q->key = val;
+  q->val = val;
   if (!ring) {
     q->next = q;
     return q;
   }
   node *curr = ring;
-  while (curr->next != ring && !(curr->key <= val && val < curr->next->key))
+  while (curr->next != ring && !(curr->val <= val && val < curr->next->val))
     curr = curr->next;
   q->next = curr->next;
   curr->next = q;
-  return (val < ring->key) ? q : ring;
+  return (val < ring->val) ? q : ring;
 }
 
-node *deleteNode(node *ring, int val) {
+node *pop_sorted(node *ring, int val) {
   if (!ring)
     return ring;
-  if (val == ring->key) {
+  if (val == ring->val) {
     node *t = ring;
     if (ring->next == ring) {
       free(t);
@@ -109,11 +108,11 @@ node *deleteNode(node *ring, int val) {
   }
   node *p = ring;
   while (p->next != ring) {
-    if (val == p->next->key) {
+    if (val == p->next->val) {
       node *t = p->next;
       p->next = t->next;
       free(t);
-    } else if (val > p->next->key)
+    } else if (val > p->next->val)
       p = p->next;
     else
       break;
@@ -121,14 +120,14 @@ node *deleteNode(node *ring, int val) {
   return ring;
 }
 
-node *freeRing(node *ring) {
-  if (!ring)
-    return ring;
-  node *p = ring;
+void free_ring(node **ring) {
+  node *first = *ring;
+  node *p = first;
+  if (!first)
+    return;
   do {
     node *t = p;
     p = p->next;
     free(t);
-  } while (p != ring);
-  return NULL;
+  } while (p != first);
 }

@@ -1,71 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int lSearch(int *, int, int);
-int binSearch(int *, int, int);
-int binSearchRec(int *, int, int, int);
+int linear_search(int *, int, int);
+int bin_search(int *, int, int);
+int bin_search_rec(int *, int, int, int);
 int cmp(const void *a, const void *b) { return *(int *)a > *(int *)b ? 1 : 0; }
-void printArr(int *, int);
+void print_arr(int *, int);
 
 int main(void) {
   int arr[5] = {3, 2, 4, 0, 1};
   printf("Unsorted array:\n");
-  printArr(arr, 5);
+  print_arr(arr, 5);
   int n;
   printf("Enter the item to search: ");
   scanf("%d", &n);
-  printf("Using linear search:\n");
-  if (lSearch(arr, 5, n) != -1)
-    printf("The item is found at index %d\n", lSearch(arr, 5, n));
+  printf("Using linear search: ");
+  int ret = linear_search(arr, 5, n);
+  if (ret != -1)
+    printf("found at index %d\n", ret);
   else
-    printf("Item not found.\n");
+    printf("not found.\n");
   qsort(arr, 5, sizeof(int), cmp);
   printf("Sorted array:\n");
-  printArr(arr, 5);
-  printf("Using binary search:\n");
-  if (binSearch(arr, 5, n) != -1)
-    printf("The item is found at index %d\n", binSearch(arr, 5, n));
+  print_arr(arr, 5);
+  printf("Using binary search: ");
+  ret = bin_search(arr, 5, 5);
+  if (ret != -1)
+    printf("found at index %d\n", ret);
   else
-    printf("Item not found.\n");
+    printf("not found.\n");
   return 0;
 }
 
-void printArr(int *arr, int len) {
-  for (int i = 0; i < len; i++)
+void print_arr(int *arr, int n) {
+  for (int i = 0; i < n; i++)
     printf("%d ", i[arr]);
   printf("\n");
 }
 
-int lSearch(int *arr, int len, int item) {
-  for (int i = 0; i < len; i++)
+int linear_search(int *arr, int n, int item) {
+  for (int i = 0; i < n; i++)
     if (arr[i] == item)
       return i;
   return -1;
 }
 
-int binSearch(int *arr, int len, int item) {
-  int low = 0, high = len - 1;
-  while (low <= high) {
-    int mid = (low + high) / 2;
-    if (item == arr[mid])
-      return mid;
-    else if (arr[mid] > item)
-      high = mid - 1;
+int bin_search(int *arr, int n, int x) {
+  int l = 0, h = n - 1;
+  while (l <= h) {
+    int m = (l + h) / 2;
+    if (x == arr[m])
+      return m;
+    else if (arr[m] > x)
+      h = m - 1;
     else
-      low = mid + 1;
+      l = m + 1;
   }
   return -1;
 }
 
-int binSearchRec(int *arr, int low, int high, int item) {
-  int mid = (low + high) / 2;
-  while (low <= high) {
-    if (arr[mid] == item)
-      return mid;
-    else if (arr[mid] > item)
-      return binSearchRec(arr, low, mid - 1, item);
+int bin_search_rec(int *arr, int l, int h, int x) {
+  int m = (l + h) / 2;
+  while (l <= h) {
+    if (arr[m] == x)
+      return m;
+    else if (arr[m] > x)
+      return bin_search_rec(arr, l, m - 1, x);
     else
-      return binSearchRec(arr, mid + 1, high, item);
+      return bin_search_rec(arr, m + 1, h, x);
   }
   return -1;
 }

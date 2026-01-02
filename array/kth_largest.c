@@ -9,14 +9,14 @@
     b = t;                                                                                         \
   } while (0)
 
-void bubSort(int *arr, int len) {
-  for (int j = len - 1; j > 0; j--)
+void bub_sort(int *arr, int n) {
+  for (int j = n - 1; j > 0; j--)
     for (int i = 0; i < j; i++)
       if (arr[i + 1] > arr[i])
         swap(int, arr[i], arr[i + 1]);
 }
 
-void revInsert(int *arr, int n, int val) {
+void insert(int *arr, int n, int val) {
   int i = 0;
   while (i < n && arr[i] > val)
     i++;
@@ -25,14 +25,14 @@ void revInsert(int *arr, int n, int val) {
   arr[i] = val;
 }
 
-int kthLargest(int *arr, int n, int k) {
+int kth_largest(int *arr, int n, int k) {
   int *t = malloc(sizeof(int) * k);
   for (int i = 0; i < k; i++)
     t[i] = arr[i];
-  bubSort(t, k);
+  bub_sort(t, k);
   for (int i = k; i < n; i++)
     if (arr[i] > t[k - 1])
-      revInsert(t, k, arr[i]);
+      insert(t, k, arr[i]);
   int x = t[k - 1];
   free(t);
   return x;
@@ -41,6 +41,6 @@ int kthLargest(int *arr, int n, int k) {
 int main() {
   int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
   for (int i = 0; i < 10; i++)
-    printf("%d ", kthLargest(arr, 10, i + 1));
+    printf("%d ", kth_largest(arr, 10, i + 1));
   printf("\n");
 }

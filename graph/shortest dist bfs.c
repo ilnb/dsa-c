@@ -1,10 +1,11 @@
+#include "../cleanup.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 typedef struct node {
-  int index;
   struct node *next;
+  int index;
 } node;
 
 typedef struct queue {
@@ -17,58 +18,57 @@ typedef struct {
   int vcount;
 } graph;
 
-void enqueue(queue *q_ptr, int val) {
-  node *t = malloc(sizeof(node));
+void enqueue(queue *q, int x) {
+  node *t = malloc(sizeof *t);
   if (!t)
     return;
-  t->index = val;
+  t->index = x;
   t->next = NULL;
-  if (!q_ptr->rear)
-    q_ptr->front = t;
+  if (!q->rear)
+    q->front = t;
   else
-    q_ptr->rear->next = t;
-  q_ptr->rear = t;
-  q_ptr->count++;
+    q->rear->next = t;
+  q->rear = t;
+  q->count++;
 }
 
-int dequeue(queue *q_ptr) {
-  if (!q_ptr->front)
+int dequeue(queue *q) {
+  if (!q->front)
     return -1;
-  node *t = q_ptr->front;
+  node *t = q->front;
   int n = t->index;
-  q_ptr->front = t->next;
-  if (!q_ptr->front)
-    q_ptr->rear = 0;
+  q->front = t->next;
+  if (!q->front)
+    q->rear = 0;
   free(t);
-  q_ptr->count--;
+  q->count--;
   return n;
 }
 
-void bfs(graph g, int start) {
-  int *visited = calloc(g.vcount, sizeof(int));
-  int *distance = malloc(g.vcount * sizeof(int));
+void bfs(graph g, int s) {
+  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
+  [[gnu::cleanup(clean_one)]] int *d = malloc(g.vcount * sizeof(int));
   queue q = {0};
-  memset(distance, -1, g.vcount * sizeof(int));
-  distance[start] = 0;
-  enqueue(&q, start);
-  visited[start] = 1;
+  memset(d, -1, g.vcount * sizeof(int));
+  d[s] = 0;
+  enqueue(&q, s);
+  vis[s] = 1;
   while (q.count) {
     int u = dequeue(&q);
     // printf("Visiting vertex %d, Distance: %d\n", u, distance[u]);
     for (int v = 0; v < g.vcount; v++)
-      if (g.matrix[u][v] && !visited[v]) {
-        visited[v] = 1;
-        distance[v] = distance[u] + 1;
+      if (g.matrix[u][v] && !vis[v]) {
+        vis[v] = 1;
+        d[v] = d[u] + 1;
         enqueue(&q, v);
       }
   }
 
-  printf("\nFrom vertex %d:\n", start);
+  printf("\nFrom vertex %d:\n", s);
   for (int i = 0; i < g.vcount; i++) {
-    if (distance[i] == -1)
+    if (d[i] == -1)
       printf("Vertex %d is unreachable\n", i);
     else
-      printf("Shortest distance to vertex %d: %d\n", i, distance[i]);
+      printf("Shortest distance to vertex %d: %d\n", i, d[i]);
   }
-  free(visited), free(distance);
 }
