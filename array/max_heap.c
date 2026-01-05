@@ -1,20 +1,20 @@
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 30
 
+static inline int ln2c(size_t);
 static inline void swap(int *, int *);
-void print_arr(int *, int);
 void menu();
-void mk_max_heap(int *, int);
-void max_heapify(int *, int, int);
-void push(int *, int *, int);
-int pop_max(int *, int *);
-int is_keyline(int *, int, int);
-void print_heap(int *, int);
+void mk_max_heap(int *, size_t);
+void max_heapify(int *, size_t, int);
+void push(int *, size_t *, int);
+int pop_max(int *, size_t *);
+int is_keyline(int *, size_t, int);
+void print_heap(int *, size_t);
 
 int main() {
-  int arr[MAX], n = 15;
+  int arr[MAX];
+  size_t n = 15;
   arr[0] = 4, arr[1] = 10, arr[2] = 1;
   arr[3] = 5, arr[4] = 3, arr[5] = 6, arr[6] = 2;
   arr[7] = 8, arr[8] = 10, arr[9] = 7, arr[10] = 12;
@@ -49,16 +49,19 @@ int main() {
   } while (opt != 4);
 }
 
+int ln2c(size_t n) {
+  int v = 0;
+  while (n) {
+    n >>= 1;
+    v++;
+  }
+  return v;
+}
+
 void swap(int *a, int *b) {
   int t = *b;
   *b = *a;
   *a = t;
-}
-
-void print_arr(int *arr, int len) {
-  for (int i = 0; i < len; i++)
-    printf("%3d", arr[i]);
-  printf("\n");
 }
 
 void menu() {
@@ -68,13 +71,13 @@ void menu() {
   printf("4. Exit\n");
 }
 
-void mk_max_heap(int *arr, int n) {
+void mk_max_heap(int *arr, size_t n) {
   int i = n / 2 - 1;
   while (i >= 0)
     max_heapify(arr, n, i--);
 }
 
-void max_heapify(int *arr, int n, int i) {
+void max_heapify(int *arr, size_t n, int i) {
   while (1) {
     int l = 2 * i + 1;
     int r = 2 * i + 2;
@@ -90,9 +93,9 @@ void max_heapify(int *arr, int n, int i) {
   }
 }
 
-void push(int *arr, int *n_p, int val) {
-  arr[(*n_p)++] = val;
-  int i = *n_p - 1;
+void push(int *arr, size_t *n, int val) {
+  arr[(*n)++] = val;
+  int i = *n - 1;
   while (i) {
     int pIndex = (i - 1) / 2;
     if (arr[pIndex] > arr[i])
@@ -102,7 +105,7 @@ void push(int *arr, int *n_p, int val) {
   }
 }
 
-int pop_max(int *arr, int *n) {
+int pop_max(int *arr, size_t *n) {
   if (*n) {
     int t = arr[0];
     swap(arr, arr + --*n);
@@ -112,22 +115,22 @@ int pop_max(int *arr, int *n) {
   return -1;
 }
 
-int is_keyline(int *keylines, int n, int line) {
-  int depth = 1 + (int)log2(n);
+int is_keyline(int *keylines, size_t n, int line) {
+  int depth = ln2c(n);
   for (int i = depth - 1; i >= 0; i--)
     if (line == keylines[i])
       return 1;
   return 0;
 }
 
-void print_heap(int *arr, int n) {
+void print_heap(int *arr, size_t n) {
   if (!n)
     return;
   if (n == 1) {
     printf("%d\n", arr[0]);
     return;
   }
-  int d = 1 + (int)log2(n);
+  int d = ln2c(n);
   int *keylines = calloc(d, sizeof(int));
   for (int i = 1; i < d; i++)
     keylines[i] = 3 * (1 << (i - 1)) - 1;
@@ -139,7 +142,7 @@ void print_heap(int *arr, int n) {
     else if (d > 2)
       for (int i = 0; i < line; i++)
         printf(" ");
-    int ln = 1 + (int)log2(n) - d;
+    int ln = ln2c(n) - d;
     int max_slash;
     // print the values
     if (is_keyline(keylines, n, line)) {
@@ -152,7 +155,7 @@ void print_heap(int *arr, int n) {
         if (r >= n)
           r = n - 1;
       }
-      int nr = 2 * r + 2;
+      size_t nr = 2 * r + 2;
       if (nr >= n)
         nr = n - 1;
       max_slash = nr - r;
