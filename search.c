@@ -4,7 +4,7 @@
 int linear_search(int *, int, int);
 int bin_search(int *, int, int);
 int bin_search_rec(int *, int, int, int);
-int cmp(const void *a, const void *b) { return *(int *)a > *(int *)b ? 1 : 0; }
+int gt(const void *a, const void *b) { return *(int *)a > *(int *)b ? 1 : 0; }
 void print_arr(int *, int);
 
 int main(void) {
@@ -20,11 +20,11 @@ int main(void) {
     printf("found at index %d\n", ret);
   else
     printf("not found.\n");
-  qsort(arr, 5, sizeof(int), cmp);
+  qsort(arr, 5, sizeof(int), gt);
   printf("Sorted array:\n");
   print_arr(arr, 5);
   printf("Using binary search: ");
-  ret = bin_search(arr, 5, 5);
+  ret = bin_search(arr, 5, n);
   if (ret != -1)
     printf("found at index %d\n", ret);
   else
@@ -38,9 +38,9 @@ void print_arr(int *arr, int n) {
   printf("\n");
 }
 
-int linear_search(int *arr, int n, int item) {
+int linear_search(int *arr, int n, int x) {
   for (int i = 0; i < n; i++)
-    if (arr[i] == item)
+    if (arr[i] == x)
       return i;
   return -1;
 }
