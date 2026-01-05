@@ -89,7 +89,7 @@ int dequeue(queue *q) {
 }
 
 void bfs(graph g) {
-  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
+  cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
   queue q = {0};
   enqueue(&q, 0);
   vis[0] = 1;

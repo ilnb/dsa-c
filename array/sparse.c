@@ -1,4 +1,3 @@
-#include "../cleanup.h"
 #include "arr.h"
 
 typedef struct {
@@ -14,21 +13,27 @@ sparse *mul_sp(sparse *, sparse *);
 int main(void) {
   int **mat1 = MAT(int, 3, 3);
   mat1[0][0] = 1, mat1[1][0] = 2, mat1[2][2] = 1;
-  cl(clean_one) sparse *sm1 = mk_sp(mat1, 3, 3);
-  printf("Parent matrix of the first sparse matrix:\n");
-  print_sp(sm1);
-  cl(clean_one) sparse *trans = trans_sp(sm1);
-  printf("Trans of it is:\n");
-  print_sp(trans);
   int **mat2 = MAT(int, 3, 3);
   mat2[0][2] = 1, mat2[1][0] = -2, mat2[2][0] = 1;
-  cl(clean_one) sparse *sm2 = mk_sp(mat2, 3, 3);
+
+  sparse *sm1 = mk_sp(mat1, 3, 3);
+  printf("Parent matrix of the first sparse matrix:\n");
+  print_sp(sm1);
+
+  sparse *trans = trans_sp(sm1);
+  printf("Trans of it is:\n");
+  print_sp(trans);
+
+  sparse *sm2 = mk_sp(mat2, 3, 3);
   printf("Parent matrix of the second sparse matrix:\n");
   print_sp(sm2);
-  cl(clean_one) sparse *sm3 = add_sp(sm1, sm2);
+
+  sparse *sm3 = add_sp(sm1, sm2);
   printf("Matrix after adding the parent matrices:\n");
   print_sp(sm3);
-  mat1 = free_mat(mat1), mat2 = free_mat(mat2);
+
+  free_mats(&mat1, &mat2);
+  free_arrs(&sm1, &sm2, &sm3, &trans);
   return 0;
 }
 
@@ -126,10 +131,10 @@ sparse *trans_sp(sparse *a) {
       min = a[i].col;
   }
   int countn = max - min + 1;
-  [[gnu::cleanup(clean_one)]] int *count = ARR(int, countn);
+  [[gnu::cleanup(_free_arr)]] int *count = ARR(int, countn);
   for (int i = 1; i <= n; i++)
     count[a[i].col - min]++;
-  [[gnu::cleanup(clean_one)]] int *t = ARR(int, countn);
+  [[gnu::cleanup(_free_arr)]] int *t = ARR(int, countn);
   t[0] = 1;
   for (int i = 1; i < countn; i++)
     t[i] = t[i - 1] + count[i - 1];

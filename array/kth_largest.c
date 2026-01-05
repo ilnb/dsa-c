@@ -1,6 +1,5 @@
 // this is the bad super slow
-#include <stdio.h>
-#include <stdlib.h>
+#include "arr.h"
 
 #define swap(type, a, b)                                                                           \
   do {                                                                                             \
@@ -26,7 +25,7 @@ void insert(int *arr, int n, int val) {
 }
 
 int kth_largest(int *arr, int n, int k) {
-  int *t = malloc(sizeof(int) * k);
+  [[gnu::cleanup(_free_arr)]] int *t = ARR(int, k);
   for (int i = 0; i < k; i++)
     t[i] = arr[i];
   bub_sort(t, k);
@@ -34,7 +33,6 @@ int kth_largest(int *arr, int n, int k) {
     if (arr[i] > t[k - 1])
       insert(t, k, arr[i]);
   int x = t[k - 1];
-  free(t);
   return x;
 }
 

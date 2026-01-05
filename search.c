@@ -20,7 +20,7 @@ int main(void) {
     printf("found at index %d\n", ret);
   else
     printf("not found.\n");
-  qsort(arr, 5, sizeof(int), gt);
+  qsort(arr, 5, sizeof *arr, gt);
   printf("Sorted array:\n");
   print_arr(arr, 5);
   printf("Using binary search: ");

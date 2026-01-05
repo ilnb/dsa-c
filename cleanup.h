@@ -9,9 +9,9 @@ static inline void clean_one(void *ptr) {
   *(void **)ptr = 0;
 }
 
-static inline void clean_file(void *ptr) {
-  free(*(FILE **)ptr);
-  *(FILE **)ptr = 0;
+static inline void clean_file(FILE **ptr) {
+  free(*ptr);
+  *ptr = 0;
 }
 
 #define cl(fn) [[gnu::cleanup(fn)]]

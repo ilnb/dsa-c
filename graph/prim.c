@@ -19,9 +19,9 @@ int min_key(int *key, unsigned char *vis, int vcount) {
 }
 
 void prim_mst(graph g) {
-  [[gnu::cleanup(clean_one)]] int *p = malloc(g.vcount * sizeof(int));   // To store MST
-  [[gnu::cleanup(clean_one)]] int *key = malloc(g.vcount * sizeof(int)); // Key values
-  [[gnu::cleanup(clean_one)]] unsigned char *vis = calloc(g.vcount, 1);  // Included in MST?
+  cl(clean_one) int *p = malloc(g.vcount * sizeof(int));   // To store MST
+  cl(clean_one) int *key = malloc(g.vcount * sizeof(int)); // Key values
+  cl(clean_one) unsigned char *vis = calloc(g.vcount, 1);  // Included in MST?
   for (int i = 0; i < g.vcount; i++)
     key[i] = INF;
   key[0] = 0;

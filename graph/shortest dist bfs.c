@@ -46,8 +46,8 @@ int dequeue(queue *q) {
 }
 
 void bfs(graph g, int s) {
-  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
-  [[gnu::cleanup(clean_one)]] int *d = malloc(g.vcount * sizeof(int));
+  cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
+  cl(clean_one) int *d = malloc(g.vcount * sizeof(int));
   queue q = {0};
   memset(d, -1, g.vcount * sizeof(int));
   d[s] = 0;

@@ -60,7 +60,7 @@ static inline void counting_sort(int *arr, int n) {
     tmp[t[arr[i] - min]++] = arr[i];
   for (int i = 0; i < n; i++)
     arr[i] = tmp[i];
-  free_arrs((void **)&tmp, (void **)&count, (void **)&t);
+  free_arrs(&tmp, &count, &t);
 }
 
 static inline void merge(int *arr, int l, int h) {
@@ -78,7 +78,7 @@ static inline void merge(int *arr, int l, int h) {
     arr[k++] = arr_l[i++];
   while (j < n2)
     arr[k++] = arr_h[j++];
-  free_arrs((void **)&arr_h, (void **)&arr_l);
+  free_arrs(&arr_h, &arr_l);
 }
 
 static inline void merge_sort(int *arr, int l, int h) {

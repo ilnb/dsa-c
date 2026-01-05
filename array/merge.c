@@ -7,8 +7,7 @@ int main(void) {
   int arr2[2] = {0, 4};
   int *c = merge(arr1, 3, arr2, 2);
   print_arr(c, 5);
-  free(c);
-  c = NULL;
+  free_arr(c);
   return 0;
 }
 

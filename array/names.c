@@ -24,10 +24,7 @@ int main() {
   for (int i = 0; i < 2; i++)
     for (int j = 0; j < 2; j++)
       free(lots_of_names[i][j]);
-  lots_of_names = free_mat(lots_of_names);
-  for (int i = 0; i < 5; i++)
-    free(names[i]);
-  free(names);
-  names = 0;
+  free_mat(lots_of_names);
+  free_mat_r(names, 5);
   return 0;
 }

@@ -75,7 +75,7 @@ void dfs_visit(graph g, int *vis, int u) {
 }
 
 void dfs(graph g) {
-  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
+  cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
   for (int i = 0; i < g.vcount; i++)
     if (!vis[i])
       dfs_visit(g, vis, i);

@@ -8,7 +8,8 @@ char *rev_words(char *s) {
   if (!s)
     return s;
   char *t = s;
-  int count = 0, len = strlen(t);
+  int count = 0;
+  unsigned long len = strlen(t);
   while (*t) {
     if (is_char(*t))
       count++, t++;

@@ -20,7 +20,7 @@ int dfs_cycle(graph g, int *vis, int u, int p) {
 }
 
 int detect_cycle(graph g) {
-  [[gnu::cleanup(clean_one)]] int *vis = calloc(g.vcount, sizeof(int));
+  cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
   for (int i = 0; i < g.vcount; i++) {
     if (!vis[i])
       if (dfs_cycle(g, vis, i, -1)) {
