@@ -122,8 +122,8 @@ int pop_min(int *arr, size_t *n) {
 }
 
 int is_keyline(int *keylines, size_t n, int line) {
-  int depth = ln2c(n);
-  for (int i = depth - 1; i >= 0; i--)
+  int d = ln2c(n);
+  for (int i = d - 1; i >= 0; i--)
     if (line == keylines[i])
       return 1;
   return 0;
