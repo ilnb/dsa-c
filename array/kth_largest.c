@@ -8,14 +8,16 @@
     b = t;                                                                                         \
   } while (0)
 
-void bub_sort(int *arr, int n) {
+void bub_sort(int *arr, int n)
+{
   for (int j = n - 1; j > 0; j--)
     for (int i = 0; i < j; i++)
       if (arr[i + 1] > arr[i])
         swap(int, arr[i], arr[i + 1]);
 }
 
-void insert(int *arr, int n, int val) {
+void insert(int *arr, int n, int val)
+{
   int i = 0;
   while (i < n && arr[i] > val)
     i++;
@@ -24,7 +26,8 @@ void insert(int *arr, int n, int val) {
   arr[i] = val;
 }
 
-int kth_largest(int *arr, int n, int k) {
+int kth_largest(int *arr, int n, int k)
+{
   [[gnu::cleanup(_free_arr)]] int *t = ARR(int, k);
   for (int i = 0; i < k; i++)
     t[i] = arr[i];
@@ -36,7 +39,8 @@ int kth_largest(int *arr, int n, int k) {
   return x;
 }
 
-int main() {
+int main()
+{
   int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
   for (int i = 0; i < 10; i++)
     printf("%d ", kth_largest(arr, 10, i + 1));

@@ -21,7 +21,8 @@ void rev(char *);
 int eval_post(char *);
 int compute(int, int, char);
 
-int main() {
+int main()
+{
   char infix[30], str[30];
   printf("Enter infix expression: ");
   scanf("%s", infix);
@@ -47,18 +48,21 @@ int main() {
   return 0;
 }
 
-void swap(char *a, char *b) {
+void swap(char *a, char *b)
+{
   char t = *a;
   *a = *b;
   *b = t;
 }
 
-void init(stack *s) {
+void init(stack *s)
+{
   memset(s->arr, 0, 30);
   s->top = -1;
 }
 
-void push(stack *s, char c) {
+void push(stack *s, char c)
+{
   s->arr[++s->top] = c;
   return;
 }
@@ -67,7 +71,8 @@ char pop(stack *s) { return s->arr[s->top--]; }
 
 int is_empty(stack s) { return s.top == -1; }
 
-int icp(char c) {
+int icp(char c)
+{
   switch (c) {
   case '+':
   case '-':
@@ -83,7 +88,8 @@ int icp(char c) {
   }
 }
 
-int isp(char c) {
+int isp(char c)
+{
   switch (c) {
   case '+':
   case '-':
@@ -99,15 +105,18 @@ int isp(char c) {
   }
 }
 
-int is_operator(char c) {
+int is_operator(char c)
+{
   return (c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '(');
 }
 
-int is_operand(char c) {
+int is_operand(char c)
+{
   return ('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || '0' <= c && c <= '9');
 }
 
-void infix_to_post(char *infix, char *postfix) {
+void infix_to_post(char *infix, char *postfix)
+{
   stack s;
   init(&s);
   push(&s, '(');
@@ -131,7 +140,8 @@ void infix_to_post(char *infix, char *postfix) {
   postfix[j] = '\0';
 }
 
-void infix_to_pre(char *infix, char *prefix) {
+void infix_to_pre(char *infix, char *prefix)
+{
   rev(infix);
   size_t n = strlen(infix);
   for (int i = 0; i < n; i++) {
@@ -144,19 +154,22 @@ void infix_to_pre(char *infix, char *prefix) {
   rev(prefix);
 }
 
-void rev(char *str) {
+void rev(char *str)
+{
   int l = 0, r = strlen(str) - 1;
   while (l < r)
     swap(str + l++, str + r--);
 }
 
-int value(char c) {
+int value(char c)
+{
   if ('a' <= c && c <= 'z')
     return c - 64;
   return 0;
 }
 
-int eval_post(char *postfix) {
+int eval_post(char *postfix)
+{
   int i = 0;
   stack s;
   init(&s);
@@ -174,7 +187,8 @@ int eval_post(char *postfix) {
   return s.arr[s.top];
 }
 
-int compute(int a, int b, char c) {
+int compute(int a, int b, char c)
+{
   switch (c) {
   case '+':
     return a + b;

@@ -23,14 +23,16 @@ void free_graph(graph *);
 void dfs_visit(graph, int *, int);
 void dfs(graph);
 
-int main() {
+int main()
+{
   cl(free_graph) graph g = new_graph();
   int opt;
   dfs(g);
   return 0;
 }
 
-graph new_graph() {
+graph new_graph()
+{
   graph g;
   printf("How many vertices? ");
   scanf("%d", &g.vcount);
@@ -55,7 +57,8 @@ graph new_graph() {
   return g;
 }
 
-void free_graph(graph *g) {
+void free_graph(graph *g)
+{
   for (int i = 0; i < g->vcount; i++) {
     free(g->vert[i].neigh);
     g->vert[i].ncount = 0;
@@ -64,7 +67,8 @@ void free_graph(graph *g) {
   g->vcount = 0;
 }
 
-void dfs_visit(graph g, int *vis, int u) {
+void dfs_visit(graph g, int *vis, int u)
+{
   vis[u] = 1;
   printf("Visiting vertex %d\n", g.vert[u].self);
   for (int i = 0; i < g.vert[u].ncount; i++) {
@@ -74,7 +78,8 @@ void dfs_visit(graph g, int *vis, int u) {
   }
 }
 
-void dfs(graph g) {
+void dfs(graph g)
+{
   cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
   for (int i = 0; i < g.vcount; i++)
     if (!vis[i])

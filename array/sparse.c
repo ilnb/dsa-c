@@ -10,7 +10,8 @@ sparse *add_sp(sparse *, sparse *);
 sparse *trans_sp(sparse *);
 sparse *mul_sp(sparse *, sparse *);
 
-int main(void) {
+int main()
+{
   int **mat1 = MAT(int, 3, 3);
   mat1[0][0] = 1, mat1[1][0] = 2, mat1[2][2] = 1;
   int **mat2 = MAT(int, 3, 3);
@@ -37,7 +38,8 @@ int main(void) {
   return 0;
 }
 
-sparse *mk_sp(int **mat, int row, int col) {
+sparse *mk_sp(int **mat, int row, int col)
+{
   int count = 0;
   for (int i = 0; i < row; i++)
     for (int j = 0; j < col; j++)
@@ -58,7 +60,8 @@ sparse *mk_sp(int **mat, int row, int col) {
   return sm;
 }
 
-void print_sp(sparse *sm) {
+void print_sp(sparse *sm)
+{
   int k = 1;
   const int r = sm[0].row, c = sm[0].col;
   for (int i = 0; i < r; i++) {
@@ -72,7 +75,8 @@ void print_sp(sparse *sm) {
   }
 }
 
-sparse *add_sp(sparse *a, sparse *b) {
+sparse *add_sp(sparse *a, sparse *b)
+{
   if (a[0].row != b[0].row || a[0].col != b[0].col) {
     printf("The dimensions of the two are different.\n");
     return NULL;
@@ -121,7 +125,8 @@ sparse *add_sp(sparse *a, sparse *b) {
   return add;
 }
 
-sparse *trans_sp(sparse *a) {
+sparse *trans_sp(sparse *a)
+{
   int min = a[1].col, max = a[1].col;
   int n = a[0].val;
   for (int i = 2; i <= n; i++) {
@@ -145,7 +150,8 @@ sparse *trans_sp(sparse *a) {
   return trans;
 }
 
-sparse *mul_sp(sparse *a, sparse *b) {
+sparse *mul_sp(sparse *a, sparse *b)
+{
   if (a[0].col != b[0].row) {
     printf("The dimensions are not compatible.\n");
     return NULL;

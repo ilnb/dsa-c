@@ -14,7 +14,8 @@ void display(queue *);
 static inline int is_full(queue *);
 static inline int is_empty(queue *);
 
-int main(void) {
+int main()
+{
   queue q = {0};
   while (1) {
     menu();
@@ -53,7 +54,8 @@ int main(void) {
   return 0;
 }
 
-void menu() {
+void menu()
+{
   printf("1. Inqueue\n");
   printf("2. Dequeue\n");
   printf("3. Display\n");
@@ -61,7 +63,8 @@ void menu() {
   printf("What do you want to do? ");
 }
 
-void enqueue(queue *q, int val) {
+void enqueue(queue *q, int val)
+{
   if (is_full(q))
     printf("The queue is full");
   else {
@@ -70,7 +73,8 @@ void enqueue(queue *q, int val) {
   }
 }
 
-int dequeue(queue *q) {
+int dequeue(queue *q)
+{
   if (is_empty(q)) {
     printf("The queue is empty.\n");
     return -273;
@@ -81,7 +85,8 @@ int dequeue(queue *q) {
   }
 }
 
-void display(queue *q) {
+void display(queue *q)
+{
   if (is_empty(q)) {
     printf("The queue is empty.\n");
     return;

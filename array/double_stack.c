@@ -14,7 +14,8 @@ int pop2(db_stack *);
 void display1(db_stack *);
 void display2(db_stack *);
 
-int main(void) {
+int main()
+{
   db_stack d;
   init(&d);
   int opt;
@@ -74,7 +75,8 @@ int main(void) {
   return 0;
 }
 
-void menu() {
+void menu()
+{
   printf("1. Push into first stack\n");
   printf("2. Push into second stack\n");
   printf("3. Pop from first stack\n");
@@ -84,22 +86,26 @@ void menu() {
   printf("7. Exit\n");
 }
 
-void init(db_stack *d) {
+void init(db_stack *d)
+{
   d->top1 = -1;
   d->top2 = MAX;
 }
 
-void push1(db_stack *d, int val) {
+void push1(db_stack *d, int val)
+{
   d->arr[++d->top1] = val;
   return;
 }
 
-void push2(db_stack *d, int val) {
+void push2(db_stack *d, int val)
+{
   d->arr[--d->top2] = val;
   return;
 }
 
-int pop1(db_stack *d) {
+int pop1(db_stack *d)
+{
   if (d->top1 == -1) {
     printf("Empty stack\n");
     return -1;
@@ -107,7 +113,8 @@ int pop1(db_stack *d) {
   return d->arr[d->top1--];
 }
 
-int pop2(db_stack *d) {
+int pop2(db_stack *d)
+{
   if (d->top2 == MAX) {
     printf("Empty stack\n");
     return -1;
@@ -115,7 +122,8 @@ int pop2(db_stack *d) {
   return d->arr[d->top2++];
 }
 
-void display1(db_stack *d) {
+void display1(db_stack *d)
+{
   if (d->top1 == -1) {
     printf("Empty stack\n");
     return;
@@ -124,7 +132,8 @@ void display1(db_stack *d) {
     printf("%d\n", d->arr[i]);
 }
 
-void display2(db_stack *d) {
+void display2(db_stack *d)
+{
   if (d->top2 == MAX) {
     printf("Empty stack\n");
     return;

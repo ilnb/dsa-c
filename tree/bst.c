@@ -16,7 +16,8 @@ bst *free_bst(bst *);
 int min_val_bst(bst *);
 int inorder(bst *);
 
-int main() {
+int main()
+{
   bst *root = NULL;
   int opt = 0;
   do {
@@ -70,7 +71,8 @@ int main() {
   } while (opt != 6);
 }
 
-void menu() {
+void menu()
+{
   printf("1. Insert a new node\n");
   printf("2. Delete a node\n");
   printf("3. Print the bst\n");
@@ -79,13 +81,15 @@ void menu() {
   printf("6. Exit\n");
 }
 
-bst *new_node(int val) {
+bst *new_node(int val)
+{
   bst *q = malloc(sizeof *q);
   *q = (bst){.val = val};
   return q;
 }
 
-bst *push_node(bst *root, int val) {
+bst *push_node(bst *root, int val)
+{
   bst *t = new_node(val);
   if (!root)
     return t;
@@ -102,7 +106,8 @@ bst *push_node(bst *root, int val) {
   return root;
 }
 
-bst *pop_node(bst *root, int val) {
+bst *pop_node(bst *root, int val)
+{
   if (!root)
     return root;
   bst *q = NULL, *p = root;
@@ -148,7 +153,8 @@ bst *pop_node(bst *root, int val) {
   return root;
 }
 
-bst *search(bst *root, int val) {
+bst *search(bst *root, int val)
+{
   if (!root)
     return NULL;
   if (val == root->val)
@@ -159,7 +165,8 @@ bst *search(bst *root, int val) {
     return search(root->left, val);
 }
 
-bst *free_bst(bst *root) {
+bst *free_bst(bst *root)
+{
   if (!root)
     return NULL;
   free_bst(root->left);
@@ -168,7 +175,8 @@ bst *free_bst(bst *root) {
   return NULL;
 }
 
-int inorder(bst *root) {
+int inorder(bst *root)
+{
   if (!root)
     return 0;
   inorder(root->left);
@@ -177,7 +185,8 @@ int inorder(bst *root) {
   return 1;
 }
 
-int min_val_bst(bst *root) {
+int min_val_bst(bst *root)
+{
   if (!root)
     return -69;
   while (root->left)

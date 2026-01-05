@@ -1,7 +1,8 @@
 #include "arr.h"
 #include <string.h>
 
-int main() {
+int main()
+{
   char **names = ARR(char *, 5);
   char ***lots_of_names = MAT(char *, 2, 2);
   char buf[30] = {0};

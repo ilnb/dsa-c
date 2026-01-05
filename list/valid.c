@@ -14,7 +14,8 @@ int valid_check(char *);
 void push(stack **, char);
 char pop(stack **);
 
-int main() {
+int main()
+{
   printf("Enter the expression: ");
   char str[50] = {0};
   scanf("%s", str);
@@ -26,14 +27,16 @@ int main() {
   return 0;
 }
 
-void push(stack **s, char c) {
+void push(stack **s, char c)
+{
   stack *q = malloc(sizeof *q);
   q->val = c;
   q->next = *s;
   *s = q;
 }
 
-char pop(stack **s) {
+char pop(stack **s)
+{
   if (!*s)
     return 0;
   stack *t = *s;
@@ -43,7 +46,8 @@ char pop(stack **s) {
   return c;
 }
 
-int valid_check(char *str) {
+int valid_check(char *str)
+{
   stack *s = NULL;
   for (int i = 0; i < strlen(str); i++) {
     if (str[i] == '(' || str[i] == '{' || str[i] == '[')

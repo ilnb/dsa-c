@@ -11,7 +11,8 @@ node *push_sorted(node *, int);
 void print_list(node *);
 void free_list(node **ptr);
 
-int main() {
+int main()
+{
   [[gnu::cleanup(free_list)]] node *head = push_sorted(0, 0);
   for (int i = 1; i < 11; i++)
     push_sorted(head, i);
@@ -21,7 +22,8 @@ int main() {
   return 0;
 }
 
-void ins_sort(node **ptr) {
+void ins_sort(node **ptr)
+{
   node *head = *ptr;
   if (!head)
     return;
@@ -44,7 +46,8 @@ void ins_sort(node **ptr) {
   return;
 }
 
-node *push_sorted(node *head, int val) {
+node *push_sorted(node *head, int val)
+{
   node *p = malloc(sizeof *p);
   if (!p)
     return head;
@@ -61,13 +64,15 @@ node *push_sorted(node *head, int val) {
   return head;
 }
 
-void print_list(node *head) {
+void print_list(node *head)
+{
   for (; head; head = head->next)
     printf("%d->", head->val);
   printf("NULL\n");
 }
 
-void free_list(node **ptr) {
+void free_list(node **ptr)
+{
   node *first = *ptr;
   if (!first)
     return;

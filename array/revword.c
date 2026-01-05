@@ -4,7 +4,8 @@
 
 #define is_char(c) ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9')
 
-char *rev_words(char *s) {
+char *rev_words(char *s)
+{
   if (!s)
     return s;
   char *t = s;
@@ -57,7 +58,8 @@ char *rev_words(char *s) {
   return rev;
 }
 
-int main() {
+int main()
+{
   char *s1 = rev_words("  hello galz  ");
   char *s2 = rev_words("are you crazies");
   printf("%s\n", s1);

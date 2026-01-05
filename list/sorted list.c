@@ -1,11 +1,13 @@
 #include "node.h"
 
-void menu() {
+void menu()
+{
   printf("1. Insert\n2. Delete\n3. Display\n4. Free list\n5. Exit\n");
   return;
 }
 
-int main(void) {
+int main()
+{
   [[gnu::cleanup(free_list)]] node *head = NULL;
   int opt;
   do {

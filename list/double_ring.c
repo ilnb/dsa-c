@@ -13,7 +13,8 @@ dbnode *pop_sorted(dbnode *, int);
 void print_ring(dbnode *);
 void free_ring(dbnode **);
 
-int main() {
+int main()
+{
   [[gnu::cleanup(free_ring)]] dbnode *ring = 0;
   int opt;
   do {
@@ -50,7 +51,8 @@ int main() {
   return 0;
 }
 
-void menu() {
+void menu()
+{
   printf("1. Insert a node\n");
   printf("2. Delete a node\n");
   printf("3. Print ring\n");
@@ -58,7 +60,8 @@ void menu() {
   printf("5. Exit\n");
 }
 
-void print_ring(dbnode *ring) {
+void print_ring(dbnode *ring)
+{
   if (!ring) {
     printf("Empty.\n");
     return;
@@ -72,7 +75,8 @@ void print_ring(dbnode *ring) {
   printf("HEAD\n");
 }
 
-dbnode *push_sorted(dbnode *ring, int val) {
+dbnode *push_sorted(dbnode *ring, int val)
+{
   dbnode *q = malloc(sizeof *q);
   if (!q)
     return ring;
@@ -91,7 +95,8 @@ dbnode *push_sorted(dbnode *ring, int val) {
   return (val < ring->val) ? q : ring;
 }
 
-dbnode *pop_sorted(dbnode *ring, int val) {
+dbnode *pop_sorted(dbnode *ring, int val)
+{
   if (!ring)
     return ring;
   if (val == ring->val) {
@@ -122,7 +127,8 @@ dbnode *pop_sorted(dbnode *ring, int val) {
   return ring;
 }
 
-void free_ring(dbnode **ptr) {
+void free_ring(dbnode **ptr)
+{
   dbnode *first = *ptr;
   dbnode *p = first;
   if (!p)

@@ -2,7 +2,8 @@
 
 void merge(node *, node *, hnode *);
 
-int main(void) {
+int main()
+{
   node *head1 = sorted_push(0, 1);
   node *head2 = sorted_push(0, 0);
   for (int i = 3; i <= 10; i += 2) {
@@ -25,7 +26,8 @@ int main(void) {
   return 0;
 }
 
-void merge(node *head1, node *head2, hnode *merged) {
+void merge(node *head1, node *head2, hnode *merged)
+{
   while (head1 && head2) {
     if (head1->val < head2->val) {
       h_push_back(merged, head1->val);

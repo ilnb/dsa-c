@@ -18,7 +18,8 @@ typedef struct {
   int vcount;
 } graph;
 
-void enqueue(queue *q, int x) {
+void enqueue(queue *q, int x)
+{
   node *t = malloc(sizeof *t);
   if (!t)
     return;
@@ -32,7 +33,8 @@ void enqueue(queue *q, int x) {
   q->count++;
 }
 
-int dequeue(queue *q) {
+int dequeue(queue *q)
+{
   if (!q->front)
     return -1;
   node *t = q->front;
@@ -45,7 +47,8 @@ int dequeue(queue *q) {
   return n;
 }
 
-void bfs(graph g, int s) {
+void bfs(graph g, int s)
+{
   cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
   cl(clean_one) int *d = malloc(g.vcount * sizeof(int));
   queue q = {0};

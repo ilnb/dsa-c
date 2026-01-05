@@ -5,7 +5,8 @@ typedef struct node {
   int val;
 } node;
 
-node *reverse(node *head) {
+node *reverse(node *head)
+{
   node *prev, *curr, *next;
   prev = NULL;
   curr = head;

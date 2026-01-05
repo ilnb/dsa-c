@@ -4,13 +4,15 @@
 #include "arr.h"
 #include <string.h>
 
-static inline void swap(int *a, int *b) {
+static inline void swap(int *a, int *b)
+{
   int t = *a;
   *a = *b;
   *b = t;
 }
 
-static inline void ins_sort(int *arr, int n) {
+static inline void ins_sort(int *arr, int n)
+{
   for (int i = 1; i < n; i++) {
     int j = i - 1, val = arr[i];
     while (j >= 0 && arr[j] > val) {
@@ -21,14 +23,16 @@ static inline void ins_sort(int *arr, int n) {
   }
 }
 
-static inline void bub_sort(int *arr, int n) {
+static inline void bub_sort(int *arr, int n)
+{
   for (int j = n - 1; j > 0; j--)
     for (int i = 0; i < j; i++)
       if (arr[i + 1] < arr[i])
         swap(arr + i, arr + i + 1);
 }
 
-static inline void sel_sort(int *arr, int n) {
+static inline void sel_sort(int *arr, int n)
+{
   for (int i = 0; i < n - 1; i++) {
     int min = i;
     for (int j = i + 1; j < n; j++)
@@ -38,7 +42,8 @@ static inline void sel_sort(int *arr, int n) {
   }
 }
 
-static inline void counting_sort(int *arr, int n) {
+static inline void counting_sort(int *arr, int n)
+{
   int min = arr[0];
   int max = arr[0];
   for (int i = 1; i < n; i++) {
@@ -63,7 +68,8 @@ static inline void counting_sort(int *arr, int n) {
   free_arrs(&tmp, &count, &t);
 }
 
-static inline void merge(int *arr, int l, int h) {
+static inline void merge(int *arr, int l, int h)
+{
   int m = l + (h - l) / 2;
   int n1 = m - l + 1;
   int n2 = h - m;
@@ -81,7 +87,8 @@ static inline void merge(int *arr, int l, int h) {
   free_arrs(&arr_h, &arr_l);
 }
 
-static inline void merge_sort(int *arr, int l, int h) {
+static inline void merge_sort(int *arr, int l, int h)
+{
   if (l < h) {
     int m = (l + h) / 2;
     merge_sort(arr, l, m);
@@ -90,7 +97,8 @@ static inline void merge_sort(int *arr, int l, int h) {
   }
 }
 
-static inline int partition(int *arr, int l, int h) {
+static inline int partition(int *arr, int l, int h)
+{
   int pivot = arr[h];
   int i = l - 1;
   for (int j = l; j < h; j++)
@@ -100,7 +108,8 @@ static inline int partition(int *arr, int l, int h) {
   return i;
 }
 
-static inline void quick_sort(int *arr, int l, int h) {
+static inline void quick_sort(int *arr, int l, int h)
+{
   if (l < h) {
     int pi = partition(arr, l, h);
     quick_sort(arr, l, pi - 1);
@@ -108,7 +117,8 @@ static inline void quick_sort(int *arr, int l, int h) {
   }
 }
 
-static inline void max_heapify(int *arr, int n, int i) {
+static inline void max_heapify(int *arr, int n, int i)
+{
   while (1) {
     int l = 2 * i + 1;
     int r = 2 * i + 2;
@@ -124,7 +134,8 @@ static inline void max_heapify(int *arr, int n, int i) {
   }
 }
 
-static inline void heap_sort(int *arr, int n) {
+static inline void heap_sort(int *arr, int n)
+{
   int i = n / 2 - 1;
   while (i >= 0)
     max_heapify(arr, n, i--);

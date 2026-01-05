@@ -14,7 +14,8 @@ void print_list(dbnode *);
 int list_len(dbnode *);
 void free_list(dbnode **);
 
-int main(void) {
+int main()
+{
   [[gnu::cleanup(free_list)]] dbnode *head = 0;
   int opt = 0;
   do {
@@ -56,7 +57,8 @@ int main(void) {
   return 0;
 }
 
-void menu(void) {
+void menu(void)
+{
   printf("1. Insert a node\n");
   printf("2. Delete a node\n");
   printf("3. Display list.\n");
@@ -65,7 +67,8 @@ void menu(void) {
   printf("6. Exit\n");
 }
 
-dbnode *push_sorted(dbnode *head, int val) {
+dbnode *push_sorted(dbnode *head, int val)
+{
   dbnode *q = malloc(sizeof *q);
   if (!q)
     return head;
@@ -103,7 +106,8 @@ dbnode *push_sorted(dbnode *head, int val) {
 //   return head;
 // }
 
-dbnode *pop_sorted(dbnode *head, int val) {
+dbnode *pop_sorted(dbnode *head, int val)
+{
   if (!head)
     return head;
   dbnode **nptr = &head;
@@ -119,14 +123,16 @@ dbnode *pop_sorted(dbnode *head, int val) {
   return head;
 }
 
-int list_len(dbnode *head) {
+int list_len(dbnode *head)
+{
   int n = 0;
   for (; head; head = head->next)
     n++;
   return n;
 }
 
-void print_list(dbnode *head) {
+void print_list(dbnode *head)
+{
   if (!head) {
     printf("Empty list.\n");
     return;
@@ -137,7 +143,8 @@ void print_list(dbnode *head) {
   printf("%d->NULL\n", head->val);
 }
 
-void free_list(dbnode **head) {
+void free_list(dbnode **head)
+{
   dbnode *first = *head;
   if (!first)
     return;

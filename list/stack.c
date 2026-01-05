@@ -2,7 +2,8 @@
 
 void menu();
 
-int main(void) {
+int main()
+{
   [[gnu::cleanup(free_stack)]] stack *top = NULL;
   int opt;
   do {
@@ -48,7 +49,8 @@ int main(void) {
   return 0;
 }
 
-void menu() {
+void menu()
+{
   printf("1. Push\n");
   printf("2. Pop\n");
   printf("3. Peek\n");
