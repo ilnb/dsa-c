@@ -7,8 +7,7 @@ typedef struct {
   int vcount;
 } graph;
 
-void dfs_visit(graph g, int *vis, int u)
-{
+void dfs_visit(graph g, int *vis, int u) {
   vis[u] = 1;
   printf("Visiting vertex %d\n", u);
   for (int v = 0; v < g.vcount; v++)
@@ -16,8 +15,7 @@ void dfs_visit(graph g, int *vis, int u)
       dfs_visit(g, vis, v);
 }
 
-void dfs(graph g)
-{
+void dfs(graph g) {
   cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
   for (int i = 0; i < g.vcount; i++)
     if (!vis[i])

@@ -6,8 +6,7 @@ node *interspace(node *, node *);
 node *new_node(int);
 node *new_end(node *, int);
 
-int main()
-{
+int main() {
   node *head1 = sorted_push(0, 1);
   node *head2 = sorted_push(0, 0);
   for (int i = 3; i <= 10; i += 2) {
@@ -29,8 +28,7 @@ int main()
   return 0;
 }
 
-node *new_node(int val)
-{
+node *new_node(int val) {
   node *p = malloc(sizeof *p);
   if (!p)
     return NULL;
@@ -38,8 +36,7 @@ node *new_node(int val)
   return p;
 }
 
-node *new_end(node *end, int val)
-{
+node *new_end(node *end, int val) {
   node *p = new_node(val);
   if (!p)
     return end;
@@ -47,8 +44,7 @@ node *new_end(node *end, int val)
   return p;
 }
 
-node *interspace(node *head1, node *head2)
-{
+node *interspace(node *head1, node *head2) {
   if (!head1 && !head2)
     return NULL;
   else if (!head1 || !head2)

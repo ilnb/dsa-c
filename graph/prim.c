@@ -10,8 +10,7 @@ typedef struct {
   int vcount;
 } graph;
 
-int min_key(int *key, unsigned char *vis, int vcount)
-{
+int min_key(int *key, unsigned char *vis, int vcount) {
   int min = INF, idx = -1;
   for (int v = 0; v < vcount; v++)
     if (!vis[v] && key[v] < min)
@@ -19,8 +18,7 @@ int min_key(int *key, unsigned char *vis, int vcount)
   return idx;
 }
 
-void prim_mst(graph g)
-{
+void prim_mst(graph g) {
   cl(clean_one) int *p = malloc(g.vcount * sizeof(int));   // To store MST
   cl(clean_one) int *key = malloc(g.vcount * sizeof(int)); // Key values
   cl(clean_one) unsigned char *vis = calloc(g.vcount, 1);  // Included in MST?

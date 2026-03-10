@@ -2,8 +2,7 @@
 
 int *merge(int *, int, int *, int);
 
-int main()
-{
+int main() {
   int arr1[3] = {2, 5, 8};
   int arr2[2] = {0, 4};
   int *c = merge(arr1, 3, arr2, 2);
@@ -12,8 +11,7 @@ int main()
   return 0;
 }
 
-int *merge(int *arr1, int n1, int *arr2, int n2)
-{
+int *merge(int *arr1, int n1, int *arr2, int n2) {
   int i = 0, j = 0, k = 0;
   int *c = ARR(int, n1 + n2);
   while (i < n1 && j < n2)

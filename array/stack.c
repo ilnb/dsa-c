@@ -12,8 +12,7 @@ int pop(stack *);
 int peek(stack *);
 void display(stack *);
 
-int main()
-{
+int main() {
   stack s;
   s.top = -1;
   while (1) {
@@ -59,8 +58,7 @@ int main()
   return 0;
 }
 
-void menu()
-{
+void menu() {
   printf("1. Push\n");
   printf("2. Pop\n");
   printf("3. Peek\n");
@@ -68,8 +66,7 @@ void menu()
   printf("5. Exit\n");
 }
 
-void push(stack *s, int val)
-{
+void push(stack *s, int val) {
   if (s->top == MAX - 1) {
     printf("\nStack is full\n.");
     return;
@@ -77,8 +74,7 @@ void push(stack *s, int val)
   s->arr[++s->top] = val;
 }
 
-int pop(stack *s)
-{
+int pop(stack *s) {
   if (s->top == -1) {
     printf("\nStack is empty.\n");
     return -273;
@@ -86,8 +82,7 @@ int pop(stack *s)
     return s->arr[s->top--];
 }
 
-int peek(stack *s)
-{
+int peek(stack *s) {
   if (s->top == -1) {
     printf("The stack is empty\n");
     return -273;
@@ -95,8 +90,7 @@ int peek(stack *s)
   return s->arr[s->top];
 }
 
-void display(stack *s)
-{
+void display(stack *s) {
   if (s->top == -1) {
     printf("The stack is empty\n");
     return;

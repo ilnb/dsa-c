@@ -7,8 +7,7 @@ typedef struct bst {
   int val;
 } bst;
 
-int height_bst(bst *root)
-{
+int height_bst(bst *root) {
   if (!root)
     return 0;
   int hl = height_bst(root->left);
@@ -16,15 +15,13 @@ int height_bst(bst *root)
   return 1 + (hl > hr ? hl : hr);
 }
 
-int node_count(bst *root)
-{
+int node_count(bst *root) {
   if (!root)
     return 0;
   return 1 + node_count(root->left) + node_count(root->right);
 }
 
-int min_val_bst(bst *root)
-{
+int min_val_bst(bst *root) {
   if (!root)
     return INT_MAX;
   while (root->left)
@@ -32,8 +29,7 @@ int min_val_bst(bst *root)
   return root->val;
 }
 
-int max_val_bst(bst *root)
-{
+int max_val_bst(bst *root) {
   if (!root)
     return INT_MIN;
   while (root->right)
@@ -41,8 +37,7 @@ int max_val_bst(bst *root)
   return root->val;
 }
 
-void inorder_bst(bst *root)
-{
+void inorder_bst(bst *root) {
   if (!root)
     return;
   inorder_bst(root->left);
@@ -50,8 +45,7 @@ void inorder_bst(bst *root)
   inorder_bst(root->right);
 }
 
-void preorder_bst(bst *root)
-{
+void preorder_bst(bst *root) {
   if (!root)
     return;
   printf("%d ", root->val);
@@ -59,8 +53,7 @@ void preorder_bst(bst *root)
   preorder_bst(root->right);
 }
 
-void postorder_bst(bst *root)
-{
+void postorder_bst(bst *root) {
   if (!root)
     return;
   postorder_bst(root->left);
@@ -68,8 +61,7 @@ void postorder_bst(bst *root)
   printf("%d ", root->val);
 }
 
-int is_same_bst(bst *root1, bst *root2)
-{
+int is_same_bst(bst *root1, bst *root2) {
   if (!root1 && !root2)
     return 1;
   if (!root1 || !root2)
@@ -80,8 +72,7 @@ int is_same_bst(bst *root1, bst *root2)
   return ptsame && lsame && rsame;
 }
 
-int same_struct_bst(bst *root1, bst *root2)
-{
+int same_struct_bst(bst *root1, bst *root2) {
   if (!root1 && !root2)
     return 1;
   if (!root1 || !root2)
@@ -91,8 +82,7 @@ int same_struct_bst(bst *root1, bst *root2)
   return l && r;
 }
 
-int mirror_bst(bst *root1, bst *root2)
-{
+int mirror_bst(bst *root1, bst *root2) {
   if (!root1 && !root2)
     return 1;
   if (!root1 || !root2)
@@ -103,8 +93,7 @@ int mirror_bst(bst *root1, bst *root2)
   return ptsame && lmirror && rmirror;
 }
 
-bst *copy_bst(bst *root)
-{
+bst *copy_bst(bst *root) {
   if (!root)
     return NULL;
   bst *new = malloc(sizeof(bst));
@@ -114,8 +103,7 @@ bst *copy_bst(bst *root)
   return new;
 }
 
-int __valid_bst(bst *root, int min, int max)
-{
+int __valid_bst(bst *root, int min, int max) {
   if (!root)
     return 1;
   if (root->val <= min || root->val >= max)

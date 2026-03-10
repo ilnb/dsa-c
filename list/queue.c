@@ -2,8 +2,7 @@
 
 void menu();
 
-int main()
-{
+int main() {
   [[gnu::cleanup(free_queue)]] queue q = {0};
   int opt;
   do {
@@ -45,8 +44,7 @@ int main()
   return 0;
 }
 
-void menu()
-{
+void menu() {
   printf("1. Enqueue\n");
   printf("2. Dequeue\n");
   printf("3. Display\n");

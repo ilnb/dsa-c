@@ -2,8 +2,7 @@
 
 void reverse(hnode *);
 
-int main()
-{
+int main() {
   [[gnu::cleanup(free_hlist)]] hnode h = {0};
   for (int i = 0; i < 5; i++)
     h_push_back(&h, i + 1);
@@ -17,8 +16,7 @@ int main()
   return 0;
 }
 
-void reverse(hnode *h)
-{
+void reverse(hnode *h) {
   node *prev, *curr, *next;
   prev = NULL;
   curr = h->start;

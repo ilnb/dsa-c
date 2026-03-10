@@ -2,8 +2,7 @@
 
 void menu();
 
-int main()
-{
+int main() {
   [[gnu::cleanup(free_hlist)]] hnode h = {0};
   int opt;
   do {
@@ -51,8 +50,7 @@ int main()
   return 0;
 }
 
-void menu()
-{
+void menu() {
   printf("1. Insert at the start\n");
   printf("2. Insert at the end\n");
   printf("3. Delete node\n");

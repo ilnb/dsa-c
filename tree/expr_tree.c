@@ -7,15 +7,13 @@ typedef struct bst {
   int val;
 } bst;
 
-static inline bst *new_node(int val)
-{
+static inline bst *new_node(int val) {
   bst *t = malloc(sizeof *t);
   *t = (bst){.val = val};
   return t;
 }
 
-void inorder_bst(bst *root)
-{
+void inorder_bst(bst *root) {
   if (!root)
     return;
   int n = root->left && root->right;
@@ -29,8 +27,7 @@ void inorder_bst(bst *root)
   printf("\n");
 }
 
-int main()
-{
+int main() {
   bst *root = new_node('-');
   root->left = new_node('3');
   root->right = new_node('*');

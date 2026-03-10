@@ -7,8 +7,7 @@ int bin_search_rec(int *, int, int, int);
 int gt(const void *a, const void *b) { return *(int *)a > *(int *)b ? 1 : 0; }
 void print_arr(int *, int);
 
-int main()
-{
+int main() {
   int arr[5] = {3, 2, 4, 0, 1};
   printf("Unsorted array:\n");
   print_arr(arr, 5);
@@ -33,23 +32,20 @@ int main()
   return 0;
 }
 
-void print_arr(int *arr, int n)
-{
+void print_arr(int *arr, int n) {
   for (int i = 0; i < n; i++)
     printf("%d ", i[arr]);
   printf("\n");
 }
 
-int linear_search(int *arr, int n, int x)
-{
+int linear_search(int *arr, int n, int x) {
   for (int i = 0; i < n; i++)
     if (arr[i] == x)
       return i;
   return -1;
 }
 
-int bin_search(int *arr, int n, int x)
-{
+int bin_search(int *arr, int n, int x) {
   int l = 0, h = n - 1;
   while (l <= h) {
     int m = (l + h) / 2;
@@ -63,8 +59,7 @@ int bin_search(int *arr, int n, int x)
   return -1;
 }
 
-int bin_search_rec(int *arr, int l, int h, int x)
-{
+int bin_search_rec(int *arr, int l, int h, int x) {
   int m = (l + h) / 2;
   while (l <= h) {
     if (arr[m] == x)

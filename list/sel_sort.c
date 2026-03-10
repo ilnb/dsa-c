@@ -2,8 +2,7 @@
 
 node *sel_sort(node *);
 
-int main()
-{
+int main() {
   [[gnu::cleanup(free_list)]] node *head = push_front(0, 2);
   head = push_front(head, 1);
   head = push_front(head, 5);
@@ -17,8 +16,7 @@ int main()
   return 0;
 }
 
-node *sel_sort(node *head)
-{
+node *sel_sort(node *head) {
   if (!head)
     return head;
   node *p = head;

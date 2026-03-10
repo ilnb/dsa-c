@@ -29,16 +29,14 @@ graph new_graph();
 void bfs(graph);
 void free_graph(graph *);
 
-int main()
-{
+int main() {
   cl(free_graph) graph g = new_graph();
   int opt;
   bfs(g);
   return 0;
 }
 
-graph new_graph()
-{
+graph new_graph() {
   graph g;
   printf("How many vertices? ");
   scanf("%d", &g.vcount);
@@ -63,8 +61,7 @@ graph new_graph()
   return g;
 }
 
-void enqueue(queue *q, int x)
-{
+void enqueue(queue *q, int x) {
   node *t = malloc(sizeof *t);
   if (!t)
     return;
@@ -78,8 +75,7 @@ void enqueue(queue *q, int x)
   q->count++;
 }
 
-int dequeue(queue *q)
-{
+int dequeue(queue *q) {
   if (!q->front)
     return -1;
   node *t = q->front;
@@ -92,8 +88,7 @@ int dequeue(queue *q)
   return n;
 }
 
-void bfs(graph g)
-{
+void bfs(graph g) {
   cl(clean_one) int *vis = calloc(g.vcount, sizeof(int));
   queue q = {0};
   enqueue(&q, 0);
@@ -112,8 +107,7 @@ void bfs(graph g)
   }
 }
 
-void free_graph(graph *g)
-{
+void free_graph(graph *g) {
   for (int i = 0; i < g->vcount; i++) {
     free(g->vert[i].neigh);
     g->vert[i].neigh = NULL;

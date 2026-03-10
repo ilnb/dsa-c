@@ -12,8 +12,7 @@ int pop_min(int *, size_t *);
 int is_keyline(int *, size_t, int);
 void print_heap(int *, size_t);
 
-int main()
-{
+int main() {
   int arr[MAX];
   size_t n = 15;
   arr[0] = 4, arr[1] = 10, arr[2] = 1;
@@ -50,8 +49,7 @@ int main()
   } while (opt != 4);
 }
 
-int ln2c(size_t n)
-{
+int ln2c(size_t n) {
   int v = 0;
   while (n) {
     n >>= 1;
@@ -60,37 +58,32 @@ int ln2c(size_t n)
   return v;
 }
 
-void swap(int *a, int *b)
-{
+void swap(int *a, int *b) {
   int t = *b;
   *b = *a;
   *a = t;
 }
 
-void print_arr(int *arr, int n)
-{
+void print_arr(int *arr, int n) {
   for (int i = 0; i < n; i++)
     printf("%3d", arr[i]);
   printf("\n");
 }
 
-void menu()
-{
+void menu() {
   printf("1. Insert value\n");
   printf("2. Delete min value\n");
   printf("3. Print heap\n");
   printf("4. Exit\n");
 }
 
-void mk_min_heap(int *arr, size_t n)
-{
+void mk_min_heap(int *arr, size_t n) {
   int i = n / 2 - 1;
   while (i >= 0)
     min_heapify(arr, n, i--);
 }
 
-void min_heapify(int *arr, size_t n, int i)
-{
+void min_heapify(int *arr, size_t n, int i) {
   while (1) {
     int l = 2 * i + 1;
     int r = 2 * i + 2;
@@ -106,8 +99,7 @@ void min_heapify(int *arr, size_t n, int i)
   }
 }
 
-void push(int *arr, size_t *n, int val)
-{
+void push(int *arr, size_t *n, int val) {
   arr[(*n)++] = val;
   int i = *n - 1;
   while (i) {
@@ -119,8 +111,7 @@ void push(int *arr, size_t *n, int val)
   }
 }
 
-int pop_min(int *arr, size_t *n)
-{
+int pop_min(int *arr, size_t *n) {
   if (*n) {
     int t = arr[0];
     swap(arr, arr + --*n);
@@ -130,8 +121,7 @@ int pop_min(int *arr, size_t *n)
   return -1;
 }
 
-int is_keyline(int *keylines, size_t n, int line)
-{
+int is_keyline(int *keylines, size_t n, int line) {
   int d = ln2c(n);
   for (int i = d - 1; i >= 0; i--)
     if (line == keylines[i])
@@ -139,8 +129,7 @@ int is_keyline(int *keylines, size_t n, int line)
   return 0;
 }
 
-void print_heap(int *arr, size_t n)
-{
+void print_heap(int *arr, size_t n) {
   if (!n)
     return;
   if (n == 1) {

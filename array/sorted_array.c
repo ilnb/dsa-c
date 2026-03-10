@@ -7,8 +7,7 @@ void delete_idx(int *, int *, int);
 void update_idx(int *, int, int, int);
 void print(int *, int);
 
-int main()
-{
+int main() {
   int arr[50] = {1, 2, 3, 4, 5}, n = 5, opt = 0;
   while (1) {
     print_menu();
@@ -60,8 +59,7 @@ int main()
   return 0;
 }
 
-void print_menu()
-{
+void print_menu() {
   printf("1. Print the array\n");
   printf("2. Search a value\n");
   printf("3. Insert a value\n");
@@ -70,16 +68,14 @@ void print_menu()
   printf("6. Exit\n");
 }
 
-void print(int *arr, int n)
-{
+void print(int *arr, int n) {
   printf("The array is:\n");
   for (int i = 0; i < n; i++)
     printf("%d ", arr[i]);
   printf("\n");
 }
 
-int search(int *arr, int n, int val)
-{
+int search(int *arr, int n, int val) {
   int low = 0, high = n - 1;
   int mid = (low + high) / 2;
   while (low <= n) {
@@ -95,8 +91,7 @@ int search(int *arr, int n, int val)
   return -1;
 }
 
-void insert_val(int *arr, int *n, int val)
-{
+void insert_val(int *arr, int *n, int val) {
   if (val > arr[*n - 1]) {
     // largest number
     arr[*n] = val;
@@ -120,8 +115,7 @@ void insert_val(int *arr, int *n, int val)
   }
 }
 
-void delete_idx(int *arr, int *n, int i)
-{
+void delete_idx(int *arr, int *n, int i) {
   // invalid index
   if (i >= *n)
     return;
@@ -136,8 +130,7 @@ void delete_idx(int *arr, int *n, int i)
   --*n;
 }
 
-void update_idx(int *arr, int n, int i, int val)
-{
+void update_idx(int *arr, int n, int i, int val) {
   if (i >= n)
     return;
   delete_idx(arr, &n, i);

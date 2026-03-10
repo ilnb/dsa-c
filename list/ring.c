@@ -12,8 +12,7 @@ node *pop_sorted(node *, int);
 void print_ring(node *);
 void free_ring(node **);
 
-int main()
-{
+int main() {
   [[gnu::cleanup(free_ring)]] node *ring = 0;
   int opt;
   do {
@@ -50,8 +49,7 @@ int main()
   return 0;
 }
 
-void menu()
-{
+void menu() {
   printf("1. Insert a node\n");
   printf("2. Delete a node\n");
   printf("3. Print ring\n");
@@ -59,8 +57,7 @@ void menu()
   printf("5. Exit\n");
 }
 
-void print_ring(node *ring)
-{
+void print_ring(node *ring) {
   if (!ring) {
     printf("Empty.\n");
     return;
@@ -74,8 +71,7 @@ void print_ring(node *ring)
   printf("HEAD\n");
 }
 
-node *push_sorted(node *ring, int val)
-{
+node *push_sorted(node *ring, int val) {
   node *q = malloc(sizeof(node));
   if (!q)
     return ring;
@@ -92,8 +88,7 @@ node *push_sorted(node *ring, int val)
   return (val < ring->val) ? q : ring;
 }
 
-node *pop_sorted(node *ring, int val)
-{
+node *pop_sorted(node *ring, int val) {
   if (!ring)
     return ring;
   if (val == ring->val) {
@@ -125,8 +120,7 @@ node *pop_sorted(node *ring, int val)
   return ring;
 }
 
-void free_ring(node **ring)
-{
+void free_ring(node **ring) {
   node *first = *ring;
   node *p = first;
   if (!first)

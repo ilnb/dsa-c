@@ -10,8 +10,7 @@ node *bin_search(node *, node *, int);
 node *push_sorted(node *, int);
 void free_list(node **);
 
-int main()
-{
+int main() {
   [[gnu::cleanup(free_list)]] node *head = NULL;
   for (int i = 0; i < 9; i++)
     head = push_sorted(head, i);
@@ -23,8 +22,7 @@ int main()
   return 0;
 }
 
-node *push_sorted(node *head, int val)
-{
+node *push_sorted(node *head, int val) {
   node *p = malloc(sizeof *p);
   if (!p) {
     printf("Out of memory.\n");
@@ -43,8 +41,7 @@ node *push_sorted(node *head, int val)
   return head;
 }
 
-node *bin_search(node *head, node *end, int val)
-{
+node *bin_search(node *head, node *end, int val) {
   if (!head)
     return NULL;
   else if (head->val == val)
@@ -68,8 +65,7 @@ node *bin_search(node *head, node *end, int val)
   return NULL;
 }
 
-void free_list(node **ptr)
-{
+void free_list(node **ptr) {
   node *first = *ptr;
   if (!first)
     return;
