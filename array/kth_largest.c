@@ -25,7 +25,7 @@ void insert(int *arr, int n, int val) {
 }
 
 int kth_largest(int *arr, int n, int k) {
-  [[gnu::cleanup(_free_arr)]] int *t = ARR(int, k);
+  [[gnu::cleanup(free_arr)]] int *t = arr(int, k);
   for (int i = 0; i < k; i++)
     t[i] = arr[i];
   bub_sort(t, k);

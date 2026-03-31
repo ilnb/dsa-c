@@ -48,14 +48,14 @@ static inline void counting_sort(int *arr, int n) {
       max = arr[i];
   }
   int cn = max - min + 1;
-  int *count = ARR(int, cn);
+  int *count = arr(int, cn);
   for (int i = 0; i < n; i++)
     count[arr[i] - min]++;
-  int *t = ARR(int, cn);
+  int *t = arr(int, cn);
   t[0] = 0;
   for (int i = 1; i < cn; i++)
     t[i] = t[i - 1] + count[i - 1];
-  int *tmp = ARR(int, n);
+  int *tmp = arr(int, n);
   for (int i = 0; i < n; i++)
     tmp[t[arr[i] - min]++] = arr[i];
   for (int i = 0; i < n; i++)
@@ -67,8 +67,8 @@ static inline void merge(int *arr, int l, int h) {
   int m = l + (h - l) / 2;
   int n1 = m - l + 1;
   int n2 = h - m;
-  int *arr_l = ARR(int, n1);
-  int *arr_h = ARR(int, n2);
+  int *arr_l = arr(int, n1);
+  int *arr_h = arr(int, n2);
   memcpy(arr_l, arr + l, n1 * sizeof(int));
   memcpy(arr_h, arr + m + 1, n2 * sizeof(int));
   int i = 0, j = 0, k = l;

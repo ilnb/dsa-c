@@ -2,9 +2,16 @@
 #include <string.h>
 
 int main() {
-  char **names = ARR(char *, 5);
-  char ***lots_of_names = MAT(char *, 2, 2);
+  char **names = arr(char *, 5);
+  char ***lots_of_names = mat(char *, 2, 2);
   char buf[30] = {0};
+  for (int i = 0; i < 5; i++) {
+    printf("Enter name[%d]: ", i);
+    scanf("%s", buf);
+    names[i] = strdup(buf);
+  }
+  for (int i = 0; i < 5; i++)
+    printf("Name %d: %s\n", i, names[i]);
   for (int i = 0; i < 2; i++)
     for (int j = 0; j < 2; j++) {
       printf("Enter name[%d][%d]: ", i, j);
@@ -14,17 +21,10 @@ int main() {
   for (int i = 0; i < 2; i++)
     for (int j = 0; j < 2; j++)
       printf("%s\n", lots_of_names[i][j]);
-  for (int i = 0; i < 5; i++) {
-    printf("Enter name[%d]: ", i);
-    scanf("%s", buf);
-    names[i] = strdup(buf);
-  }
-  for (int i = 0; i < 5; i++)
-    printf("Name %d: %s\n", i, names[i]);
   for (int i = 0; i < 2; i++)
     for (int j = 0; j < 2; j++)
       free(lots_of_names[i][j]);
-  free_mat(lots_of_names);
-  free_mat_r(names, 5);
+  free_mat(&lots_of_names);
+  free_mat_r(&names, 5);
   return 0;
 }

@@ -11,9 +11,9 @@ sparse *trans_sp(sparse *);
 sparse *mul_sp(sparse *, sparse *);
 
 int main() {
-  int **mat1 = MAT(int, 3, 3);
+  int **mat1 = mat(int, 3, 3);
   mat1[0][0] = 1, mat1[1][0] = 2, mat1[2][2] = 1;
-  int **mat2 = MAT(int, 3, 3);
+  int **mat2 = mat(int, 3, 3);
   mat2[0][2] = 1, mat2[1][0] = -2, mat2[2][0] = 1;
 
   sparse *sm1 = mk_sp(mat1, 3, 3);
@@ -47,7 +47,7 @@ sparse *mk_sp(int **mat, int row, int col) {
     printf("No non-zero data found.\n");
     return NULL;
   }
-  sparse *sm = ARR(sparse, count + 1);
+  sparse *sm = arr(sparse, count + 1);
   sm[0] = (sparse){row, col, count};
   int k = 1;
   for (int i = 0; i < row; i++)
@@ -95,7 +95,7 @@ sparse *add_sp(sparse *a, sparse *b) {
     count++, i++;
   while (j <= b[0].val)
     count++, j++;
-  sparse *add = ARR(sparse, count + 1);
+  sparse *add = arr(sparse, count + 1);
   add[0] = (sparse){a[0].row, a[0].col, count};
   i = 1, j = 1;
   int k = 1;
@@ -131,14 +131,14 @@ sparse *trans_sp(sparse *a) {
       min = a[i].col;
   }
   int countn = max - min + 1;
-  [[gnu::cleanup(_free_arr)]] int *count = ARR(int, countn);
+  [[gnu::cleanup(free_arr)]] int *count = arr(int, countn);
   for (int i = 1; i <= n; i++)
     count[a[i].col - min]++;
-  [[gnu::cleanup(_free_arr)]] int *t = ARR(int, countn);
+  [[gnu::cleanup(free_arr)]] int *t = arr(int, countn);
   t[0] = 1;
   for (int i = 1; i < countn; i++)
     t[i] = t[i - 1] + count[i - 1];
-  sparse *trans = ARR(sparse, n + 1);
+  sparse *trans = arr(sparse, n + 1);
   trans[0] = (sparse){a[0].col, a[0].row, n};
   for (int i = 1; i <= n; i++)
     trans[t[a[i].col - min]++] = (sparse){a[i].col, a[i].row, a[i].val};
