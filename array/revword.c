@@ -43,9 +43,9 @@ char *rev_words(char *s) {
   int size = 0;
   for (i = 0; i < count; i++)
     size += data[i].n + 1;
-  char *rev = malloc(size * sizeof *rev), *p;
+  char *rev = malloc(size * sizeof *rev);
   *rev = 0;
-  p = rev;
+  char *p = rev;
   for (i = count - 1; i; i--) {
     strncat(p, data[i].start, data[i].n);
     p += data[i].n;

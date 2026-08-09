@@ -3,8 +3,7 @@
 
 typedef struct {
   int arr[MAX];
-  int front;
-  int rear;
+  int front, rear;
 } queue;
 
 void menu();

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct stack {
+typedef struct {
   char arr[30];
   int top;
 } stack;
@@ -58,10 +58,7 @@ void init(stack *s) {
   s->top = -1;
 }
 
-void push(stack *s, char c) {
-  s->arr[++s->top] = c;
-  return;
-}
+void push(stack *s, char c) { s->arr[++s->top] = c; }
 
 char pop(stack *s) { return s->arr[s->top--]; }
 
@@ -99,13 +96,9 @@ int isp(char c) {
   }
 }
 
-int is_operator(char c) {
-  return (c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '(');
-}
+int is_operator(char c) { return (c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '('); }
 
-int is_operand(char c) {
-  return ('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || '0' <= c && c <= '9');
-}
+int is_operand(char c) { return ('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || '0' <= c && c <= '9'); }
 
 void infix_to_post(char *infix, char *postfix) {
   stack s;

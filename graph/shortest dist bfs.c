@@ -8,7 +8,7 @@ typedef struct node {
   int index;
 } node;
 
-typedef struct queue {
+typedef struct {
   node *front, *rear;
   int count;
 } queue;

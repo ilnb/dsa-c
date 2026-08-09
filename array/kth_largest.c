@@ -1,11 +1,11 @@
 // this is the bad super slow
 #include "arr.h"
 
-#define swap(type, a, b)                                                                           \
-  do {                                                                                             \
-    type t = a;                                                                                    \
-    a = b;                                                                                         \
-    b = t;                                                                                         \
+#define swap(type, a, b)                                                                                                                                                           \
+  do {                                                                                                                                                                             \
+    type t = a;                                                                                                                                                                    \
+    a = b;                                                                                                                                                                         \
+    b = t;                                                                                                                                                                         \
   } while (0)
 
 void bub_sort(int *arr, int n) {
@@ -25,7 +25,7 @@ void insert(int *arr, int n, int val) {
 }
 
 int kth_largest(int *arr, int n, int k) {
-  [[gnu::cleanup(free_arr)]] int *t = arr(int, k);
+  [[gnu::cleanup(free_arr)]] int *t = ARR(int, k);
   for (int i = 0; i < k; i++)
     t[i] = arr[i];
   bub_sort(t, k);

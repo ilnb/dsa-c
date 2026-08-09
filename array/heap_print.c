@@ -24,7 +24,7 @@ void print_heap(int *arr, size_t n, const char *fmt) {
   int line = d >= 2 ? 3 * (1 << (d - 2)) - 1 : ((d == 1) ? 3 : 1);
   int lvl_keyline = line;
   while (line >= 0 && d) {
-    /*print initial spaces*/
+    /* print initial spaces */
     if (d == 2)
       printf(" ");
     else if (d > 2)
@@ -32,7 +32,7 @@ void print_heap(int *arr, size_t n, const char *fmt) {
         printf(" ");
     int ln = ln2c(n) - d;
     int max_slash;
-    /* print the values*/
+    /* print the values */
     if (is_keyline(line)) {
       if (d == 2)
         printf(" ");

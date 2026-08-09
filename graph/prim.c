@@ -25,7 +25,7 @@ void prim_mst(graph g) {
   for (int i = 0; i < g.vcount; i++)
     key[i] = INF;
   key[0] = 0;
-  for (int i = 0; i < g.vcount - 1; i++) {
+  for (int i = 0; i < g.vcount; i++) {
     int u = min_key(key, vis, g.vcount);
     vis[u] = 1;
     for (int v = 0; v < g.vcount; v++)

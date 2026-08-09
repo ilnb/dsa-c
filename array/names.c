@@ -2,8 +2,8 @@
 #include <string.h>
 
 int main() {
-  char **names = arr(char *, 5);
-  char ***lots_of_names = mat(char *, 2, 2);
+  char **names = ARR(char *, 5);
+  char ***lots_of_names = MAT(char *, 2, 2);
   char buf[30] = {0};
   for (int i = 0; i < 5; i++) {
     printf("Enter name[%d]: ", i);

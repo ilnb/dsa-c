@@ -48,14 +48,14 @@ static inline void counting_sort(int *arr, int n) {
       max = arr[i];
   }
   int cn = max - min + 1;
-  int *count = arr(int, cn);
+  int *count = ARR(int, cn);
   for (int i = 0; i < n; i++)
     count[arr[i] - min]++;
-  int *t = arr(int, cn);
+  int *t = ARR(int, cn);
   t[0] = 0;
   for (int i = 1; i < cn; i++)
     t[i] = t[i - 1] + count[i - 1];
-  int *tmp = arr(int, n);
+  int *tmp = ARR(int, n);
   for (int i = 0; i < n; i++)
     tmp[t[arr[i] - min]++] = arr[i];
   for (int i = 0; i < n; i++)
@@ -63,12 +63,12 @@ static inline void counting_sort(int *arr, int n) {
   free_arrs(&tmp, &count, &t);
 }
 
-static inline void merge(int *arr, int l, int h) {
+static inline void merge(int *arr, int *tmp, int l, int h) {
   int m = l + (h - l) / 2;
   int n1 = m - l + 1;
   int n2 = h - m;
-  int *arr_l = arr(int, n1);
-  int *arr_h = arr(int, n2);
+  int *arr_l = ARR(int, n1);
+  int *arr_h = ARR(int, n2);
   memcpy(arr_l, arr + l, n1 * sizeof(int));
   memcpy(arr_h, arr + m + 1, n2 * sizeof(int));
   int i = 0, j = 0, k = l;
@@ -79,20 +79,51 @@ static inline void merge(int *arr, int l, int h) {
   while (j < n2)
     arr[k++] = arr_h[j++];
   free_arrs(&arr_h, &arr_l);
+=======
+int i = l, j = m + 1, k = l;
+while (i <= m && j <= h)
+  tmp[k++] = (arr[i] < arr[j]) ? arr[i++] : arr[j++];
+while (i <= m)
+  tmp[k++] = arr[i++];
+while (j <= h)
+  tmp[k++] = arr[j++];
+memcpy(arr + l, tmp + l, (h - l + 1) * sizeof *arr);
+>>>>>>> Stashed changes
 }
 
-static inline void merge_sort(int *arr, int l, int h) {
-  if (l < h) {
-    int m = (l + h) / 2;
-    merge_sort(arr, l, m);
-    merge_sort(arr, m + 1, h);
-    merge(arr, l, h);
+static inline void _merge_sort(int *arr, int *tmp, int l, int h) {
+  if (l >= h)
+    return;
+  if (h - l + 1 <= 25) {
+    ins_sort(arr + l, h - l + 1);
+    return;
   }
+  int m = (l + h) / 2;
+  _merge_sort(arr, tmp, l, m);
+  _merge_sort(arr, tmp, m + 1, h);
+  merge(arr, tmp, l, h);
 }
 
-// Hoare partitioning scheme
-static inline int partition(int *arr, int l, int h) {
-  int pivot = arr[l + rand() % (h - l + 1)];
+static inline void merge_sort(int *arr, int n) {
+  int *tmp = ARR(int, n);
+  _merge_sort(arr, tmp, 0, n - 1);
+  free(tmp);
+}
+
+static inline int median3(int *arr, int l, int h) {
+  int m = l + (h - l) / 2;
+  if (arr[l] > arr[m])
+    swap(arr + l, arr + m);
+  if (arr[l] > arr[h])
+    swap(arr + l, arr + h);
+  if (arr[m] > arr[h])
+    swap(arr + m, arr + h);
+  swap(arr + l, arr + m);
+  return l;
+}
+
+static inline int hoare(int *arr, int l, int h) {
+  int pivot = arr[median3(arr, l, h)];
   int i = l - 1, j = h + 1;
   while (1) {
     do {
@@ -108,13 +139,19 @@ static inline int partition(int *arr, int l, int h) {
   return j;
 }
 
-static inline void quick_sort(int *arr, int l, int h) {
-  if (l < h) {
-    int pi = partition(arr, l, h);
-    quick_sort(arr, l, pi);
-    quick_sort(arr, pi + 1, h);
+static inline void _quick_sort(int *arr, int l, int h) {
+  if (l >= h)
+    return;
+  if (h - l + 1 <= 32) {
+    ins_sort(arr + l, h - l + 1);
+    return;
   }
+  int pi = hoare(arr, l, h);
+  _quick_sort(arr, l, pi);
+  _quick_sort(arr, pi + 1, h);
 }
+
+static inline void quick_sort(int *arr, int n) { _quick_sort(arr, 0, n - 1); }
 
 static inline void max_heapify(int *arr, int n, int i) {
   while (1) {

@@ -13,7 +13,7 @@ int main() {
 
 int *merge(int *arr1, int n1, int *arr2, int n2) {
   int i = 0, j = 0, k = 0;
-  int *c = arr(int, n1 + n2);
+  int *c = ARR(int, n1 + n2);
   while (i < n1 && j < n2)
     c[k++] = (arr1[i] < arr2[j]) ? arr1[i++] : arr2[j++];
   while (i < n1)
