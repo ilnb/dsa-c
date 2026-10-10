@@ -67,28 +67,14 @@ static inline void merge(int *arr, int *tmp, int l, int h) {
   int m = l + (h - l) / 2;
   int n1 = m - l + 1;
   int n2 = h - m;
-  int *arr_l = ARR(int, n1);
-  int *arr_h = ARR(int, n2);
-  memcpy(arr_l, arr + l, n1 * sizeof(int));
-  memcpy(arr_h, arr + m + 1, n2 * sizeof(int));
-  int i = 0, j = 0, k = l;
-  while (i < n1 && j < n2)
-    arr[k++] = (arr_l[i] < arr_h[j]) ? arr_l[i++] : arr_h[j++];
-  while (i < n1)
-    arr[k++] = arr_l[i++];
-  while (j < n2)
-    arr[k++] = arr_h[j++];
-  free_arrs(&arr_h, &arr_l);
-=======
-int i = l, j = m + 1, k = l;
-while (i <= m && j <= h)
-  tmp[k++] = (arr[i] < arr[j]) ? arr[i++] : arr[j++];
-while (i <= m)
-  tmp[k++] = arr[i++];
-while (j <= h)
-  tmp[k++] = arr[j++];
-memcpy(arr + l, tmp + l, (h - l + 1) * sizeof *arr);
->>>>>>> Stashed changes
+  int i = l, j = m + 1, k = l;
+  while (i <= m && j <= h)
+    tmp[k++] = (arr[i] < arr[j]) ? arr[i++] : arr[j++];
+  while (i <= m)
+    tmp[k++] = arr[i++];
+  while (j <= h)
+    tmp[k++] = arr[j++];
+  memcpy(arr + l, tmp + l, (h - l + 1) * sizeof *arr);
 }
 
 static inline void _merge_sort(int *arr, int *tmp, int l, int h) {
